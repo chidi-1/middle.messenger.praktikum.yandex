@@ -1,0 +1,66 @@
+---
+chatlist:
+    - { name: Андрей,       message: Изображение,       time: "10:49",       unread: 2 }
+    - { name: Киноклуб,         message: стикер,         answer: true,        time: "12:00" }
+    - { name: Илья,         message: Друзья, у меня для вас особенный выпуск новостей! И еще какой-то текст,         time: "15:12",         unread: 4 }
+    - { name: Вадим,         message: Круто,         answer: true,         time: Пт}
+    - { name: тет-а-теты,         message: И Human Interface Guidelines и Material Design рекомендуют вы,         time: Ср }
+    - { name: 1, 2, 3,         message: Миллионы россиян ежедневно проводят десятки часов своего сна,         time: Пн }
+    - { name: Design Destroyer,         message: В 2008 году художник Jon Rafman  начал собирать,         time: Пн }
+    - { name: Day,         message: Так увлёкся работой по курсу, что совсем забыл его анонсировать,         time: 1 Мая 2020 }
+    - { name: Стас Рогозин,  message: Можно или сегодня или завтра вечером,         time: 12 Апр 2020 }
+
+---
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <link  rel="stylesheet" href="../../style.css" />
+    </head>
+    <body>
+        <div class="correspondence">
+            <div class="settings">
+            </div>
+            <div class="aside">
+                <div class="aside__header">
+                    <div class="text-right">
+                        <button class="js--toggle-data no-style">
+                            Профиль
+                            <span class="icon-angle-right"></span>
+                        </button>
+                    </div>
+                    {{> input/search type="text" name="search" value="" placeholder="Поиск" class="search-input"}}
+                </div>
+                <ul class="contacts">
+                    {{#each chatlist}}
+                        <li class="contacts__el {{class}}">
+                            <div class="contacts__userpick"></div>
+                            <div class="contacts__text">
+                                <div class="space-between">
+                                    <span class="contacts__name">{{name}}</span>
+                                    <span class="contacts__date">{{time}}</span>
+                                </div>
+                                <div class="space-between">
+                                    <p class="contacts__message">
+                                        {{#if answer}}
+                                            <span class="fw-600">Вы: </span>
+                                        {{/if}}
+                                        {{message}}
+                                    </p>
+                                    {{#if unread}}
+                                        <span class="contacts__unread">{{unread}}</span>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="chat empty">
+                <span class="fs-12">Выберите чат чтобы отправить сообщение</span>
+            </div>
+        </div>
+    </body>
+</html>

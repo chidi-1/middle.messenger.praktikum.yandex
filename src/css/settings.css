@@ -1,0 +1,170 @@
+.settings-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--white);
+    z-index: 10;
+    transform: translateY(-100%);
+    transition: all 0.2s ease-in-out;
+}
+
+.settings-modal.open {
+    transform: translateY(0);
+}
+
+.settings-modal .close-settings {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 64px;
+    background: var(--bg-chat);
+    border: none;
+    outline: none;
+}
+
+.settings-modal .close-settings .icon-arrow-left {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 28px;
+    height: 28px;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 100%;
+    font-size: 14px;
+    line-height: 28px;
+}
+
+.settings {
+    transform: translateX(64px);
+    max-height: 100vh;
+    overflow: auto;
+    padding-bottom: 40px;
+}
+
+.settings form.edit-settings {
+    min-height: 260px;
+}
+
+.settings form.edit-settings button[type="submit"] {
+    margin: 0 auto;
+    width: 280px;
+}
+
+.settings__content {
+    display: block;
+    max-width: 510px;
+    margin: 0 auto;
+}
+
+.settings__userpick {
+    display: block;
+    text-align: center;
+    margin: 60px 0;
+}
+
+.settings__userpick .no-userpick {
+    width: 130px;
+    height: 130px;
+    background: var(--gray);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.settings__userpick .no-userpick:before,
+.settings__userpick .no-userpick:after {
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+}
+
+.settings__userpick .no-userpick:before {
+    content: "";
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    z-index: 5;
+}
+.settings__userpick .no-userpick:after {
+    content: "Поменять аватар";
+    max-width: 65px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    color: var(--white);
+}
+
+.settings__userpick .no-userpick:hover:before,
+.settings__userpick .no-userpick:hover:after {
+    opacity: 1;
+}
+
+
+.settings__userpick .no-userpick .icon-media {
+    color: #CDCDCD;
+    font-size: 40px;
+}
+
+.settings__name {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    color: var(--black);
+}
+
+ul.settings__data {
+    margin-bottom: 60px;
+}
+ul.settings__data:last-child {
+    margin-bottom: 0;
+}
+
+.settings__data li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 33px;
+    border-bottom: 1px solid var(--chat-gray);
+}
+
+.settings__data li:last-child {
+    border-bottom: none;
+}
+
+.settings__data li > * {
+    display: inline-block;
+    max-width: 50%;
+}
+
+.settings__data li > span:first-child {
+    color: var(--black)
+}
+
+.settings__data li input {
+    border: none;
+    outline: none;
+    text-align: right;
+}
+
+
+
+

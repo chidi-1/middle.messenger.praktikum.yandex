@@ -1,0 +1,16 @@
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+.mb-70 {
+    margin-bottom: 70px;
+}

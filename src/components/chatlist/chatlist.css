@@ -1,0 +1,109 @@
+ul.contacts {
+    display: block;
+    max-height: calc(100vh - 105px);
+    overflow: auto;
+}
+
+.contacts__el {
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+}
+.contacts__el.active {
+    background: var(--blue-l);
+}
+.contacts__el.search-result {
+    display: flex;
+    align-items: center;
+}
+
+.contacts__el:before {
+    position: absolute;
+    content: "";
+    left: 10px;
+    right:  10px;
+    top: -3px;
+    height: 1px;
+    background: var(--chat-gray);
+}
+
+.contacts__el:last-child:after {
+    position: absolute;
+    content: "";
+    left: 10px;
+    right:  10px;
+    bottom: -3px;
+    height: 1px;
+    background: var(--chat-gray);
+}
+
+.contacts__userpick {
+    display: inline-block;
+    vertical-align: top;
+    width: 47px;
+    height: 47px;
+    border-radius: 100%;
+    background: var(--chat-gray);
+    margin-right: 10px;
+}
+
+.contacts__text {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 70px);
+}
+
+.contacts__text .space-between{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.contacts__text .space-between span,
+.contacts__text .space-between p {
+    display: inline-block;
+}
+
+.contacts__text .space-between p:first-child,
+.contacts__text .space-between span:first-child {
+    max-width: calc(100% - 60px);
+}
+
+.contacts__name {
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 5px;
+}
+
+.contacts__date {
+    font-size: 9px;
+    line-height: 13px;
+    margin-bottom: 5px;
+}
+
+.contacts__message {
+    font-size: 12px;
+    line-height: 15px;
+    max-height: 30px;
+    overflow: hidden;
+}
+
+.contacts__text .space-between  .contacts__message span:first-child {
+    max-width: 100%;
+    color: var(--black)
+}
+
+.contacts__unread {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 11px;
+    line-height: 20px;
+    padding: 0 2px;
+    text-align: center;
+}

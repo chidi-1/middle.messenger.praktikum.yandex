@@ -1,0 +1,22 @@
+.button {
+    background: var(--blue);
+    border: none;
+    outline: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    min-height: 37px;
+    padding: 5px;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.no-style {
+    background: transparent;
+    padding: 0;
+    border: none;
+    outline: none;
+    display: inline-block;
+}

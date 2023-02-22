@@ -1,0 +1,14 @@
+:root {
+    --blue: #3369F3;
+    --blue-l: #E4EDFD;
+    --gray: #EFEFEF;
+    --red: #FF2F2F;
+    --white: #ffffff;
+    --black: #1E1E1E;
+    --bg-page: #E5E5E5;
+    --bg-chat: #FBFBFB;
+    --bg-message: #F8F8F8;
+    --bg-popup-overlay: rgba(0,0,0,0.4);
+    --text-gray: #999999;
+    --chat-gray: #EAEAEA;
+}
