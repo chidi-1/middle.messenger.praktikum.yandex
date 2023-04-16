@@ -1,0 +1,1 @@
+import template from './button2.hbs';

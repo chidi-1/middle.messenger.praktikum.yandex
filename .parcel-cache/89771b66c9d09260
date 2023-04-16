@@ -1,0 +1,214 @@
+---
+chatlist:
+- { name: Андрей,       message: Изображение,       time: "10:49",       unread: 2 }
+- { name: Киноклуб,         message: стикер,         answer: true,        time: "12:00" }
+- { name: Илья,         message: Друзья, у меня для вас особенный выпуск новостей! И еще какой-то текст,         time: "15:12",         unread: 4 }
+- { name: Вадим, class: active,         message: Круто,         answer: true,    time: Пт, }
+- { name: тет-а-теты,         message: И Human Interface Guidelines и Material Design рекомендуют вы,         time: Ср }
+- { name: 1, 2, 3,         message: Миллионы россиян ежедневно проводят десятки часов своего сна,         time: Пн }
+- { name: Design Destroyer,         message: В 2008 году художник Jon Rafman  начал собирать,         time: Пн }
+- { name: Day,         message: Так увлёкся работой по курсу, что совсем забыл его анонсировать,         time: 1 Мая 2020 }
+- { name: Стас Рогозин,  message: Можно или сегодня или завтра вечером,         time: 12 Апр 2020 }
+
+---
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css"/>
+</head>
+<body>
+<div class="correspondence">
+    <div class="settings-modal open">
+        <button class="close-settings">
+            <span class="icon-arrow-left"></span>
+        </button>
+        <div class="settings">
+            <div class="settings__content">
+                <div class="settings__userpick">
+                    <button  class="no-userpick">
+                        <span class="icon-media"></span>
+                    </button>
+                    <span class="settings__name"></span>
+                </div>
+                <form action="" method="" class="edit-settings">
+                    <ul class="settings__data">
+                        <li>
+                            <span>Почта</span>
+                            <input type="text" name="" value="pochta@yandex.ru" />
+                        </li>
+                        <li>
+                            <span>Логин</span>
+                            <input type="text" name="" value="ivanivanov" />
+                        </li>
+                        <li>
+                            <span>Имя</span>
+                            <input type="text" name="" value="Иван" />
+                        </li>
+                        <li>
+                            <span>Фамилия</span>
+                            <input type="text" name="" value="Иванов" />
+                        </li>
+                        <li>
+                            <span>Имя в чате</span>
+                            <input type="text" name="" value="Иван" />
+                        </li>
+                        <li>
+                            <span>Телефон</span>
+                            <input type="text" name="" value="+7 (909) 967 30 30" />
+                        </li>
+                    </ul>
+                    {{> button/button value="Сохранить"  type="submit" class="button m-auto"}}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="aside">
+        <div class="aside__header">
+            <div class="text-right">
+                <button class="js--toggle-data no-style">
+                    Профиль
+                    <span class="icon-angle-right"></span>
+                </button>
+            </div>
+            {{> input/search type="text" name="search" value="" placeholder="Поиск" class="search-input"}}
+        </div>
+        <ul class="contacts">
+            {{#each chatlist}}
+                <li class="contacts__el {{class}}">
+                    <div class="contacts__userpick"></div>
+                    <div class="contacts__text">
+                        <div class="space-between">
+                            <span class="contacts__name">{{name}}</span>
+                            <span class="contacts__date">{{time}}</span>
+                        </div>
+                        <div class="space-between">
+                            <p class="contacts__message">
+                                {{#if answer}}
+                                    <span class="fw-600">Вы: </span>
+                                {{/if}}
+                                {{message}}
+                            </p>
+                            {{#if unread}}
+                                <span class="contacts__unread">{{unread}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="chat">
+        <div class="chat__header">
+            <div class="chat__interlocutor">
+                <div class="contacts__userpick"></div>
+                <span class="contacts__name fw-600">Вадим</span>
+            </div>
+            <div class="chat__settings menu-wrap">
+                <button class="no-style js--toggle-interlocutor-menu">
+                    <span class="icon-ellipsis"></span>
+                </button>
+                <div class="menu">
+                    <button class="no-style js--add-interlocutor">
+                        <span class="icon-plus c-blue"></span>
+                        <span>Добавить пользователя</span>
+                    </button>
+                    <button class="no-style js--remove-interlocutor">
+                        <span class="icon-remove c-blue "></span>
+                        <span>Удалить пользователя</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat__content">
+            <div class="scroll-wrap">
+                <span class="chat__date">19 июня</span>
+                <div class="message">
+                    <div class="text">
+                        <div class="message__el">
+                            <p>
+                                Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то
+                                момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все
+                                знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер
+                                все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты
+                                с пленкой.
+                                <br/>
+                                <br/>
+                                Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они
+                                так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали
+                                на аукционе за 45000 евро.
+                            </p>
+                            <span class="time">11:56</span>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <div class="message__el ">
+                            <img src="../../../static/img/img--char.jpg" alt="">
+                            <span class="time">11:56</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message own">
+                    <div class="text">
+                        <div class="message__el">
+                            <p>
+                                Круто!
+                            </p>
+                            <span class="time readed">11:56</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="" class="chat__footer">
+            <div class="chat__attachment menu-wrap">
+                <span class="icon-clip"></span>
+                <div class="menu">
+                    <button class="no-style js--add-interlocutor">
+                        <span class="icon-media c-blue"></span>
+                        <span>Фото или Видео</span>
+                    </button>
+                    <button class="no-style js--remove-interlocutor">
+                        <span class="icon-file c-blue "></span>
+                        <span>Файл</span>
+                    </button>
+                    <button class="no-style js--remove-interlocutor">
+                        <span class="icon-location c-blue "></span>
+                        <span>Локация</span>
+                    </button>
+                </div>
+            </div>
+
+            <input type="text" name="" placeholder="Сообщение" class="input-message">
+
+            <button type="submit" class="no-style send-message">
+                <span class="icon-arrow-right"></span>
+            </button>
+        </form>
+    </div>
+    <div class="modal">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+            <form action="" method="">
+                <h2>Загрузите файл</h2>
+                <div class="form__el">
+                    <div class="file">
+                        <input type="file" name="avatar" class="file__input" value="" required/>
+                        <span class="file__text c-blue">Выбрать файл на компьютере</span>
+                    </div>
+                </div>
+                <button type="submit" class="button">Поменять</button>
+                <div class="form__error text-center">
+                    <span class="c-red">Нужно выбрать файл</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

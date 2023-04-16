@@ -1,0 +1,20 @@
+<li class="contacts__el {{class}}">
+    <div class="contacts__userpick"></div>
+    <div class="contacts__text">
+        <div class="space-between">
+            <span class="contacts__name">{{name}}</span>
+            <span class="contacts__date">{{time}}</span>
+        </div>
+        <div class="space-between">
+            <p class="contacts__message">
+                {{#if answer}}
+                    <span class="fw-600">Вы: </span>
+                {{/if}}
+                {{message}}
+            </p>
+            {{#if unread}}
+                <span class="contacts__unread">{{unread}}</span>
+            {{/if}}
+        </div>
+    </div>
+</li>

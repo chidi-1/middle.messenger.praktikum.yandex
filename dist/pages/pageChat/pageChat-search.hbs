@@ -1,0 +1,126 @@
+---
+chatlist:
+    - { name: Киноклуб,       message: Изображение,       time: "10:49",       unread: 2 }
+
+---
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <link  rel="stylesheet" href="../../style.css" />
+    </head>
+    <body>
+    <div class="correspondence">
+        <div class="settings">
+        </div>
+        <div class="aside">
+            <div class="aside__header">
+                <div class="text-right">
+                    <button class="js--toggle-data no-style">
+                        Профиль
+                        <span class="icon-angle-right"></span>
+                    </button>
+                </div>
+                {{> input/search type="text" name="search" value="Кино" placeholder="Поиск" class="search-input"}}
+            </div>
+            <ul class="contacts">
+                {{#each chatlist}}
+                    <li class="contacts__el search-result {{class}}">
+                        <div class="contacts__userpick"></div>
+                        <div class="contacts__text">
+                            <span class="contacts__name">{{name}}</span>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="chat">
+            <div class="chat__header">
+                <div class="chat__interlocutor">
+                    <div class="contacts__userpick"></div>
+                    <span class="contacts__name fw-600">Вадим</span>
+                </div>
+                <div class="chat__settings menu-wrap">
+                    <button class="no-style js--toggle-interlocutor-menu">
+                        <span class="icon-ellipsis"></span>
+                    </button>
+                    <div class="menu">
+                        <button class="no-style js--add-interlocutor">
+                            <span class="icon-plus c-blue"></span>
+                            <span>Добавить пользователя</span>
+                        </button>
+                        <button class="no-style js--remove-interlocutor">
+                            <span class="icon-remove c-blue "></span>
+                            <span>Удалить пользователя</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat__content">
+                <div class="scroll-wrap">
+                    <span class="chat__date">19 июня</span>
+                    <div class="message">
+                        <div class="text">
+                            <div class="message__el">
+                                <p>
+                                    Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+                                <br/>
+                                <br/>
+                                    Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.
+                                </p>
+                                <span class="time">11:56</span>
+                            </div>
+                        </div>
+                        <div class="image">
+                            <div class="message__el ">
+                                <img src="../../../static/img/img--char.jpg" alt="">
+                                <span class="time">11:56</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="message own">
+                        <div class="text">
+                            <div class="message__el">
+                                <p>
+                                    Круто!
+                                </p>
+                                <span class="time readed">11:56</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form action="" method="" class="chat__footer">
+                <div class="chat__attachment menu-wrap">
+                    <span class="icon-clip"></span>
+                    <div class="menu">
+                        <button class="no-style js--add-interlocutor">
+                            <span class="icon-media c-blue"></span>
+                            <span>Фото или Видео</span>
+                        </button>
+                        <button class="no-style js--remove-interlocutor">
+                            <span class="icon-file c-blue "></span>
+                            <span>Файл</span>
+                        </button>
+                        <button class="no-style js--remove-interlocutor">
+                            <span class="icon-location c-blue "></span>
+                            <span>Локация</span>
+                        </button>
+                    </div>
+                </div>
+
+                <input type="text" name="message" placeholder="Сообщение" class="input-message">
+
+                <button type="submit" class="no-style send-message">
+                    <span class="icon-arrow-right"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+    </body>
+</html>
