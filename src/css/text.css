@@ -1,0 +1,72 @@
+span, p, a, li, button, input, label {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--text-gray);
+}
+
+button {
+    cursor: pointer;
+}
+
+.fw-400 {
+    font-weight: 400;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.fs-8 {
+    font-size: 8px;
+}
+
+.fs-9 {
+    font-size: 9px;
+}
+
+.fs-11 {
+    font-size: 11px;
+}
+
+.fs-12 {
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.fs-16 {
+    font-size: 16px;
+}
+
+.fs-20 {
+    font-size: 20px;
+}
+
+.fs-40 {
+    font-size: 40px;
+    text-align: center;
+}
+
+.c-blue {
+    color: var(--blue);
+}
+.c-red {
+    color: var(--red);
+}
+
+h1 {
+    font-family: "Inter";
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-family: "Inter";
+    display: block;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--black);
+}
