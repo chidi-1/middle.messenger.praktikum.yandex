@@ -242,6 +242,13 @@ h2 {
   display: block;
 }
 
+.site-navigation span {
+  color: var(--blue);
+  margin-right: 20px;
+  font-size: 16px;
+  display: inline-block;
+}
+
 .correspondence {
   height: 100vh;
   width: 100%;
@@ -286,6 +293,13 @@ h2 {
   justify-content: center;
   align-items: center;
   display: inline-flex;
+}
+
+.backhome {
+  z-index: 1000;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
 }
 
 .text-center {
