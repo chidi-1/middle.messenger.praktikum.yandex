@@ -7,6 +7,14 @@ import {PageReg} from "../pages/pageForms/pageFormReg";
 import {PageChatCorrespondence} from "../pages/pageChat/pageChatCorrespondence";
 import {PageChatFunctions} from "../pages/pageChat/pageChatFunctions";
 import {PageChatSearch} from "../pages/pageChat/pageChatSearch";
+import {PageChatAddUser} from "../pages/pageChat/pageChatAddUser";
+import {PageChatRemoveUser} from "../pages/pageChat/pageChatRemoveUser";
+import {PageProfilEdit} from "../pages/pageProfil/pageProfilEdit";
+import {PageProfil} from "../pages/pageProfil/pageProfil";
+import {PageProfileModal} from "../pages/pageProfil/pageProfileModal";
+import {PageProfileModalLoaded} from "../pages/pageProfil/pageProfileModalLoad";
+import {PageProfileModalErrorLoad} from "../pages/pageProfil/pageProfileModalErrorLoad";
+import {PageProfileModalErrorFile} from "../pages/pageProfil/pageProfileModalErrorFile";
 
 const ROUTES = {
     home: HomePage,
@@ -20,6 +28,15 @@ const ROUTES = {
     pageChatCorrespondence: PageChatCorrespondence,
     pageChatFunctions: PageChatFunctions,
     pageChatSearch: PageChatSearch,
+    pageChatAddUser: PageChatAddUser,
+    pageChatRemoveUser: PageChatRemoveUser,
+
+    pageProfil: PageProfil,
+    pageProfilEdit: PageProfilEdit,
+    pageProfileModal: PageProfileModal,
+    pageProfileModalLoaded: PageProfileModalLoaded,
+    pageProfileModalErrorLoad: PageProfileModalErrorLoad,
+    pageProfileModalErrorFile: PageProfileModalErrorFile,
 }
 
 export function renderDom(route: keyof typeof ROUTES) {

@@ -1,0 +1,18 @@
+<div class="modal__overlay"></div>
+<div class="modal__content">
+    <form action="" method="">
+        <h2{{#if titleError}} class="c-red" {{/if}}>{{{title}}}</h2>
+        <div class="form__el">
+            <div class="file">
+                <input type="file" name={{{name}}} class="file__input" value="" required/>
+                <span class="file__text {{#unless fileLoaded}} c-blue {{/unless}}">{{{text}}}</span>
+            </div>
+        </div>
+        {{{button}}}
+        {{#if hasError}}
+            <div class="form__error text-center">
+                <span class="c-red">{{{textError}}}</span>
+            </div>
+        {{/if}}
+    </form>
+</div>

@@ -3,6 +3,9 @@ import template from './pageChatSearch.hbs';
 import {FormSearchChat} from "../../../components/search";
 import {ContactsList} from "../../../components/contact"
 import {Input, inputType} from '../../../components/input/';
+import {Messaging} from "../../../components/messaging";
+import {FormMessage} from "../../../components/message";
+import {MessagingHeader} from "../../../components/messagingHeader";
 
 interface PageChatProps {
     title: string;
@@ -10,7 +13,7 @@ interface PageChatProps {
 
 let chatlist = {
     contacts: [
-        {name: "Киноклуб", message: "Изображение", time: "10:49", unread: 2},
+        {name: "Киноклуб", message: "Изображение", class: "search-result"},
     ]
 }
 
@@ -28,11 +31,15 @@ export class PageChatSearch extends Block {
                 name: 'search',
                 class: 'search-input',
                 label: 'Поиск',
+                value: 'Кино',
             }
         )
 
         this.children.contactsList = new ContactsList(chatlist)
-        console.log(this.children.contactsList)
+
+        this.children.messagingHeader = new MessagingHeader({showMenu: false})
+        this.children.messaging = new Messaging()
+        this.children.formMessage = new FormMessage({showMenu: false})
     }
 
     render() {

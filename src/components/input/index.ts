@@ -10,7 +10,7 @@ export enum inputType {
 export interface inputProps {
     type: inputType;
     name: string;
-    class: string;
+    class?: string;
     value?: string;
     label: string;
     required?: boolean;

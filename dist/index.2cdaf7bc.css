@@ -788,6 +788,7 @@ ul.settings__data:last-child {
   text-align: right;
   border: none;
   outline: none;
+  background: none !important;
 }
 
 .input {

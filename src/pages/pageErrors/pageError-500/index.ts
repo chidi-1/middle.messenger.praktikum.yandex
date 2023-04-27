@@ -15,13 +15,6 @@ export class PageError500 extends Block {
             number: 500,
             text: "Мы уже фиксим"}
         );
-
-        this.children.buttonHome = new Button({
-            events: {
-                click: () => renderDom('home')
-            },
-            label: 'Вернуться к списку страниц',
-        })
     }
 
     render() {

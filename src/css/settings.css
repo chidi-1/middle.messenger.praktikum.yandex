@@ -163,6 +163,7 @@ ul.settings__data:last-child {
     border: none;
     outline: none;
     text-align: right;
+    background: transparent !important;
 }
 
 

@@ -58,7 +58,56 @@ export class HomePage extends Block {
     this.children.buttonChatSearch = new Button({
       label: 'Перейти',
       events: {
-        click: () => renderDom('PageChatSearch')
+        click: () => renderDom('pageChatSearch')
+      },
+    });
+    this.children.buttonChatAddUser = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageChatAddUser')
+      },
+    });
+    this.children.buttonChatRemoveUser = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageChatRemoveUser')
+      },
+    });
+
+    this.children.buttonProfil = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageProfil')
+      },
+    });
+    this.children.buttonProfilEdit = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageProfilEdit')
+      },
+    });
+    this.children.buttonProfileModal = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageProfileModal')
+      },
+    });
+    this.children.buttonProfileModalLoaded = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageProfileModalLoaded')
+      },
+    });
+    this.children.buttonProfileModalErrorLoad = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageProfileModalErrorLoad')
+      },
+    });
+    this.children.buttonProfileModalErrorFile = new Button({
+      label: 'Перейти',
+      events: {
+        click: () => renderDom('pageProfileModalErrorFile')
       },
     });
   }

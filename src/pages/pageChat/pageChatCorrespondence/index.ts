@@ -3,6 +3,9 @@ import template from './pageChatCorrespondence.hbs';
 import {FormSearchChat} from "../../../components/search";
 import {ContactsList} from "../../../components/contact"
 import {Input, inputType} from '../../../components/input/';
+import {Messaging} from "../../../components/messaging";
+import {FormMessage} from "../../../components/message";
+import {MessagingHeader} from "../../../components/messagingHeader";
 
 interface PageChatProps {
     title: string;
@@ -40,6 +43,10 @@ export class PageChatCorrespondence extends Block {
         )
 
         this.children.contactsList = new ContactsList(chatlist)
+
+        this.children.messagingHeader = new MessagingHeader({showMenu: false})
+        this.children.messaging = new Messaging()
+        this.children.formMessage = new FormMessage({showMenu: false})
     }
 
     render() {

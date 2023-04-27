@@ -14,35 +14,30 @@ export class PageReg extends Block {
 
         this.children.inputEmail = new Input({
             type: inputType.email,
-            class: "",
             name: "email",
             label: "Почта"
         })
 
         this.children.inputLogin = new Input({
             type: inputType.text,
-            class: "",
             name: "login",
             label: "Логин"
         })
 
         this.children.inputFirstName = new Input({
             type: inputType.text,
-            class: "",
             name: "first_name",
             label: "Имя"
         })
 
         this.children.inputSecondName = new Input({
             type: inputType.text,
-            class: "",
             name: "second_name",
             label: "Фамилия"
         })
 
         this.children.inputPhone = new Input({
             type: inputType.text,
-            class: "",
             name: "phone",
             label: "Телефон",
             value: "+7 (909) 967 30 30"
