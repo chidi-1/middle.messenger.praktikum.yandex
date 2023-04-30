@@ -2,8 +2,78 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39c778d2-79f8-448c-b2fb-a99c690f2a33" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.parcel-cache/data.mdb" beforeDir="false" afterPath="$PROJECT_DIR$/.parcel-cache/data.mdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.parcelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.parcelrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.86d2ef89.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.91867526.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.94b38576.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.9ea03826.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.9f67011b.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.b9c7e92f.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.de73a539.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/icomoon.ffdba860.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img--char.1bc02a0a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img--char.feedc299.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.0993bdfa.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.2cdaf7bc.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.2cdaf7bc.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.2cdaf7bc.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/middle.messenger.praktikum.yandex.00f4dfc7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageChat-add-user.1527ab2f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageChat-correspondence.65bd041a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageChat-empty.175b23c3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageChat-functions.456f918e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageChat-remove-user.b64f3db0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageChat-search.c13c9b25.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageError-404.b67d4f66.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageError-500.452ae158.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageForm-login.212d5329.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageForm-reg.61196db1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageProfile-edit.fbd44c88.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageProfile-modal-error-file.c5064118.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageProfile-modal-error-load.7b6b53be.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageProfile-modal-ok.23f0f65d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageProfile-modal.368a5878.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pageProfile.cb46777e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageChat/pageChat-add-user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageChat/pageChat-correspondence.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageChat/pageChat-empty.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageChat/pageChat-functions.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageChat/pageChat-remove-user.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageChat/pageChat-search.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageErrors/pageError-404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageErrors/pageError-500.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageForms/pageForm-login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageForms/pageForm-reg.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageProfil/pageProfile-edit.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageProfil/pageProfile-modal-error-file.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageProfil/pageProfile-modal-error-load.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageProfil/pageProfile-modal-ok.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageProfil/pageProfile-modal.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/pages/pageProfil/pageProfile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/verstka.00f4dfc7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/button/button.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/button/button.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/button/button.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/button/button.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/chatlist/chatlist.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/chatlist/chatlist.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/input/input.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/input/input.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/input/input.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/input/input.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/input/search.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/input/search.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/input/search.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/input/search.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal/modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/modal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal/modalform.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/modalform.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/chat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/color.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/color.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/form.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/form.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/icon.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/icon.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/reset.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/reset.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/settings.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/settings.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/spacing.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/spacing.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/text.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/text.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +107,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="F:\YANDEX\popitka_3\middle.messenger.praktikum.yandex\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -49,6 +120,9 @@
       <updated>1677068211851</updated>
       <workItem from="1677068213245" duration="7119000" />
       <workItem from="1677078337544" duration="717000" />
+      <workItem from="1682856742260" duration="192000" />
+      <workItem from="1682857259715" duration="167000" />
+      <workItem from="1682857431784" duration="504000" />
     </task>
     <servers />
   </component>

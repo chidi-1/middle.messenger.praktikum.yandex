@@ -1,0 +1,9 @@
+
+<h2{{#if titleError}} class="c-red" {{/if}}>{{{title}}}</h2>
+{{{inputEl}}}
+{{{button}}}
+{{#if hasError}}
+    <div class="form__error text-center">
+        <span class="c-red">{{{errortext}}}</span>
+    </div>
+{{/if}}
