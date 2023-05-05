@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39c778d2-79f8-448c-b2fb-a99c690f2a33" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/dist/img--char.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/pageProfile/pageProfileForm/index.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/components/pageProfile/profileContent/profileContent.hbs" afterDir="false" />
@@ -142,6 +143,10 @@
       <change beforePath="$PROJECT_DIR$/src/utils/renderDom.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/renderDom.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,14 +196,22 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< Updated upstream
     "last_opened_file_path": "C:/Users/Admin/Documents/GitHub/middle.messenger.praktikum.yandex/src/components/pageProfile/pageProfileForm",
+=======
+    "last_opened_file_path": "C:/Users/Admin/Documents/GitHub/middle.messenger.praktikum.yandex",
+>>>>>>> Stashed changes
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+<<<<<<< Updated upstream
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
     "ts.external.directory.path": "C:\\Users\\Admin\\Documents\\GitHub\\middle.messenger.praktikum.yandex\\node_modules\\typescript\\lib",
+=======
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
+>>>>>>> Stashed changes
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -250,10 +263,14 @@
       <workItem from="1682315752673" duration="67000" />
       <workItem from="1682431080397" duration="5514000" />
       <workItem from="1682437752842" duration="2290000" />
+<<<<<<< Updated upstream
       <workItem from="1682789858188" duration="7768000" />
       <workItem from="1682880126287" duration="3146000" />
       <workItem from="1682887382689" duration="4221000" />
       <workItem from="1682955562526" duration="8465000" />
+=======
+      <workItem from="1682789858188" duration="3647000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
