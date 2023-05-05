@@ -4,7 +4,7 @@ import template from "./profileEl.hbs";
 
 export interface profileFormElProps {
     label: string;
-    inputType: Input;
+    input: Input;
 }
 
 export class ProfileFormEl extends Block {
@@ -14,7 +14,7 @@ export class ProfileFormEl extends Block {
 
     protected init() {
         super.init();
-        this.children.input = this.props.inputType;
+        this.children.input = this.props.input;
     }
 
     protected render(): DocumentFragment {

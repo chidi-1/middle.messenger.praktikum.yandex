@@ -1,19 +1,19 @@
-<div class="settings-modal open">
-    <button class="close-settings">
-        <span class="icon-arrow-left"></span>
-    </button>
-    <div class="settings">
-        <div class="settings__content">
-            <div class="settings__userpick">
-                <button  class="no-userpick">
-                    <span class="icon-media"></span>
-                </button>
-                <span class="settings__name"></span>
-            </div>
-            {{{form}}}
-        </div>
-    </div>
-</div>
-{{#if modalShow}}
-    {{{modal}}}
+<ul class="settings__data">
+    {{{profileElLogin}}}
+    {{{profileElName}}}
+    {{{profileElSurname}}}
+    {{{profileElChatname}}}
+    {{{profileElPhone}}}
+</ul>
+
+{{#if disabled}}
+    <ul class="settings__data">
+        <li><a href="" class="c-blue">Изменить данные</a></li>
+        <li><a href="" class="c-blue">Изменить пароль</a></li>
+        <li><a href="" class="c-red">Выйти</a></li>
+    </ul>
 {{/if}}
+
+{{#unless disabled}}
+    {{{button}}}
+{{/unless}}

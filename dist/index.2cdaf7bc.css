@@ -786,6 +786,7 @@ ul.settings__data:last-child {
 
 .settings__data li input {
   text-align: right;
+  color: var(--text-gray);
   border: none;
   outline: none;
   background: none !important;

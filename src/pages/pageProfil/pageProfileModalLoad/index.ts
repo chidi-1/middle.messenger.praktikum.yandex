@@ -1,8 +1,6 @@
-/*
 import Block from '../../../utils/Block';
 import template from './pageProfileModalLoad.hbs';
-import {ProfileForm} from "../../../components/profileForm";
-import {ProfileModal} from "../../../components/profileModal";
+import {ProfileContent} from "../../../components/pageProfile/profileContent";
 
 
 export class PageProfileModalLoaded extends Block {
@@ -14,14 +12,17 @@ export class PageProfileModalLoaded extends Block {
         super.init();
         this.element?.classList.add('correspondence')
 
-        this.children.form = new ProfileForm()
-        this.children.modal = new ProfileModal({
-            title: 'Загрузите файл',
-            titleError: false,
-            name: "avatar",
-            fileLoaded: true,
-            text: "pic.jpg",
-            hasError: false,
+        this.children.content = new ProfileContent({
+            modalShow: true,
+            disabled: true,
+            modalProps: {
+                title: 'Загрузите файл',
+                fileText: file.name,
+                hasError: false,
+                fileLoaded: true,
+                formAction: '',
+                formMethod: 'post',
+            }
         })
     }
 
@@ -29,4 +30,3 @@ export class PageProfileModalLoaded extends Block {
         return this.compile(template, this.props);
     }
 }
-*/

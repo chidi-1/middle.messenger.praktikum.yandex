@@ -2,7 +2,7 @@ import Block from '../../../utils/Block';
 import template from './pageProfil.hbs';
 import {ProfileContent} from "../../../components/pageProfile/profileContent";
 
-export class PageProfil extends Block {
+export class pageProfil extends Block {
     constructor() {
         super('div', {});
     }
@@ -11,7 +11,7 @@ export class PageProfil extends Block {
         super.init();
         this.element?.classList.add('correspondence')
 
-        this.children.form = new ProfileContent({
+        this.children.content = new ProfileContent({
             modalShow: false,
             disabled: true,
         })

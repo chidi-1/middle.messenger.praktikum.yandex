@@ -1,10 +1,8 @@
-/*
 import Block from '../../../utils/Block';
 import template from './pageProfilEdit.hbs';
-import {ProfileForm} from "../../../components/profileForm";
+import {ProfileContent} from "../../../components/pageProfile/profileContent";
 
-
-export class PageProfilEdit extends Block {
+export class pageProfilEdit extends Block {
     constructor() {
         super('div', {});
     }
@@ -13,11 +11,13 @@ export class PageProfilEdit extends Block {
         super.init();
         this.element?.classList.add('correspondence')
 
-        this.children.form = new ProfileForm()
+        this.children.content = new ProfileContent({
+            modalShow: false,
+            disabled: false,
+        })
     }
 
     render() {
         return this.compile(template, this.props);
     }
 }
-*/

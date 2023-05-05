@@ -74,42 +74,42 @@ export class HomePage extends Block {
               },
             });
 
-        /*                            this.children.buttonProfil = new Button({
+        this.children.buttonProfil = new Button({
               label: 'Перейти',
               events: {
                 click: () => renderDom('pageProfil')
               },
             });
-            this.children.buttonProfilEdit = new Button({
+        this.children.buttonProfilEdit = new Button({
               label: 'Перейти',
               events: {
                 click: () => renderDom('pageProfilEdit')
               },
             });
-            this.children.buttonProfileModal = new Button({
+        this.children.buttonProfileModal = new Button({
               label: 'Перейти',
               events: {
                 click: () => renderDom('pageProfileModal')
               },
             });
-            this.children.buttonProfileModalLoaded = new Button({
+        this.children.buttonProfileModalLoaded = new Button({
               label: 'Перейти',
               events: {
                 click: () => renderDom('pageProfileModalLoaded')
               },
             });
-            this.children.buttonProfileModalErrorLoad = new Button({
+        this.children.buttonProfileModalErrorLoad = new Button({
               label: 'Перейти',
               events: {
                 click: () => renderDom('pageProfileModalErrorLoad')
               },
             });
-            this.children.buttonProfileModalErrorFile = new Button({
+        this.children.buttonProfileModalErrorFile = new Button({
               label: 'Перейти',
               events: {
                 click: () => renderDom('pageProfileModalErrorFile')
               },
-            });*/
+            });
     }
 
 

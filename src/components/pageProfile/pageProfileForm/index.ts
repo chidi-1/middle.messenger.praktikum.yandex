@@ -1,23 +1,84 @@
 import Block from "../../../utils/Block";
 import template from "./pageProfileForm.hbs";
-import {ProfileModal} from "../../modal/modal";
-import {profileModalProps} from "../../modal/profileModalContent";
-
-interface ProfileContentProps {
-    modalShow: boolean,
-    disabled: boolean,
-    modalProps: profileModalProps
-}
+import {InputPhone, InputText} from "../../form/input";
+import {ProfileFormEl} from "../../form/profileEl";
+import {Button} from "../../button";
 
 export class ProfileForm extends Block {
-    constructor(props: ProfileContentProps) {
-        super('form', props);
+    constructor(disabled: boolean) {
+        super('form', {disabled: disabled});
     }
 
     protected init() {
         super.init();
-        this.children.form = new ProfileForm(this.props.disabled);
-        this.children.modal = new ProfileModal(this.props.modalProps)
+        this.element?.classList.add('edit-settings');
+        this.element?.setAttribute('action', 'sdf');
+        this.element?.setAttribute('method', 'post');
+
+        this.children.profileElLogin = new ProfileFormEl({
+            input: new InputText({
+                name: "login",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.login
+
+            }),
+            label: "Логин"
+        })
+
+        this.children.profileElName = new ProfileFormEl({
+            input: new InputText({
+                name: "first_name",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.name
+
+            }),
+            label: "Имя"
+        })
+
+        this.children.profileElSurname = new ProfileFormEl({
+            input: new InputText({
+                name: "second_name",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.surname
+
+            }),
+            label: "Фамилия"
+        })
+
+        this.children.profileElChatname = new ProfileFormEl({
+            input: new InputText({
+                name: "display_name",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.chatname
+
+            }),
+            label: "Имя в чате"
+        })
+
+        this.children.profileElPhone = new ProfileFormEl({
+            input: new InputPhone({
+                name: "phone",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.phone
+
+            }),
+            label: "Телефон"
+        })
+
+        this.children.button = new Button({
+            type: "submit",
+            class: "button m-auto",
+            events: {
+                click: function () {
+                }
+            },
+            label: 'Сохранить'
+        })
     }
 
 

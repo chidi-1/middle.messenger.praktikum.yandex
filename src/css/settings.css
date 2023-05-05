@@ -164,6 +164,7 @@ ul.settings__data:last-child {
     outline: none;
     text-align: right;
     background: transparent !important;
+    color: var(--text-gray);
 }
 
 

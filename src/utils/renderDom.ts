@@ -8,14 +8,12 @@ import {PageChatFunctions} from "../pages/pageChat/pageChatFunctions";
 import {PageChatSearch} from "../pages/pageChat/pageChatSearch";
 import {PageChatAddUser} from "../pages/pageChat/pageChatAddUser";
 import {PageChatRemoveUser} from "../pages/pageChat/pageChatRemoveUser";
-/*
-import {PageProfilEdit} from "../pages/pageProfil/pageProfilEdit";
-import {PageProfil} from "../pages/pageProfil/pageProfil";
-import {PageProfileModal} from "../pages/pageProfil/pageProfileModal";
+import {pageProfil} from "../pages/pageProfil/pageProfil";
+import {pageProfilEdit} from "../pages/pageProfil/pageProfilEdit";
+import {pageProfilModal} from "../pages/pageProfil/pageProfileModal";
 import {PageProfileModalLoaded} from "../pages/pageProfil/pageProfileModalLoad";
-import {PageProfileModalErrorLoad} from "../pages/pageProfil/pageProfileModalErrorLoad";
 import {PageProfileModalErrorFile} from "../pages/pageProfil/pageProfileModalErrorFile";
-*/
+import {PageProfileModalErrorLoad} from "../pages/pageProfil/pageProfileModalErrorLoad";
 
 const ROUTES = {
     home: HomePage,
@@ -32,12 +30,12 @@ const ROUTES = {
     pageChatAddUser: PageChatAddUser,
     pageChatRemoveUser: PageChatRemoveUser,
 
-    /*          pageProfil: PageProfil,
-    pageProfilEdit: PageProfilEdit,
-    pageProfileModal: PageProfileModal,
+    pageProfil: pageProfil,
+    pageProfilEdit: pageProfilEdit,
+    pageProfileModal: pageProfilModal,
     pageProfileModalLoaded: PageProfileModalLoaded,
     pageProfileModalErrorLoad: PageProfileModalErrorLoad,
-    pageProfileModalErrorFile: PageProfileModalErrorFile,*/
+    pageProfileModalErrorFile: PageProfileModalErrorFile,
 }
 
 export function renderDom(route: keyof typeof ROUTES) {

@@ -576,14 +576,13 @@ var _pageChatFunctions = require("../pages/pageChat/pageChatFunctions");
 var _pageChatSearch = require("../pages/pageChat/pageChatSearch");
 var _pageChatAddUser = require("../pages/pageChat/pageChatAddUser");
 var _pageChatRemoveUser = require("../pages/pageChat/pageChatRemoveUser");
-/*
-import {PageProfilEdit} from "../pages/pageProfil/pageProfilEdit";
-import {PageProfil} from "../pages/pageProfil/pageProfil";
-import {PageProfileModal} from "../pages/pageProfil/pageProfileModal";
-import {PageProfileModalLoaded} from "../pages/pageProfil/pageProfileModalLoad";
-import {PageProfileModalErrorLoad} from "../pages/pageProfil/pageProfileModalErrorLoad";
-import {PageProfileModalErrorFile} from "../pages/pageProfil/pageProfileModalErrorFile";
-*/ const ROUTES = {
+var _pageProfil = require("../pages/pageProfil/pageProfil");
+var _pageProfilEdit = require("../pages/pageProfil/pageProfilEdit");
+var _pageProfileModal = require("../pages/pageProfil/pageProfileModal");
+var _pageProfileModalLoad = require("../pages/pageProfil/pageProfileModalLoad");
+var _pageProfileModalErrorFile = require("../pages/pageProfil/pageProfileModalErrorFile");
+var _pageProfileModalErrorLoad = require("../pages/pageProfil/pageProfileModalErrorLoad");
+const ROUTES = {
     home: (0, _home.HomePage),
     page404: (0, _pageErrors.PageError404),
     page500: (0, _pageErrors.PageError500),
@@ -594,7 +593,13 @@ import {PageProfileModalErrorFile} from "../pages/pageProfil/pageProfileModalErr
     pageChatFunctions: (0, _pageChatFunctions.PageChatFunctions),
     pageChatSearch: (0, _pageChatSearch.PageChatSearch),
     pageChatAddUser: (0, _pageChatAddUser.PageChatAddUser),
-    pageChatRemoveUser: (0, _pageChatRemoveUser.PageChatRemoveUser)
+    pageChatRemoveUser: (0, _pageChatRemoveUser.PageChatRemoveUser),
+    pageProfil: (0, _pageProfil.pageProfil),
+    pageProfilEdit: (0, _pageProfilEdit.pageProfilEdit),
+    pageProfileModal: (0, _pageProfileModal.pageProfilModal),
+    pageProfileModalLoaded: (0, _pageProfileModalLoad.PageProfileModalLoaded),
+    pageProfileModalErrorLoad: (0, _pageProfileModalErrorLoad.PageProfileModalErrorLoad),
+    pageProfileModalErrorFile: (0, _pageProfileModalErrorFile.PageProfileModalErrorFile)
 };
 function renderDom(route) {
     const root = document.getElementById("root");
@@ -605,7 +610,7 @@ function renderDom(route) {
     page.dispatchComponentDidMount();
 }
 
-},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl"}],"96xOV":[function(require,module,exports) {
+},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU"}],"96xOV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "HomePage", ()=>HomePage);
@@ -680,42 +685,43 @@ class HomePage extends (0, _blockDefault.default) {
                 click: ()=>(0, _renderDom.renderDom)("pageChatRemoveUser")
             }
         });
-    /*                            this.children.buttonProfil = new Button({
-              label: 'Перейти',
-              events: {
-                click: () => renderDom('pageProfil')
-              },
-            });
-            this.children.buttonProfilEdit = new Button({
-              label: 'Перейти',
-              events: {
-                click: () => renderDom('pageProfilEdit')
-              },
-            });
-            this.children.buttonProfileModal = new Button({
-              label: 'Перейти',
-              events: {
-                click: () => renderDom('pageProfileModal')
-              },
-            });
-            this.children.buttonProfileModalLoaded = new Button({
-              label: 'Перейти',
-              events: {
-                click: () => renderDom('pageProfileModalLoaded')
-              },
-            });
-            this.children.buttonProfileModalErrorLoad = new Button({
-              label: 'Перейти',
-              events: {
-                click: () => renderDom('pageProfileModalErrorLoad')
-              },
-            });
-            this.children.buttonProfileModalErrorFile = new Button({
-              label: 'Перейти',
-              events: {
-                click: () => renderDom('pageProfileModalErrorFile')
-              },
-            });*/ }
+        this.children.buttonProfil = new (0, _.Button)({
+            label: "Перейти",
+            events: {
+                click: ()=>(0, _renderDom.renderDom)("pageProfil")
+            }
+        });
+        this.children.buttonProfilEdit = new (0, _.Button)({
+            label: "Перейти",
+            events: {
+                click: ()=>(0, _renderDom.renderDom)("pageProfilEdit")
+            }
+        });
+        this.children.buttonProfileModal = new (0, _.Button)({
+            label: "Перейти",
+            events: {
+                click: ()=>(0, _renderDom.renderDom)("pageProfileModal")
+            }
+        });
+        this.children.buttonProfileModalLoaded = new (0, _.Button)({
+            label: "Перейти",
+            events: {
+                click: ()=>(0, _renderDom.renderDom)("pageProfileModalLoaded")
+            }
+        });
+        this.children.buttonProfileModalErrorLoad = new (0, _.Button)({
+            label: "Перейти",
+            events: {
+                click: ()=>(0, _renderDom.renderDom)("pageProfileModalErrorLoad")
+            }
+        });
+        this.children.buttonProfileModalErrorFile = new (0, _.Button)({
+            label: "Перейти",
+            events: {
+                click: ()=>(0, _renderDom.renderDom)("pageProfileModalErrorFile")
+            }
+        });
+    }
     render() {
         return this.compile((0, _homeHbsDefault.default), this.props);
     }
@@ -2521,7 +2527,7 @@ class PageError500 extends PageError {
     }
 }
 
-},{"../../utils/Block":"915bj","./pageError.hbs":"6oxfJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../components/pageErrorContent":"iK9jy"}],"6oxfJ":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./pageError.hbs":"6oxfJ","../../components/pageErrorContent":"iK9jy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6oxfJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3540,7 +3546,7 @@ class PageChat extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh"}],"c4XNp":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4XNp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4227,7 +4233,7 @@ class PageChatSearch extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/form/search":"9p52b","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/chat/chatListSearch":"lhnKp"}],"hwrCx":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/form/search":"9p52b","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hwrCx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4536,7 +4542,7 @@ class PageChatAddUser extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","../../../components/form/input":"6brp5"}],"5ZQdk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/form/input":"6brp5","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ZQdk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4701,7 +4707,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="modal__overlay"></div>\r\n<div class="modal__content">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return '<div class="modal__overlay"></div>\n<div class="modal__content">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -4715,7 +4721,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 17
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\n</div>";
     },
     "useData": true
 });
@@ -4754,7 +4760,7 @@ class ChatModalContent extends (0, _blockDefault.default) {
     }
 }
 
-},{"./chatModalContent.hbs":"ln52m","../../button":"dZaQH","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../form/startFormEl":"kseOO"}],"ln52m":[function(require,module,exports) {
+},{"./chatModalContent.hbs":"ln52m","../../button":"dZaQH","../../form/startFormEl":"kseOO","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ln52m":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4898,7 +4904,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "\r\n<h2" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "errorTitle") : depth0, {
+        return "\r\n<h2" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "titleError") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -5223,6 +5229,800 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 }
             }
         }) : helper)) != null ? stack1 : "");
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fmFgV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pageProfil", ()=>pageProfil);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfilHbs = require("./pageProfil.hbs");
+var _pageProfilHbsDefault = parcelHelpers.interopDefault(_pageProfilHbs);
+var _profileContent = require("../../../components/pageProfile/profileContent");
+class pageProfil extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.content = new (0, _profileContent.ProfileContent)({
+            modalShow: false,
+            disabled: true
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfilHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageProfil.hbs":"fcj5B","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/pageProfile/profileContent":"bKKKA"}],"fcj5B":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "content",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) != null ? stack1 : "";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bKKKA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfileContent", ()=>ProfileContent);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _profileContentHbs = require("./profileContent.hbs");
+var _profileContentHbsDefault = parcelHelpers.interopDefault(_profileContentHbs);
+var _modal = require("../../modal/modal");
+var _pageProfileForm = require("../pageProfileForm");
+class ProfileContent extends (0, _blockDefault.default) {
+    constructor(props){
+        super("div", props);
+    }
+    init() {
+        super.init();
+        this.children.form = new (0, _pageProfileForm.ProfileForm)(this.props.disabled);
+        this.children.modal = new (0, _modal.ProfileModal)(this.props.modalProps);
+    }
+    render() {
+        return this.compile((0, _profileContentHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./profileContent.hbs":"e0E0z","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../pageProfileForm":"aOWJl","../../modal/modal":"dma1y"}],"e0E0z":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "modal") || (depth0 != null ? lookupProperty(depth0, "modal") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "modal",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 18,
+                    "column": 4
+                },
+                "end": {
+                    "line": 18,
+                    "column": 15
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="settings-modal open">\r\n    <button class="close-settings">\r\n        <span class="icon-arrow-left"></span>\r\n    </button>\r\n    <div class="settings">\r\n        <div class="settings__content">\r\n            <div class="settings__userpick">\r\n                <button  class="no-userpick">\r\n                    <span class="icon-media"></span>\r\n                </button>\r\n                <span class="settings__name"></span>\r\n            </div>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
+            "name": "form",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 13,
+                    "column": 12
+                },
+                "end": {
+                    "line": 13,
+                    "column": 22
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n        </div>\r\n    </div>\r\n</div>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "modalShow") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 19,
+                    "column": 7
+                }
+            }
+        })) != null ? stack1 : "");
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aOWJl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfileForm", ()=>ProfileForm);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfileFormHbs = require("./pageProfileForm.hbs");
+var _pageProfileFormHbsDefault = parcelHelpers.interopDefault(_pageProfileFormHbs);
+var _input = require("../../form/input");
+var _profileEl = require("../../form/profileEl");
+var _button = require("../../button");
+class ProfileForm extends (0, _blockDefault.default) {
+    constructor(disabled){
+        super("form", {
+            disabled: disabled
+        });
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("edit-settings");
+        this.element?.setAttribute("action", "sdf");
+        this.element?.setAttribute("method", "post");
+        this.children.profileElLogin = new (0, _profileEl.ProfileFormEl)({
+            input: new (0, _input.InputText)({
+                name: "login",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.login
+            }),
+            label: "Логин"
+        });
+        this.children.profileElName = new (0, _profileEl.ProfileFormEl)({
+            input: new (0, _input.InputText)({
+                name: "first_name",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.name
+            }),
+            label: "Имя"
+        });
+        this.children.profileElSurname = new (0, _profileEl.ProfileFormEl)({
+            input: new (0, _input.InputText)({
+                name: "second_name",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.surname
+            }),
+            label: "Фамилия"
+        });
+        this.children.profileElChatname = new (0, _profileEl.ProfileFormEl)({
+            input: new (0, _input.InputText)({
+                name: "display_name",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.chatname
+            }),
+            label: "Имя в чате"
+        });
+        this.children.profileElPhone = new (0, _profileEl.ProfileFormEl)({
+            input: new (0, _input.InputPhone)({
+                name: "phone",
+                required: true,
+                disabled: this.props.disabled,
+                value: profileData.phone
+            }),
+            label: "Телефон"
+        });
+        this.children.button = new (0, _button.Button)({
+            type: "submit",
+            class: "button m-auto",
+            events: {
+                click: function() {}
+            },
+            label: "Сохранить"
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfileFormHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageProfileForm.hbs":"89e7h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../form/profileEl":"i21Rg","../../form/input":"6brp5","../../button":"dZaQH"}],"89e7h":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        return '    <ul class="settings__data">\r\n        <li><a href="" class="c-blue">Изменить данные</a></li>\r\n        <li><a href="" class="c-blue">Изменить пароль</a></li>\r\n        <li><a href="" class="c-red">Выйти</a></li>\r\n    </ul>\r\n';
+    },
+    "3": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 18,
+                    "column": 4
+                },
+                "end": {
+                    "line": 18,
+                    "column": 16
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<ul class="settings__data">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElLogin") || (depth0 != null ? lookupProperty(depth0, "profileElLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "profileElLogin",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 4
+                },
+                "end": {
+                    "line": 2,
+                    "column": 24
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElName") || (depth0 != null ? lookupProperty(depth0, "profileElName") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "profileElName",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 4
+                },
+                "end": {
+                    "line": 3,
+                    "column": 23
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElSurname") || (depth0 != null ? lookupProperty(depth0, "profileElSurname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "profileElSurname",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 4
+                },
+                "end": {
+                    "line": 4,
+                    "column": 26
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElChatname") || (depth0 != null ? lookupProperty(depth0, "profileElChatname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "profileElChatname",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 27
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElPhone") || (depth0 != null ? lookupProperty(depth0, "profileElPhone") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "profileElPhone",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 4
+                },
+                "end": {
+                    "line": 6,
+                    "column": 24
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n</ul>\r\n\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "disabled") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 0
+                },
+                "end": {
+                    "line": 15,
+                    "column": 7
+                }
+            }
+        })) != null ? stack1 : "") + "\r\n" + ((stack1 = lookupProperty(helpers, "unless").call(alias1, depth0 != null ? lookupProperty(depth0, "disabled") : depth0, {
+            "name": "unless",
+            "hash": {},
+            "fn": container.program(3, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 19,
+                    "column": 11
+                }
+            }
+        })) != null ? stack1 : "");
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i21Rg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ProfileFormEl", ()=>ProfileFormEl);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _profileElHbs = require("./profileEl.hbs");
+var _profileElHbsDefault = parcelHelpers.interopDefault(_profileElHbs);
+class ProfileFormEl extends (0, _blockDefault.default) {
+    constructor(props){
+        super("li", props);
+    }
+    init() {
+        super.init();
+        this.children.input = this.props.input;
+    }
+    render() {
+        return this.compile((0, _profileElHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./profileEl.hbs":"idFen","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"idFen":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "<span>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "label",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 6
+                },
+                "end": {
+                    "line": 1,
+                    "column": 15
+                }
+            }
+        }) : helper)) + "</span>\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "input",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 0
+                },
+                "end": {
+                    "line": 2,
+                    "column": 11
+                }
+            }
+        }) : helper)) != null ? stack1 : "");
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kKojD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pageProfilEdit", ()=>pageProfilEdit);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfilEditHbs = require("./pageProfilEdit.hbs");
+var _pageProfilEditHbsDefault = parcelHelpers.interopDefault(_pageProfilEditHbs);
+var _profileContent = require("../../../components/pageProfile/profileContent");
+class pageProfilEdit extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.content = new (0, _profileContent.ProfileContent)({
+            modalShow: false,
+            disabled: false
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfilEditHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageProfilEdit.hbs":"lUbxh","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lUbxh":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "content",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) != null ? stack1 : "";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gALlt":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pageProfilModal", ()=>pageProfilModal);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfileModalHbs = require("./pageProfileModal.hbs");
+var _pageProfileModalHbsDefault = parcelHelpers.interopDefault(_pageProfileModalHbs);
+var _profileContent = require("../../../components/pageProfile/profileContent");
+class pageProfilModal extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.content = new (0, _profileContent.ProfileContent)({
+            modalShow: true,
+            disabled: true,
+            modalProps: {
+                title: "Загрузите файл",
+                fileText: "Выбрать файл на компьютере",
+                hasError: false,
+                fileLoaded: false,
+                formAction: "",
+                formMethod: "post"
+            }
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfileModalHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./pageProfileModal.hbs":"2DpoZ"}],"2DpoZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "content",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) != null ? stack1 : "";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a62uK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "PageProfileModalLoaded", ()=>PageProfileModalLoaded);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfileModalLoadHbs = require("./pageProfileModalLoad.hbs");
+var _pageProfileModalLoadHbsDefault = parcelHelpers.interopDefault(_pageProfileModalLoadHbs);
+var _profileContent = require("../../../components/pageProfile/profileContent");
+class PageProfileModalLoaded extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.content = new (0, _profileContent.ProfileContent)({
+            modalShow: true,
+            disabled: true,
+            modalProps: {
+                title: "Загрузите файл",
+                fileText: file.name,
+                hasError: false,
+                fileLoaded: true,
+                formAction: "",
+                formMethod: "post"
+            }
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfileModalLoadHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageProfileModalLoad.hbs":"a7zFj","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a7zFj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "content",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) != null ? stack1 : "";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8V8VU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "PageProfileModalErrorFile", ()=>PageProfileModalErrorFile);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfileModalErrorFileHbs = require("./pageProfileModalErrorFile.hbs");
+var _pageProfileModalErrorFileHbsDefault = parcelHelpers.interopDefault(_pageProfileModalErrorFileHbs);
+var _profileContent = require("../../../components/pageProfile/profileContent");
+class PageProfileModalErrorFile extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.content = new (0, _profileContent.ProfileContent)({
+            modalShow: true,
+            disabled: true,
+            modalProps: {
+                title: "Загрузите файл",
+                fileText: "Выбрать файл на компьютере",
+                hasError: true,
+                errortext: "Нужно выбрать файл",
+                fileLoaded: false,
+                formAction: "",
+                formMethod: "post"
+            }
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfileModalErrorFileHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageProfileModalErrorFile.hbs":"9CSz5","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9CSz5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "content",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) != null ? stack1 : "";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kxGXU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "PageProfileModalErrorLoad", ()=>PageProfileModalErrorLoad);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageProfileModalErrorLoadHbs = require("./pageProfileModalErrorLoad.hbs");
+var _pageProfileModalErrorLoadHbsDefault = parcelHelpers.interopDefault(_pageProfileModalErrorLoadHbs);
+var _profileContent = require("../../../components/pageProfile/profileContent");
+class PageProfileModalErrorLoad extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.content = new (0, _profileContent.ProfileContent)({
+            modalShow: true,
+            disabled: true,
+            modalProps: {
+                title: "Ошибка, попробуйте ещё раз",
+                titleError: true,
+                fileText: "Выбрать файл на компьютере",
+                hasError: false,
+                fileLoaded: false,
+                formAction: "",
+                formMethod: "post"
+            }
+        });
+    }
+    render() {
+        return this.compile((0, _pageProfileModalErrorLoadHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageProfileModalErrorLoad.hbs":"dE3se","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dE3se":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "content",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) != null ? stack1 : "";
     },
     "useData": true
 });

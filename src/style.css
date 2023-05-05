@@ -11,6 +11,6 @@
 @import "components/form/input/input.css";
 @import "components/form/search/search.css";
 @import "components/button/button.css";
-@import "css/chatlist.css";
+@import "components/chat/chatList/chatlist.css";
 @import "components/modal/modal/modal.css";
 
