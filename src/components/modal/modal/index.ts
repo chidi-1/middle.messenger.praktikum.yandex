@@ -1,10 +1,10 @@
 import Block from "../../../utils/Block";
 import template from "./modal.hbs";
-import {ChatModalContent} from "../chatModalContent";
+import {ChatModalContent, chatModalContentProps} from "../chatModalContent";
 import {ProfileModalContent, profileModalProps} from "../profileModalContent";
 
 export abstract class Modal extends Block {
-    constructor(props: chatModalContentProps) {
+    constructor(props: chatModalContentProps|profileModalProps) {
         super('div', props);
     }
 
@@ -21,9 +21,6 @@ export abstract class Modal extends Block {
     hide():void {}
 }
 
-interface chatModalContentProps {
-}
-
 export class ChatModal extends Modal {
     constructor(props: chatModalContentProps) {
         super(props);
@@ -32,15 +29,7 @@ export class ChatModal extends Modal {
     protected init() {
         super.init();
 
-        this.children.content = new ChatModalContent({
-            title: this.props.title,
-            formAction: this.props.formAction,
-            formMethod: this.props.formMethod,
-            hasError: this.props.hasError,
-            inputValue: this.props.inputValue,
-            label: this.props.label,
-            buttonValue: this.props.buttonValue,
-        })
+        this.children.content = new ChatModalContent(this.props)
     }
 }
 
@@ -52,16 +41,6 @@ export class ProfileModal extends Modal {
     protected init() {
         super.init();
 
-        this.children.content = new ProfileModalContent({
-            title: this.props.title,
-            titleError: this.props.titleError,
-            fileText: this.props.fileText,
-            hasError: this.props.hasError,
-            errortext: this.props.errortext,
-            fileLoaded: this.props.fileLoaded,
-            inputValue: this.props.inputValue,
-            formAction: this.props.formAction,
-            formMethod: this.props.formMethod,
-        })
+        this.children.content = new ProfileModalContent(this.props)
     }
 }

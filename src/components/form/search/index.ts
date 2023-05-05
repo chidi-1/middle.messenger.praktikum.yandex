@@ -1,7 +1,6 @@
 import Block from "../../../utils/Block";
 import template from "./search.hbs";
-import {inputProps} from '../../input';
-import {InputText} from "../input";
+import {inputProps, InputText} from "../input";
 
 export class FormSearchChat extends Block {
     constructor(props: inputProps) {

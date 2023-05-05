@@ -1,15 +1,20 @@
 import Block from "../../../utils/Block";
 import template from "./chatListSearch.hbs";
 
+
 interface contactProps {
     name: string;
+    time: string;
+    message: string;
+    answer?: boolean;
+    unread?: number
 }
 
 interface chatListProps {
     contacts: contactProps[];
 }
 
-export class ChatListSearch extends Block {
+export class ChatListSearchResult extends Block {
     constructor(props: chatListProps) {
         super('ul', props);
     }

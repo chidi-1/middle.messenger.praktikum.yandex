@@ -1,3 +1,4 @@
+/*
 import Block from '../../../utils/Block';
 import template from './pageProfilEdit.hbs';
 import {ProfileForm} from "../../../components/profileForm";
@@ -19,3 +20,4 @@ export class PageProfilEdit extends Block {
         return this.compile(template, this.props);
     }
 }
+*/

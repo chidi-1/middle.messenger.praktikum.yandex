@@ -1,8 +1,8 @@
 import Block from "../../../utils/Block";
-import {Input, inputType} from "../../../components/input";
 import template from './pageFormLogin.hbs';
 import {Button} from "../../../components/button";
-
+import {StartFormEl} from "../../../components/form/startFormEl";
+import {InputPassword, InputText} from "../../../components/form/input";
 
 export class PageLogin extends Block {
     constructor() {
@@ -12,20 +12,25 @@ export class PageLogin extends Block {
     protected init() {
         this.element?.classList.add('full-page')
 
-        this.children.inputLogin = new Input({
-            type: inputType.text,
-            class: "",
-            name: "login",
-            label: "Логин",
-            errorText: "Неверный логин",
-            required: true
+        this.children.startFormElLogin = new StartFormEl({
+            input: new InputText({
+                name: "login",
+                placeholder: "Логин",
+                required: true
+
+            }),
+            label: "Логин"
+
         })
 
-        this.children.inputPassword = new Input({
-            type: inputType.password,
-            class: "",
-            name: "password",
-            label: "Пароль",
+        this.children.startFormElPassword = new StartFormEl({
+            input: new InputPassword({
+                name: "password",
+                placeholder: "Пароль",
+                required: true
+
+            }),
+            label: "Пароль"
         })
 
         this.children.button = new Button({

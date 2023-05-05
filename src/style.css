@@ -8,9 +8,9 @@
 @import "css/chat.css";
 @import "css/settings.css";
 
-@import "components/input/input.css";
-@import "components/input/search.css";
+@import "components/form/input/input.css";
+@import "components/form/search/search.css";
 @import "components/button/button.css";
-@import "components/chatlist/chatlist.css";
-@import "components/modal/modal.css";
+@import "css/chatlist.css";
+@import "components/modal/modal/modal.css";
 
