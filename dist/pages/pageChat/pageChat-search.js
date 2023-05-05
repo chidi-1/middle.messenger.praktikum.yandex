@@ -270,7 +270,7 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             } else fullReload();
         }
         if (data.type === "error") {
-            // Log parcel errors to console
+            // Log parcel pageErrorContent to console
             for (let ansiDiagnostic of data.diagnostics.ansi){
                 let stack = ansiDiagnostic.codeframe ? ansiDiagnostic.codeframe : ansiDiagnostic.stack;
                 console.error("\uD83D\uDEA8 [parcel]: " + ansiDiagnostic.message + "\n" + stack + "\n\n" + ansiDiagnostic.hints.join("\n"));
@@ -400,7 +400,7 @@ async function hmrApplyUpdates(assets) {
     try {
         // If sourceURL comments aren't supported in eval, we need to load
         // the update from the dev server over HTTP so that stack traces
-        // are correct in errors/logs. This is much slower than eval, so
+        // are correct in pageErrorContent/logs. This is much slower than eval, so
         // we only do it if needed (currently just Safari).
         // https://bugs.webkit.org/show_bug.cgi?id=137297
         // This path is also taken if a CSP disallows eval.
@@ -955,7 +955,7 @@ THE SOFTWARE.
                     message += " - " + line + ":" + column;
                 }
                 var tmp = Error.prototype.constructor.call(this, message);
-                // Unfortunately errors are not enumerable in Chrome (at least), so `for prop in tmp` doesn't work.
+                // Unfortunately pageErrorContent are not enumerable in Chrome (at least), so `for prop in tmp` doesn't work.
                 for(var idx = 0; idx < errorProps.length; idx++)this[errorProps[idx]] = tmp[errorProps[idx]];
                 /* istanbul ignore else */ if (Error.captureStackTrace) Error.captureStackTrace(this, Exception);
                 try {

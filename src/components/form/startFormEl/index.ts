@@ -6,7 +6,7 @@ export interface StartFormElProps {
     label: string;
     hasError?: boolean;
     errorText?: string;
-    inputType: Input;
+    input: Input;
 }
 
 export class StartFormEl extends Block {
@@ -20,7 +20,7 @@ export class StartFormEl extends Block {
         if(this.props.hasError){
             this.element?.classList.add('error');
         }
-        this.children.input = this.props.inputType;
+        this.children.input = this.props.input;
     }
 
     protected render(): DocumentFragment {

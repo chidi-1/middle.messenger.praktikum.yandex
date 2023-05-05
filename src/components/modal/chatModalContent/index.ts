@@ -1,15 +1,11 @@
 import template from "./chatModalContent.hbs";
 import {Button} from "../../button";
-import {StartFormEl} from "../../form/startFormEl";
-import {InputText} from "../../form/input";
+import {StartFormEl, StartFormElProps} from "../../form/startFormEl";
 import Block from "../../../utils/Block";
 
-interface chatModalContentProps {
+export interface chatModalContentProps {
     title: string,
-    hasError: boolean,
-    label: string,
-    inputValue: string,
-    errortext?: string,
+    inputProps?: StartFormElProps,
     buttonValue: string,
     formAction: string,
     formMethod: string,
@@ -26,16 +22,7 @@ export class ChatModalContent extends Block {
         this.element?.setAttribute('action', this.props.formAction)
         this.element?.setAttribute('method', this.props.formMethod)
 
-        this.children.inputEl = new StartFormEl({
-            hasError: this.props.hasError,
-            inputType: new InputText({
-                name: "name",
-                placeholder: this.props.label,
-                required: false,
-                value: this.props.inputValue
-            }),
-            label: this.props.label
-        });
+        this.children.inputEl = new StartFormEl(this.props.inputProps);
 
         this.children.button = new Button({
             class: "button",

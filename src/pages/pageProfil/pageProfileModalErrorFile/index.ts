@@ -1,3 +1,4 @@
+/*
 import Block from '../../../utils/Block';
 import template from './pageProfileModalErrorFile.hbs';
 import {ProfileForm} from "../../../components/profileForm";
@@ -29,3 +30,4 @@ export class PageProfileModalErrorFile extends Block {
         return this.compile(template, this.props);
     }
 }
+*/

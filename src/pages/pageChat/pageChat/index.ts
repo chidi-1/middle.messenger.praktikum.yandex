@@ -1,12 +1,12 @@
 import Block from '../../../utils/Block';
-import template from './pageChatMessage.hbs';
+import template from './pageChat.hbs';
 import {FormSearchChat} from "../../../components/form/search";
-import {ChatList} from "../../../components/chat/chatList"
-import {ChatContent} from "../../../components/chat/chatContent";
-import {ChatFooter} from "../../../components/chat/chatFooter";
+import {ChatList} from "../../../components/chat/chatList";
 import {ChatHeader} from "../../../components/chat/chatHeader";
+import {ChatFooter} from "../../../components/chat/chatFooter";
+import {ChatContent} from "../../../components/chat/chatContent";
 
-export class PageChatMessages extends Block {
+export class PageChat extends Block {
     constructor() {
         super('div', {});
     }
@@ -15,7 +15,11 @@ export class PageChatMessages extends Block {
         super.init();
         this.element?.classList.add('correspondence')
 
-        this.children.formSearchChat = new FormSearchChat({})
+        this.children.formSearchChat = new FormSearchChat({
+            name: "",
+            placeholder: "Поиск",
+            required: true
+        });
         this.children.chatList = new ChatList(chatlist)
 
         this.children.chatHeader = new ChatHeader({showMenu: false})

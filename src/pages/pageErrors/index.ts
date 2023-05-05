@@ -1,6 +1,6 @@
 import Block from '../../utils/Block';
 import template from './pageError.hbs';
-import {ErrorContent} from "../../components/errors";
+import {ErrorContent} from "../../components/pageErrorContent";
 
 abstract class PageError extends Block {
   constructor() {

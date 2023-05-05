@@ -1,25 +1,16 @@
 import Block from '../../../utils/Block';
 import template from './pageChatSearch.hbs';
-import {FormSearchChat} from "../../../components/search";
-import {ContactsList} from "../../../components/contact"
-import {Input, inputType} from '../../../components/input/';
-import {Messaging} from "../../../components/messaging";
-import {FormMessage} from "../../../components/message";
-import {MessagingHeader} from "../../../components/messagingHeader";
+import {FormSearchChat} from "../../../components/form/search";
+import {ChatList} from "../../../components/chat/chatList";
+import {ChatHeader} from "../../../components/chat/chatHeader";
+import {ChatContent} from "../../../components/chat/chatContent";
+import {ChatFooter} from "../../../components/chat/chatFooter";
+import {ChatListSearchResult} from "../../../components/chat/chatListSearch";
 
-interface PageChatProps {
-    title: string;
-}
-
-let chatlist = {
-    contacts: [
-        {name: "Киноклуб", message: "Изображение", class: "search-result"},
-    ]
-}
 
 export class PageChatSearch extends Block {
-    constructor(props: PageChatProps) {
-        super('div', props);
+    constructor() {
+        super('div', {});
     }
 
     protected init() {
@@ -27,19 +18,15 @@ export class PageChatSearch extends Block {
         this.element?.classList.add('correspondence')
 
         this.children.formSearchChat = new FormSearchChat({
-                type: inputType.text,
-                name: 'search',
-                class: 'search-input',
-                label: 'Поиск',
-                value: 'Кино',
-            }
-        )
+            name: "",
+            placeholder: "Поиск",
+            required: true
+        });
+        this.children.chatList = new ChatListSearchResult(chatlistSearchResult)
 
-        this.children.contactsList = new ContactsList(chatlist)
-
-        this.children.messagingHeader = new MessagingHeader({showMenu: false})
-        this.children.messaging = new Messaging()
-        this.children.formMessage = new FormMessage({showMenu: false})
+        this.children.chatHeader = new ChatHeader({showMenu: false})
+        this.children.chatContent = new ChatContent(messageList)
+        this.children.chatFooter = new ChatFooter({showMenu: false})
     }
 
     render() {
