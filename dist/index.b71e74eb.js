@@ -610,7 +610,7 @@ function renderDom(route) {
     page.dispatchComponentDidMount();
 }
 
-},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU"}],"96xOV":[function(require,module,exports) {
+},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"96xOV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "HomePage", ()=>HomePage);
@@ -2664,7 +2664,7 @@ class PageLogin extends (0, _blockDefault.default) {
     init() {
         this.element?.classList.add("full-page");
         this.children.startFormElLogin = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputText)({
+            input: new (0, _input.InputLogin)({
                 name: "login",
                 placeholder: "Логин",
                 required: true
@@ -2760,8 +2760,10 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "StartFormEl", ()=>StartFormEl);
+parcelHelpers.export(exports, "StartFormEl2", ()=>StartFormEl2);
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
+var _input = require("../input");
 var _startFormElHbs = require("./startFormEl.hbs");
 var _startFormElHbsDefault = parcelHelpers.interopDefault(_startFormElHbs);
 class StartFormEl extends (0, _blockDefault.default) {
@@ -2778,8 +2780,32 @@ class StartFormEl extends (0, _blockDefault.default) {
         return this.compile((0, _startFormElHbsDefault.default), this.props);
     }
 }
+class StartFormEl2 extends (0, _blockDefault.default) {
+    constructor(props){
+        super("div", props);
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("form__el");
+        if (this.props.hasError) this.element?.classList.add("error");
+        this.children.input = new (0, _input.InputLogin)({
+            disabled: false,
+            name: "login",
+            placeholder: "Логин",
+            required: false,
+            validators: undefined,
+            value: ""
+        }, this.onInputChanged);
+    }
+    onInputChanged() {
+        this.children.input.isValid();
+    }
+    render() {
+        return this.compile((0, _startFormElHbsDefault.default), this.props);
+    }
+}
 
-},{"../../../utils/Block":"915bj","./startFormEl.hbs":"cK7c3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cK7c3":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./startFormEl.hbs":"cK7c3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../input":"6brp5"}],"cK7c3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -2871,14 +2897,13 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "inputType", ()=>inputType);
 parcelHelpers.export(exports, "Input", ()=>Input);
 parcelHelpers.export(exports, "InputText", ()=>InputText);
+parcelHelpers.export(exports, "InputLogin", ()=>InputLogin);
 parcelHelpers.export(exports, "InputEmail", ()=>InputEmail);
 parcelHelpers.export(exports, "InputPhone", ()=>InputPhone);
 parcelHelpers.export(exports, "InputPassword", ()=>InputPassword);
 parcelHelpers.export(exports, "InputFile", ()=>InputFile);
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _inputHbs = require("./input.hbs");
-var _inputHbsDefault = parcelHelpers.interopDefault(_inputHbs);
 let inputType;
 (function(inputType) {
     inputType["text"] = "text";
@@ -2886,21 +2911,53 @@ let inputType;
     inputType["password"] = "password";
     inputType["file"] = "file";
 })(inputType || (inputType = {}));
+function isXacce(value) {
+    return value === "xacce";
+}
 class Input extends (0, _blockDefault.default) {
-    constructor(props){
-        super("input", props);
+    constructor(props, onChanged){
+        let defaultProps = {
+            "events": {
+                "focus": ()=>{
+                    this.validate();
+                },
+                "keyup": ()=>{
+                    this.props.value = this.element.value;
+                    if (onChanged) onChanged(this.props.value);
+                }
+            }
+        };
+        super("input", {
+            ...props,
+            ...defaultProps
+        });
     }
     init() {
         super.init();
         this.element?.classList.add("input");
+        // сделать через  белый список
         this.setAttributes("name", this.props.name);
         this.setAttributes("value", this.props.value);
         this.setAttributes("required", this.props.required);
         this.setAttributes("disabled", this.props.disabled);
         this.setAttributes("placeholder", this.props.placeholder);
     }
-    render() {
-        return this.compile((0, _inputHbsDefault.default), this.props);
+    /* protected render(): DocumentFragment {
+        return this.compile(template, this.props)
+    }*/ getValue() {
+        return this.props.value;
+    }
+    isValid() {
+        return this.props.isValid;
+    }
+    validate() {
+        for (const validator of this.props.validators)if (!validator(this.props.value)) {
+            console.log("bad");
+            this.props.isValid = false;
+            return false;
+        }
+        console.log("good");
+        this.props.isValid = true;
     }
     setAttributes(name, value) {
         if (value) this.element?.setAttribute(name, value);
@@ -2914,8 +2971,18 @@ class InputText extends Input {
         super.init();
         this.setAttributes("type", inputType.text);
     }
-    validate() {
-        return true;
+}
+class InputLogin extends Input {
+    constructor(props, onChanged){
+        if (!props.validators) props.validators = [
+            isXacce
+        ];
+        else props.validators.push(isXacce);
+        super(props, onChanged);
+    }
+    init() {
+        super.init();
+        this.setAttributes("type", inputType.text);
     }
 }
 class InputEmail extends Input {
@@ -2967,24 +3034,7 @@ class InputFile extends Input {
     }
 }
 
-},{"../../../utils/Block":"915bj","./input.hbs":"jC5oP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jC5oP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        return "";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageReg", ()=>PageReg);
@@ -4707,7 +4757,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="modal__overlay"></div>\n<div class="modal__content">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return '<div class="modal__overlay"></div>\r\n<div class="modal__content">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -4721,7 +4771,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 17
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\r\n</div>";
     },
     "useData": true
 });
@@ -5260,7 +5310,7 @@ class pageProfil extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageProfil.hbs":"fcj5B","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/pageProfile/profileContent":"bKKKA"}],"fcj5B":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageProfil.hbs":"fcj5B","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fcj5B":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5319,7 +5369,7 @@ class ProfileContent extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./profileContent.hbs":"e0E0z","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../pageProfileForm":"aOWJl","../../modal/modal":"dma1y"}],"e0E0z":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./profileContent.hbs":"e0E0z","../../modal/modal":"dma1y","../pageProfileForm":"aOWJl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e0E0z":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5472,7 +5522,7 @@ class ProfileForm extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageProfileForm.hbs":"89e7h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../form/profileEl":"i21Rg","../../form/input":"6brp5","../../button":"dZaQH"}],"89e7h":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageProfileForm.hbs":"89e7h","../../form/input":"6brp5","../../form/profileEl":"i21Rg","../../button":"dZaQH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89e7h":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5784,7 +5834,7 @@ class pageProfilModal extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./pageProfileModal.hbs":"2DpoZ"}],"2DpoZ":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageProfileModal.hbs":"2DpoZ","../../../components/pageProfile/profileContent":"bKKKA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2DpoZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");

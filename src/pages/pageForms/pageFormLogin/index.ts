@@ -2,7 +2,7 @@ import Block from "../../../utils/Block";
 import template from './pageFormLogin.hbs';
 import {Button} from "../../../components/button";
 import {StartFormEl} from "../../../components/form/startFormEl";
-import {InputPassword, InputText} from "../../../components/form/input";
+import {InputLogin, InputPassword, InputText} from "../../../components/form/input";
 
 export class PageLogin extends Block {
     constructor() {
@@ -13,11 +13,10 @@ export class PageLogin extends Block {
         this.element?.classList.add('full-page')
 
         this.children.startFormElLogin = new StartFormEl({
-            input: new InputText({
+            input: new InputLogin({
                 name: "login",
                 placeholder: "Логин",
                 required: true
-
             }),
             label: "Логин"
 
