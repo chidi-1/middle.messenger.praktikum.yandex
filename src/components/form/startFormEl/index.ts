@@ -1,5 +1,5 @@
 import Block from "../../../utils/Block";
-import {Input, InputLogin} from "../input";
+import {Input, InputLogin, iValidable} from "../input";
 import template from "./startFormEl.hbs";
 
 export interface StartFormElProps {
@@ -28,7 +28,7 @@ export class StartFormEl extends Block {
     }
 }
 
-export class StartFormEl2 extends Block {
+export class StartFormEl2 extends Block implements iValidable{
     constructor(props: StartFormElProps) {
         super('div', props);
     }
@@ -39,6 +39,8 @@ export class StartFormEl2 extends Block {
         if(this.props.hasError){
             this.element?.classList.add('error');
         }
+        console.log(this.malevich)
+        console.log('2')
         this.children.input = new InputLogin({
             disabled: false,
             name: "login",
@@ -46,15 +48,36 @@ export class StartFormEl2 extends Block {
             required: false,
             validators: undefined,
             value: ""
-        },this.onInputChanged);
+        },this.malevich.bind(this));
     }
 
-    onInputChanged(){
-        this.children.input.isValid()
+    malevich(){
+        if((this.children.input as Input).isValid()){
+            this.props.hasError = false;
+        }
+        else{
+            this.setProps({
+                hasError: true,
+                errorText: this.getErrorText(),
+            })
+        }
     }
 
     protected render(): DocumentFragment {
         return this.compile(template, this.props)
+    }
+
+    isValid(): boolean {
+        return (this.children.input as Input).isValid();
+    }
+
+    validate(): void {
+        (this.children.input as Input).validate();
+        this.malevich();
+    }
+
+    getErrorText(): string {
+        return (this.children.input as Input).getErrorText();
     }
 }
 

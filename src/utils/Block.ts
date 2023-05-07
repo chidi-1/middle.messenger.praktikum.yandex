@@ -64,6 +64,7 @@ class Block {
     }
 
     protected init() {
+        //kek
     }
 
     _componentDidMount() {

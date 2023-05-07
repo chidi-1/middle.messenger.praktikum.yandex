@@ -86,6 +86,7 @@ export class PageReg extends Block {
         this.children.button = new Button({
             events: {
                 click: function () {
+                    return true;
                 }
             },
             label: "Зарегистрироваться",

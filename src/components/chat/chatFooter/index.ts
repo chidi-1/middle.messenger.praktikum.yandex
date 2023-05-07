@@ -2,7 +2,6 @@ import Block from "../../../utils/Block";
 import template from "./chatFooter.hbs";
 import {dropdownMenuProps} from "../chatHeader";
 import {InputText} from "../../form/input";
-import {Button} from "../../button";
 
 export class ChatFooter extends Block {
     constructor(props: dropdownMenuProps) {

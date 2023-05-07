@@ -2,7 +2,7 @@ import Block from "../../utils/Block";
 import template from "./button.hbs";
 
 interface ButtonProps {
-    label: any;
+    label: string;
     class?: string,
     type?: string,
     events: {
@@ -16,7 +16,7 @@ export class Button extends Block {
     }
     protected init() {
         if(this.props.class){
-            let classes = this.props.class.split(' ')
+            const classes = this.props.class.split(' ')
             for (const classEl of classes) {
                 this.element?.classList.add(classEl)
             }

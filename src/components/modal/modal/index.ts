@@ -17,8 +17,8 @@ export abstract class Modal extends Block {
         return this.compile(template, this.props)
     }
 
-    show():void {}
-    hide():void {}
+    show():void {console.log(1)}
+    hide():void {console.log(-1)}
 }
 
 export class ChatModal extends Modal {

@@ -775,7 +775,9 @@ class Block {
         this.init();
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
-    init() {}
+    init() {
+    //kek
+    }
     _componentDidMount() {
         this.componentDidMount();
     }
@@ -2439,7 +2441,7 @@ class Button extends (0, _blockDefault.default) {
     }
     init() {
         if (this.props.class) {
-            let classes = this.props.class.split(" ");
+            const classes = this.props.class.split(" ");
             for (const classEl of classes)this.element?.classList.add(classEl);
         }
         if (this.props.type) this.element?.setAttribute("type", this.props.type);
@@ -2663,7 +2665,7 @@ class PageLogin extends (0, _blockDefault.default) {
     }
     init() {
         this.element?.classList.add("full-page");
-        this.children.startFormElLogin = new (0, _startFormEl.StartFormEl)({
+        this.children.startFormElLogin = new (0, _startFormEl.StartFormEl2)({
             input: new (0, _input.InputLogin)({
                 name: "login",
                 placeholder: "Логин",
@@ -2681,7 +2683,12 @@ class PageLogin extends (0, _blockDefault.default) {
         });
         this.children.button = new (0, _button.Button)({
             events: {
-                click: function() {}
+                click: ()=>{
+                    for (const children of Object.values(this.children)){
+                        const ivalidatble = children;
+                        if (ivalidatble.isValid !== undefined) ivalidatble.validate();
+                    }
+                }
             },
             label: "Авторизоваться",
             class: "button mb-15",
@@ -2788,6 +2795,8 @@ class StartFormEl2 extends (0, _blockDefault.default) {
         super.init();
         this.element?.classList.add("form__el");
         if (this.props.hasError) this.element?.classList.add("error");
+        console.log(this.malevich);
+        console.log("2");
         this.children.input = new (0, _input.InputLogin)({
             disabled: false,
             name: "login",
@@ -2795,103 +2804,31 @@ class StartFormEl2 extends (0, _blockDefault.default) {
             required: false,
             validators: undefined,
             value: ""
-        }, this.onInputChanged);
+        }, this.malevich.bind(this));
     }
-    onInputChanged() {
-        this.children.input.isValid();
+    malevich() {
+        if (this.children.input.isValid()) this.props.hasError = false;
+        else this.setProps({
+            hasError: true,
+            errorText: this.getErrorText()
+        });
     }
     render() {
         return this.compile((0, _startFormElHbsDefault.default), this.props);
     }
+    isValid() {
+        return this.children.input.isValid();
+    }
+    validate() {
+        this.children.input.validate();
+        this.malevich();
+    }
+    getErrorText() {
+        return this.children.input.getErrorText();
+    }
 }
 
-},{"../../../utils/Block":"915bj","./startFormEl.hbs":"cK7c3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../input":"6brp5"}],"cK7c3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "1": function(container, depth0, helpers, partials, data) {
-        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '    <div class="form__error">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "errorText") || (depth0 != null ? lookupProperty(depth0, "errorText") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "errorText",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 4,
-                    "column": 29
-                },
-                "end": {
-                    "line": 4,
-                    "column": 42
-                }
-            }
-        }) : helper)) + "</div>\r\n";
-    },
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "input",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 0
-                },
-                "end": {
-                    "line": 1,
-                    "column": 11
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n<label class="label" for="">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "label",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 28
-                },
-                "end": {
-                    "line": 2,
-                    "column": 37
-                }
-            }
-        }) : helper)) + "</label>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "errorText") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 0
-                },
-                "end": {
-                    "line": 5,
-                    "column": 7
-                }
-            }
-        })) != null ? stack1 : "");
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6brp5":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","../input":"6brp5","./startFormEl.hbs":"cK7c3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6brp5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "inputType", ()=>inputType);
@@ -2912,18 +2849,22 @@ let inputType;
     inputType["file"] = "file";
 })(inputType || (inputType = {}));
 function isXacce(value) {
-    return value === "xacce";
+    if (value.length < 3) return "Короткий текст";
+    if (value !== "xacce") return "Не xacce";
 }
 class Input extends (0, _blockDefault.default) {
+    errorText = "";
     constructor(props, onChanged){
-        let defaultProps = {
+        const defaultProps = {
             "events": {
                 "focus": ()=>{
                     this.validate();
                 },
+                "blur": ()=>{
+                    this.onChange();
+                },
                 "keyup": ()=>{
                     this.props.value = this.element.value;
-                    if (onChanged) onChanged(this.props.value);
                 }
             }
         };
@@ -2931,6 +2872,7 @@ class Input extends (0, _blockDefault.default) {
             ...props,
             ...defaultProps
         });
+        this.onChanged = onChanged;
     }
     init() {
         super.init();
@@ -2944,20 +2886,29 @@ class Input extends (0, _blockDefault.default) {
     }
     /* protected render(): DocumentFragment {
         return this.compile(template, this.props)
-    }*/ getValue() {
+    }*/ onChange() {
+        this.validate();
+        if (this.onChanged) this.onChanged();
+    }
+    getValue() {
         return this.props.value;
     }
     isValid() {
         return this.props.isValid;
     }
     validate() {
-        for (const validator of this.props.validators)if (!validator(this.props.value)) {
-            console.log("bad");
-            this.props.isValid = false;
-            return false;
+        for (const validator of this.props.validators){
+            const validateResult = validator(this.props.value);
+            if (validateResult !== undefined) {
+                this.props.isValid = false;
+                this.errorText = validateResult;
+                return false;
+            }
         }
-        console.log("good");
         this.props.isValid = true;
+    }
+    getErrorText() {
+        return this.errorText;
     }
     setAttributes(name, value) {
         if (value) this.element?.setAttribute(name, value);
@@ -3034,7 +2985,93 @@ class InputFile extends Input {
     }
 }
 
-},{"../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cK7c3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '    <div class="form__error">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "errorText") || (depth0 != null ? lookupProperty(depth0, "errorText") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "errorText",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 29
+                },
+                "end": {
+                    "line": 4,
+                    "column": 42
+                }
+            }
+        }) : helper)) + "</div>\r\n";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "input",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 11
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\r\n<label class="label" for="">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "label",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 28
+                },
+                "end": {
+                    "line": 2,
+                    "column": 37
+                }
+            }
+        }) : helper)) + "</label>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "hasError") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 7
+                }
+            }
+        })) != null ? stack1 : "");
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageReg", ()=>PageReg);
@@ -3109,7 +3146,9 @@ class PageReg extends (0, _blockDefault.default) {
         });
         this.children.button = new (0, _button.Button)({
             events: {
-                click: function() {}
+                click: function() {
+                    return true;
+                }
             },
             label: "Зарегистрироваться",
             class: "button mb-15",
@@ -4720,8 +4759,12 @@ class Modal extends (0, _blockDefault.default) {
     render() {
         return this.compile((0, _modalHbsDefault.default), this.props);
     }
-    show() {}
-    hide() {}
+    show() {
+        console.log(1);
+    }
+    hide() {
+        console.log(-1);
+    }
 }
 class ChatModal extends Modal {
     constructor(props){
@@ -4799,7 +4842,9 @@ class ChatModalContent extends (0, _blockDefault.default) {
         this.children.button = new (0, _button.Button)({
             class: "button",
             events: {
-                click: function() {}
+                click: ()=>{
+                    return true;
+                }
             },
             label: this.props.buttonValue,
             type: "submit"
@@ -4904,7 +4949,9 @@ class ProfileModalContent extends (0, _blockDefault.default) {
         this.children.button = new (0, _button.Button)({
             class: "button",
             events: {
-                click: function() {}
+                click: function() {
+                    return true;
+                }
             },
             label: "Поменять",
             type: "submit"
@@ -5512,7 +5559,9 @@ class ProfileForm extends (0, _blockDefault.default) {
             type: "submit",
             class: "button m-auto",
             events: {
-                click: function() {}
+                click: function() {
+                    return true;
+                }
             },
             label: "Сохранить"
         });

@@ -41,6 +41,7 @@ export class ProfileModalContent extends Block {
             class: "button",
             events: {
                 click: function () {
+                    return true
                 }
             },
             label: 'Поменять',

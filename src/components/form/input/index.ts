@@ -1,5 +1,10 @@
 import Block from "../../../utils/Block";
-import template from "./input.hbs";
+
+export interface iValidable {
+    validate(): void;
+    isValid(): boolean;
+    getErrorText(): string;
+}
 
 export enum inputType {
     text = 'text',
@@ -17,26 +22,36 @@ export interface inputProps {
     validators?: Array<validator>;
 }
 
-type validator = (value: string) => boolean;
+type validator = (value: string) => string;
 
 function isXacce (value:string){
-    return (value === 'xacce');
+    if(value.length < 3){
+        return 'Короткий текст'
+    }
+    if(value !== 'xacce') {
+        return 'Не xacce'
+    }
 }
 
-export abstract class Input extends Block {
-    constructor(props: inputProps, onChanged?: (value:string) => void) {
-        let defaultProps = {'events': {
+export abstract class Input extends Block implements iValidable{
+    onChanged?: () => void;
+    errorText = '';
+
+    constructor(props: inputProps, onChanged?: () => void) {
+        const defaultProps = {'events': {
             'focus': () => {
                 this.validate();
             },
+            'blur': () => {
+                this.onChange();
+            },
             'keyup': () => {
                 this.props.value = ((this.element) as HTMLInputElement).value;
-                if(onChanged){
-                    onChanged(this.props.value);
-                }
             }
         }}
+
         super('input', {...props,...defaultProps});
+        this.onChanged = onChanged;
     }
 
     protected init() {
@@ -54,6 +69,13 @@ export abstract class Input extends Block {
         return this.compile(template, this.props)
     }*/
 
+    onChange(): void {
+        this.validate();
+        if(this.onChanged){
+            this.onChanged();
+        }
+    }
+
     getValue(): string {
         return this.props.value;
     }
@@ -64,14 +86,19 @@ export abstract class Input extends Block {
 
     validate() {
         for (const validator of this.props.validators) {
-            if(!validator(this.props.value)){
-                console.log('bad')
+            const validateResult = validator(this.props.value);
+
+            if(validateResult !== undefined){
                 this.props.isValid = false;
+                this.errorText = validateResult;
                 return false;
             }
         }
-        console.log('good')
         this.props.isValid = true;
+    }
+
+    getErrorText(): string {
+        return this.errorText;
     }
 
     setAttributes(name: string, value: string):void {
@@ -93,7 +120,7 @@ export class InputText extends Input {
 }
 
 export class InputLogin extends Input {
-    constructor(props: inputProps, onChanged?: (value:string) => void) {
+    constructor(props: inputProps, onChanged?: () => void) {
         if(!props.validators){
             props.validators = [isXacce];
         }

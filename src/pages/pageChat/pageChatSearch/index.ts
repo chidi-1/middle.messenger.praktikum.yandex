@@ -1,7 +1,6 @@
 import Block from '../../../utils/Block';
 import template from './pageChatSearch.hbs';
 import {FormSearchChat} from "../../../components/form/search";
-import {ChatList} from "../../../components/chat/chatList";
 import {ChatHeader} from "../../../components/chat/chatHeader";
 import {ChatContent} from "../../../components/chat/chatContent";
 import {ChatFooter} from "../../../components/chat/chatFooter";

@@ -75,6 +75,7 @@ export class ProfileForm extends Block {
             class: "button m-auto",
             events: {
                 click: function () {
+                    return true
                 }
             },
             label: 'Сохранить'

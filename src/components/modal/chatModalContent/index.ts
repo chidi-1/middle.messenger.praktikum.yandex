@@ -27,7 +27,8 @@ export class ChatModalContent extends Block {
         this.children.button = new Button({
             class: "button",
             events: {
-                click: function () {
+                click: () => {
+                    return true;
                 }
             },
             label: this.props.buttonValue,
