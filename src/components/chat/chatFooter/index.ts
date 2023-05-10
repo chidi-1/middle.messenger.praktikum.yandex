@@ -1,20 +1,29 @@
-import Block from "../../../utils/Block";
 import template from "./chatFooter.hbs";
-import {dropdownMenuProps} from "../chatHeader";
-import {InputText} from "../../form/input";
+import {ButtonWithIcon} from "../../button/buttonWithIcon";
+import {FormBlockMsssage} from "../../formBlocks/formBlock";
+import {validateForm} from "../../../utils/funcions";
+import {Form, formProps} from "../../form/form";
 
-export class ChatFooter extends Block {
-    constructor(props: dropdownMenuProps) {
-        super('form', props);
+export class ChatFooter extends Form {
+    constructor(props: formProps, showMenu: {showMenu: boolean}) {
+        super({...props, ...showMenu});
     }
 
     protected init() {
         super.init();
         this.element?.classList.add('chat__footer');
 
-        this.children.input = new InputText({
-            name: "message",
-            placeholder: "Сообщение",
+        this.children.input = new FormBlockMsssage();
+
+        this.children.button = new ButtonWithIcon({
+            class: "no-style send-message",
+            events: {
+                click: () => {
+                    validateForm(this);
+                }
+            },
+            iconClass: "icon-arrow-right",
+            type: "submit"
         })
     }
 

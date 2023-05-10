@@ -1,17 +1,18 @@
-import Block from "../../utils/Block";
-import template from "./button.hbs";
+import Block from "../../../utils/Block";
+import template from "./buttonWithIconAndText.hbs";
 
-interface ButtonProps {
+export interface ButtonIconProps {
     label: string;
     class?: string,
     type?: string,
+    iconClass: string,
     events: {
         click: () => void;
     };
 }
 
 export class Button extends Block {
-    constructor(props: ButtonProps) {
+    constructor(props: ButtonIconProps) {
         super('button', props);
     }
     protected init() {

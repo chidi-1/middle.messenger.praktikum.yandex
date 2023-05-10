@@ -618,104 +618,104 @@ var _block = require("../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _homeHbs = require("./home.hbs");
 var _homeHbsDefault = parcelHelpers.interopDefault(_homeHbs);
-var _ = require("../../components/button/");
+var _buttonSimple = require("../../components/button/buttonSimple");
 var _renderDom = require("../../utils/renderDom");
 class HomePage extends (0, _blockDefault.default) {
     constructor(props){
         super("div", props);
     }
     init() {
-        this.children.button404 = new (0, _.Button)({
+        this.children.button404 = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("page404")
             }
         });
-        this.children.button500 = new (0, _.Button)({
+        this.children.button500 = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("page500")
             }
         });
-        this.children.buttonLogin = new (0, _.Button)({
+        this.children.buttonLogin = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageLogin")
             }
         });
-        this.children.buttonReg = new (0, _.Button)({
+        this.children.buttonReg = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageReg")
             }
         });
-        this.children.buttonChatEmpty = new (0, _.Button)({
+        this.children.buttonChatEmpty = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageChatEmpty")
             }
         });
-        this.children.buttonChat = new (0, _.Button)({
+        this.children.buttonChat = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageChat")
             }
         });
-        this.children.buttonChatFunctions = new (0, _.Button)({
+        this.children.buttonChatFunctions = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageChatFunctions")
             }
         });
-        this.children.buttonChatSearch = new (0, _.Button)({
+        this.children.buttonChatSearch = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageChatSearch")
             }
         });
-        this.children.buttonChatAddUser = new (0, _.Button)({
+        this.children.buttonChatAddUser = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageChatAddUser")
             }
         });
-        this.children.buttonChatRemoveUser = new (0, _.Button)({
+        this.children.buttonChatRemoveUser = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageChatRemoveUser")
             }
         });
-        this.children.buttonProfil = new (0, _.Button)({
+        this.children.buttonProfil = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageProfil")
             }
         });
-        this.children.buttonProfilEdit = new (0, _.Button)({
+        this.children.buttonProfilEdit = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageProfilEdit")
             }
         });
-        this.children.buttonProfileModal = new (0, _.Button)({
+        this.children.buttonProfileModal = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageProfileModal")
             }
         });
-        this.children.buttonProfileModalLoaded = new (0, _.Button)({
+        this.children.buttonProfileModalLoaded = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageProfileModalLoaded")
             }
         });
-        this.children.buttonProfileModalErrorLoad = new (0, _.Button)({
+        this.children.buttonProfileModalErrorLoad = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageProfileModalErrorLoad")
             }
         });
-        this.children.buttonProfileModalErrorFile = new (0, _.Button)({
+        this.children.buttonProfileModalErrorFile = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
                 click: ()=>(0, _renderDom.renderDom)("pageProfileModalErrorFile")
@@ -727,7 +727,7 @@ class HomePage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/":"dZaQH","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"915bj":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/buttonSimple":"aV1zM","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"915bj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _eventBus = require("./EventBus");
@@ -2427,11 +2427,11 @@ THE SOFTWARE.
     ]);
 });
 
-},{}],"dZaQH":[function(require,module,exports) {
+},{}],"aV1zM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Button", ()=>Button);
-var _block = require("../../utils/Block");
+var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _buttonHbs = require("./button.hbs");
 var _buttonHbsDefault = parcelHelpers.interopDefault(_buttonHbs);
@@ -2451,7 +2451,7 @@ class Button extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./button.hbs":"jyi3k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jyi3k":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./button.hbs":"iHXLM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iHXLM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -2656,43 +2656,17 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageFormLoginHbs = require("./pageFormLogin.hbs");
 var _pageFormLoginHbsDefault = parcelHelpers.interopDefault(_pageFormLoginHbs);
-var _button = require("../../../components/button");
-var _startFormEl = require("../../../components/form/startFormEl");
-var _input = require("../../../components/form/input");
+var _formLogin = require("../../../components/form/formLogin/formLogin");
 class PageLogin extends (0, _blockDefault.default) {
     constructor(){
         super("div", {});
     }
     init() {
         this.element?.classList.add("full-page");
-        this.children.startFormElLogin = new (0, _startFormEl.StartFormEl2)({
-            input: new (0, _input.InputLogin)({
-                name: "login",
-                placeholder: "Логин",
-                required: true
-            }),
-            label: "Логин"
-        });
-        this.children.startFormElPassword = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputPassword)({
-                name: "password",
-                placeholder: "Пароль",
-                required: true
-            }),
-            label: "Пароль"
-        });
-        this.children.button = new (0, _button.Button)({
-            events: {
-                click: ()=>{
-                    for (const children of Object.values(this.children)){
-                        const ivalidatble = children;
-                        if (ivalidatble.isValid !== undefined) ivalidatble.validate();
-                    }
-                }
-            },
-            label: "Авторизоваться",
-            class: "button mb-15",
-            type: "submit"
+        this.children.form = new (0, _formLogin.FormLogin)({
+            action: "sdfsd",
+            method: "sdfsd",
+            class: "form"
         });
     }
     render() {
@@ -2700,7 +2674,7 @@ class PageLogin extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageFormLogin.hbs":"h2zwk","../../../components/button":"dZaQH","../../../components/form/startFormEl":"kseOO","../../../components/form/input":"6brp5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h2zwk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageFormLogin.hbs":"h2zwk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/formLogin/formLogin":"6EqDK"}],"h2zwk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -2711,83 +2685,83 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<form action="" method="" class="form">\r\n    <div class="form__content">\r\n        <h1>Вход</h1>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElLogin") || (depth0 != null ? lookupProperty(depth0, "startFormElLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElLogin",
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "form",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 4,
-                    "column": 8
+                    "line": 1,
+                    "column": 0
                 },
                 "end": {
-                    "line": 4,
-                    "column": 30
+                    "line": 1,
+                    "column": 10
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElPassword") || (depth0 != null ? lookupProperty(depth0, "startFormElPassword") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElPassword",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 5,
-                    "column": 8
-                },
-                "end": {
-                    "line": 5,
-                    "column": 33
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n    <div class="form__buttons text-center">\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "button",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 8,
-                    "column": 8
-                },
-                "end": {
-                    "line": 8,
-                    "column": 20
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n        <a href="" class=" c-blue">Нет аккаунта?</a>\r\n    </div>\r\n</form>';
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kseOO":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6EqDK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "StartFormEl", ()=>StartFormEl);
-parcelHelpers.export(exports, "StartFormEl2", ()=>StartFormEl2);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _input = require("../input");
-var _startFormElHbs = require("./startFormEl.hbs");
-var _startFormElHbsDefault = parcelHelpers.interopDefault(_startFormElHbs);
-class StartFormEl extends (0, _blockDefault.default) {
+parcelHelpers.export(exports, "FormLogin", ()=>FormLogin);
+var _formBlock = require("../../formBlocks/formBlock");
+var _buttonSimple = require("../../button/buttonSimple");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../form");
+var _formLoginHbs = require("./formLogin.hbs");
+var _formLoginHbsDefault = parcelHelpers.interopDefault(_formLoginHbs);
+class FormLogin extends (0, _form.Form) {
     constructor(props){
-        super("div", props);
+        super(props);
     }
     init() {
         super.init();
-        this.element?.classList.add("form__el");
-        if (this.props.hasError) this.element?.classList.add("error");
-        this.children.input = this.props.input;
+        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)();
+        this.children.blockPassword = new (0, _formBlock.FormBlockPassword)();
+        this.children.button = new (0, _buttonSimple.Button)({
+            events: {
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
+                }
+            },
+            label: "Авторизоваться",
+            class: "button mb-15",
+            type: "submit"
+        });
     }
     render() {
-        return this.compile((0, _startFormElHbsDefault.default), this.props);
+        return this.compile((0, _formLoginHbsDefault.default), this.props);
     }
 }
-class StartFormEl2 extends (0, _blockDefault.default) {
+
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formLogin.hbs":"lfBh0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5zOur":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormBlock", ()=>FormBlock);
+parcelHelpers.export(exports, "FormBlockEmail", ()=>FormBlockEmail);
+parcelHelpers.export(exports, "FormBlockLogin", ()=>FormBlockLogin);
+parcelHelpers.export(exports, "FormBlockName", ()=>FormBlockName);
+parcelHelpers.export(exports, "FormBlockSurname", ()=>FormBlockSurname);
+parcelHelpers.export(exports, "FormBlockChatname", ()=>FormBlockChatname);
+parcelHelpers.export(exports, "FormBlockPhone", ()=>FormBlockPhone);
+parcelHelpers.export(exports, "FormBlockPassword", ()=>FormBlockPassword);
+parcelHelpers.export(exports, "FormBlockPasswordDouble", ()=>FormBlockPasswordDouble);
+parcelHelpers.export(exports, "FormBlockMsssage", ()=>FormBlockMsssage);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _input = require("../../input/input");
+var _formBlockHbs = require("./formBlock.hbs");
+var _formBlockHbsDefault = parcelHelpers.interopDefault(_formBlockHbs);
+class FormBlock extends (0, _blockDefault.default) {
     constructor(props){
         super("div", props);
     }
@@ -2795,18 +2769,9 @@ class StartFormEl2 extends (0, _blockDefault.default) {
         super.init();
         this.element?.classList.add("form__el");
         if (this.props.hasError) this.element?.classList.add("error");
-        console.log(this.malevich);
-        console.log("2");
-        this.children.input = new (0, _input.InputLogin)({
-            disabled: false,
-            name: "login",
-            placeholder: "Логин",
-            required: false,
-            validators: undefined,
-            value: ""
-        }, this.malevich.bind(this));
+        this.children.input = new (0, _input.Input2)(this.props.inputProps, this.checkValidAndRerender.bind(this));
     }
-    malevich() {
+    checkValidAndRerender() {
         if (this.children.input.isValid()) this.props.hasError = false;
         else this.setProps({
             hasError: true,
@@ -2814,31 +2779,229 @@ class StartFormEl2 extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _startFormElHbsDefault.default), this.props);
+        if (this.props.hasError) this.element?.classList.add("error");
+        else this.element?.classList.remove("error");
+        return this.compile((0, _formBlockHbsDefault.default), this.props);
     }
     isValid() {
         return this.children.input.isValid();
     }
     validate() {
         this.children.input.validate();
-        this.malevich();
+        this.checkValidAndRerender();
     }
     getErrorText() {
         return this.children.input.getErrorText();
     }
+    getName() {
+        return this.children.input.getName();
+    }
+    getValue() {
+        return this.children.input.getValue();
+    }
+    getInputSubtmiData() {
+        return {
+            key: this.children.input.getName(),
+            value: this.children.input.getValue()
+        };
+    }
+}
+class FormBlockEmail extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "email",
+                placeholder: "Почта",
+                type: (0, _input.inputType).email,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isCharEmail)
+                ]
+            },
+            label: "Почта"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockLogin extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "login",
+                placeholder: "Логин",
+                type: (0, _input.inputType).text,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isLengthLogin),
+                    (0, _input.isContainsCharLogin)
+                ]
+            },
+            label: "Логин"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockName extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "first_name",
+                placeholder: "Имя",
+                type: (0, _input.inputType).text,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isFirsLetterСapitalized),
+                    (0, _input.isContainsCharName)
+                ]
+            },
+            label: "Имя"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockSurname extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "second_name",
+                placeholder: "Фамилия",
+                type: (0, _input.inputType).text,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isFirsLetterСapitalized),
+                    (0, _input.isContainsCharName)
+                ]
+            },
+            label: "Фамилия"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockChatname extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "second_name",
+                placeholder: "Фамилия",
+                type: (0, _input.inputType).text,
+                validators: [
+                    (0, _input.isLength)
+                ]
+            },
+            label: "Фамилия"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockPhone extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "phone",
+                placeholder: "Телефон",
+                type: (0, _input.inputType).text,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isLengthPhone),
+                    (0, _input.isContainsCharPhone),
+                    (0, _input.isPlusPositionCorrect)
+                ]
+            },
+            label: "Телефон"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockPassword extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "password",
+                placeholder: "Пароль",
+                type: (0, _input.inputType).password,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isLengthPassword),
+                    (0, _input.isContainsCapitalLetter),
+                    (0, _input.isContainsNumber)
+                ]
+            },
+            label: "Пароль"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockPasswordDouble extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "password_double",
+                placeholder: "Пароль (ещё раз)",
+                type: (0, _input.inputType).password,
+                validators: [
+                    (0, _input.isLength),
+                    (0, _input.isLengthPassword),
+                    (0, _input.isContainsCapitalLetter),
+                    (0, _input.isContainsNumber)
+                ]
+            },
+            label: "Пароль (ещё раз)"
+        };
+        if (props.disabled) data.inputProps.disabled = true;
+        if (props.value) data.inputProps.value = props.value;
+        super(data);
+    }
+}
+class FormBlockMsssage extends FormBlock {
+    constructor(props){
+        const data = {
+            inputProps: {
+                name: "message",
+                placeholder: "Сообщение",
+                type: (0, _input.inputType).text,
+                validators: [
+                    (0, _input.isLength)
+                ]
+            },
+            label: "Сообщение"
+        };
+        super(data);
+    }
 }
 
-},{"../../../utils/Block":"915bj","../input":"6brp5","./startFormEl.hbs":"cK7c3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6brp5":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","../../input/input":"ie7CD","./formBlock.hbs":"hgXTz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ie7CD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "inputType", ()=>inputType);
-parcelHelpers.export(exports, "Input", ()=>Input);
-parcelHelpers.export(exports, "InputText", ()=>InputText);
-parcelHelpers.export(exports, "InputLogin", ()=>InputLogin);
-parcelHelpers.export(exports, "InputEmail", ()=>InputEmail);
-parcelHelpers.export(exports, "InputPhone", ()=>InputPhone);
-parcelHelpers.export(exports, "InputPassword", ()=>InputPassword);
-parcelHelpers.export(exports, "InputFile", ()=>InputFile);
+// валидаторы
+parcelHelpers.export(exports, "isLength", ()=>isLength);
+parcelHelpers.export(exports, "isLengthPassword", ()=>isLengthPassword);
+parcelHelpers.export(exports, "isLengthLogin", ()=>isLengthLogin);
+parcelHelpers.export(exports, "isLengthPhone", ()=>isLengthPhone);
+parcelHelpers.export(exports, "isContainsCharName", ()=>isContainsCharName);
+parcelHelpers.export(exports, "isContainsCharLogin", ()=>isContainsCharLogin);
+parcelHelpers.export(exports, "isContainsCharPhone", ()=>isContainsCharPhone);
+parcelHelpers.export(exports, "isPlusPositionCorrect", ()=>isPlusPositionCorrect);
+parcelHelpers.export(exports, "isContainsLetter", ()=>isContainsLetter);
+parcelHelpers.export(exports, "isFirsLetterСapitalized", ()=>isFirsLetterСapitalized);
+parcelHelpers.export(exports, "isContainsCapitalLetter", ()=>isContainsCapitalLetter);
+parcelHelpers.export(exports, "isContainsNumber", ()=>isContainsNumber);
+parcelHelpers.export(exports, "isCharEmail", ()=>isCharEmail);
+parcelHelpers.export(exports, "Input2", ()=>Input2);
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 let inputType;
@@ -2848,11 +3011,47 @@ let inputType;
     inputType["password"] = "password";
     inputType["file"] = "file";
 })(inputType || (inputType = {}));
-function isXacce(value) {
-    if (value.length < 3) return "Короткий текст";
-    if (value !== "xacce") return "Не xacce";
+function isLength(value) {
+    if (value == undefined || value.length < 1) return "Введите значение";
 }
-class Input extends (0, _blockDefault.default) {
+function isLengthPassword(value) {
+    if (value.length < 8 || value.length > 40) return "Длина должна быть от 8 до 40 символов";
+}
+function isLengthLogin(value) {
+    if (value.length < 3 || value.length > 20) return "Длина должна быть от 3 до 20 символов";
+}
+function isLengthPhone(value) {
+    if (value.length < 10 || value.length > 15) return "Длина должна быть от 10 до 15 символов";
+}
+function isContainsCharName(value) {
+    if (!/^[A-ZА-ЯЁ-]+$/i.test(value)) return "Содержит недопустимые символы";
+}
+function isContainsCharLogin(value) {
+    if (!/^[A-Z0-9-_]+$/i.test(value)) return "Содержит недопустимые символы";
+}
+function isContainsCharPhone(value) {
+    if (!/^[0-9+]+$/i.test(value)) return "Содержит недопустимые символы";
+}
+function isPlusPositionCorrect(value) {
+    if (value.includes("+") && value.indexOf("+") != 0) return "Плюс может быть только первым символом";
+}
+function isContainsLetter(value) {
+    if (value.match(/[A-z]/g) == null) return "Хотя бы одна буква";
+}
+function isFirsLetterСapitalized(value) {
+    if (value[0] == value[0].toLocaleLowerCase()) return "Первая буква должна быть заглавной";
+}
+function isContainsCapitalLetter(value) {
+    if (!hasCapital(value)) return "Хотя бы одна заглавная";
+}
+const hasCapital = (s)=>!(s === s.toLowerCase());
+function isContainsNumber(value) {
+    if (!/[0-9]/.test(value)) return "Хотя бы одна цифра";
+}
+function isCharEmail(value) {
+    if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-zA-Z0-9-.]+$/.test(value)) return "Неправильный формат";
+}
+class Input2 extends (0, _blockDefault.default) {
     errorText = "";
     constructor(props, onChanged){
         const defaultProps = {
@@ -2878,20 +3077,22 @@ class Input extends (0, _blockDefault.default) {
         super.init();
         this.element?.classList.add("input");
         // сделать через  белый список
+        this.setAttributes("type", this.props.type);
         this.setAttributes("name", this.props.name);
         this.setAttributes("value", this.props.value);
         this.setAttributes("required", this.props.required);
         this.setAttributes("disabled", this.props.disabled);
         this.setAttributes("placeholder", this.props.placeholder);
     }
-    /* protected render(): DocumentFragment {
-        return this.compile(template, this.props)
-    }*/ onChange() {
+    onChange() {
         this.validate();
         if (this.onChanged) this.onChanged();
     }
     getValue() {
         return this.props.value;
+    }
+    getName() {
+        return this.props.name;
     }
     isValid() {
         return this.props.isValid;
@@ -2914,78 +3115,8 @@ class Input extends (0, _blockDefault.default) {
         if (value) this.element?.setAttribute(name, value);
     }
 }
-class InputText extends Input {
-    constructor(props){
-        super(props);
-    }
-    init() {
-        super.init();
-        this.setAttributes("type", inputType.text);
-    }
-}
-class InputLogin extends Input {
-    constructor(props, onChanged){
-        if (!props.validators) props.validators = [
-            isXacce
-        ];
-        else props.validators.push(isXacce);
-        super(props, onChanged);
-    }
-    init() {
-        super.init();
-        this.setAttributes("type", inputType.text);
-    }
-}
-class InputEmail extends Input {
-    constructor(props){
-        super(props);
-    }
-    init() {
-        super.init();
-        this.setAttributes("type", inputType.email);
-    }
-    validate() {
-        return true;
-    }
-}
-class InputPhone extends Input {
-    constructor(props){
-        super(props);
-    }
-    init() {
-        super.init();
-        this.setAttributes("type", inputType.text);
-    }
-    validate() {
-        return true;
-    }
-}
-class InputPassword extends Input {
-    constructor(props){
-        super(props);
-    }
-    init() {
-        super.init();
-        this.setAttributes("type", inputType.password);
-    }
-    validate() {
-        return true;
-    }
-}
-class InputFile extends Input {
-    constructor(props){
-        super(props);
-    }
-    init() {
-        super.init();
-        this.setAttributes("type", inputType.file);
-    }
-    validate() {
-        return true;
-    }
-}
 
-},{"../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cK7c3":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hgXTz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -2996,21 +3127,21 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '    <div class="form__error">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "errorText") || (depth0 != null ? lookupProperty(depth0, "errorText") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return '    <div class="text-error">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "errorText") || (depth0 != null ? lookupProperty(depth0, "errorText") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "errorText",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 4,
-                    "column": 29
+                    "column": 28
                 },
                 "end": {
                     "line": 4,
-                    "column": 42
+                    "column": 41
                 }
             }
-        }) : helper)) + "</div>\r\n";
+        }) : helper)) + "</div>\n";
     },
     "compiler": [
         8,
@@ -3035,7 +3166,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 11
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n<label class="label" for="">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n<label class="label" for="">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "label",
             "hash": {},
             "data": data,
@@ -3049,7 +3180,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 37
                 }
             }
-        }) : helper)) + "</label>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "hasError") : depth0, {
+        }) : helper)) + "</label>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "hasError") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -3071,96 +3202,76 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2hNw3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "PageReg", ()=>PageReg);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _pageFormRegHbs = require("./pageFormReg.hbs");
-var _pageFormRegHbsDefault = parcelHelpers.interopDefault(_pageFormRegHbs);
-var _button = require("../../../components/button");
-var _startFormEl = require("../../../components/form/startFormEl");
-var _input = require("../../../components/form/input");
-class PageReg extends (0, _blockDefault.default) {
-    constructor(){
-        super("div", {});
+parcelHelpers.export(exports, "validateForm", ()=>validateForm);
+parcelHelpers.export(exports, "submitForm", ()=>submitForm);
+function validateForm(form) {
+    let isValidateSuccess = true;
+    form.setProps({
+        "iValid": true
+    });
+    for (const children of Object.values(form.children)){
+        const ivalidatble = children;
+        if (ivalidatble.isValid !== undefined) {
+            ivalidatble.validate();
+            if (!ivalidatble.isValid()) {
+                isValidateSuccess = false;
+                form.setProps({
+                    "iValid": false
+                });
+            }
+        }
     }
-    init() {
-        this.element?.classList.add("full-page");
-        this.children.startFormElEmail = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputEmail)({
-                name: "email",
-                placeholder: "Почта",
-                required: true
-            }),
-            label: "Почта"
-        });
-        this.children.startFormElLogin = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputText)({
-                name: "login",
-                placeholder: "Логин",
-                required: true
-            }),
-            label: "Логин"
-        });
-        this.children.startFormElName = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputText)({
-                name: "first_name",
-                placeholder: "Имя",
-                required: true
-            }),
-            label: "Имя"
-        });
-        this.children.startFormElSurname = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputText)({
-                name: "second_name",
-                placeholder: "Фамилия",
-                required: true
-            }),
-            label: "Фамилия"
-        });
-        this.children.startFormPhone = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputPhone)({
-                name: "phone",
-                placeholder: "Телефон",
-                required: true
-            }),
-            label: "Телефон"
-        });
-        this.children.startFormElPassword = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputPassword)({
-                name: "password",
-                placeholder: "Пароль",
-                required: true
-            }),
-            label: "Пароль"
-        });
-        this.children.startFormElPasswordDouble = new (0, _startFormEl.StartFormEl)({
-            input: new (0, _input.InputPassword)({
-                name: "password_double",
-                placeholder: "Пароль (ещё раз)",
-                required: true
-            }),
-            label: "Пароль (ещё раз)"
-        });
-        this.children.button = new (0, _button.Button)({
-            events: {
-                click: function() {
-                    return true;
-                }
-            },
-            label: "Зарегистрироваться",
-            class: "button mb-15",
-            type: "submit"
-        });
-    }
-    render() {
-        return this.compile((0, _pageFormRegHbsDefault.default), this.props);
+}
+function submitForm(form) {
+    if (form.isValid()) {
+        const submitData = {};
+        for (const children of Object.values(form.children)){
+            const ivalidatble = children;
+            if (ivalidatble.isValid !== undefined) submitData[ivalidatble.getName()] = ivalidatble.getValue();
+        }
+        console.log(submitData);
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageFormReg.hbs":"h6xqZ","../../../components/button":"dZaQH","../../../components/form/startFormEl":"kseOO","../../../components/form/input":"6brp5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h6xqZ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1enI1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Form", ()=>Form);
+var _block = require("../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _funcions = require("../../utils/funcions");
+class Form extends (0, _blockDefault.default) {
+    constructor(props){
+        const defaultProps = {
+            "events": {
+                "submit": ()=>{
+                    console.log("submit");
+                    (0, _funcions.submitForm)(this);
+                    event?.preventDefault();
+                }
+            }
+        };
+        super("form", {
+            ...props,
+            ...defaultProps
+        });
+    }
+    init() {
+        super.init();
+        if (this.props.class) {
+            const classes = this.props.class.split(" ");
+            for (const classEl of classes)this.element?.classList.add(classEl);
+        }
+    }
+    isValid() {
+        return this.props.iValid;
+    }
+}
+
+},{"../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/funcions":"2hNw3"}],"lfBh0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3175,119 +3286,296 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<form action="" method="" class="form">\r\n    <div class="form__content">\r\n        <h1>Вход</h1>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElEmail") || (depth0 != null ? lookupProperty(depth0, "startFormElEmail") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElEmail",
+        return '<div class="form__content">\n    <h1>Вход</h1>\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockLogin") || (depth0 != null ? lookupProperty(depth0, "blockLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockLogin",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 4
+                },
+                "end": {
+                    "line": 3,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockPassword") || (depth0 != null ? lookupProperty(depth0, "blockPassword") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockPassword",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 4,
-                    "column": 8
+                    "column": 4
                 },
                 "end": {
                     "line": 4,
-                    "column": 30
+                    "column": 23
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElLogin") || (depth0 != null ? lookupProperty(depth0, "startFormElLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElLogin",
+        }) : helper)) != null ? stack1 : "") + '\n</div>\n<div class="form__buttons text-center">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 4
+                },
+                "end": {
+                    "line": 7,
+                    "column": 16
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\n    <a href="" class=" c-blue">Нет аккаунта?</a>\n</div>\n';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "PageReg", ()=>PageReg);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageFormRegHbs = require("./pageFormReg.hbs");
+var _pageFormRegHbsDefault = parcelHelpers.interopDefault(_pageFormRegHbs);
+var _formReg = require("../../../components/form/formReg/formReg");
+class PageReg extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        this.element?.classList.add("full-page");
+        this.children.form = new (0, _formReg.FormReg)({
+            action: "sdfsd",
+            method: "sdfsd",
+            class: "form"
+        });
+    }
+    render() {
+        return this.compile((0, _pageFormRegHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageFormReg.hbs":"h6xqZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/formReg/formReg":"1B7Eu"}],"h6xqZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "form",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 10
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1B7Eu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormReg", ()=>FormReg);
+var _formBlock = require("../../formBlocks/formBlock");
+var _buttonSimple = require("../../button/buttonSimple");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../form");
+var _formRegHbs = require("./formReg.hbs");
+var _formRegHbsDefault = parcelHelpers.interopDefault(_formRegHbs);
+class FormReg extends (0, _form.Form) {
+    constructor(props){
+        super(props);
+    }
+    init() {
+        super.init();
+        this.children.blockEmail1 = new (0, _formBlock.FormBlockEmail)();
+        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)();
+        this.children.blockName = new (0, _formBlock.FormBlockName)();
+        this.children.blockSurname = new (0, _formBlock.FormBlockSurname)();
+        this.children.blockPhone = new (0, _formBlock.FormBlockPhone)();
+        this.children.blockPassword = new (0, _formBlock.FormBlockPassword)();
+        this.children.blockPasswordDouble = new (0, _formBlock.FormBlockPasswordDouble)();
+        this.children.button = new (0, _buttonSimple.Button)({
+            events: {
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
+                }
+            },
+            label: "Зарегистрироваться",
+            class: "button mb-15",
+            type: "submit"
+        });
+    }
+    render() {
+        return this.compile((0, _formRegHbsDefault.default), this.props);
+    }
+}
+
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./formReg.hbs":"6ZzAn"}],"6ZzAn":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="form__content">\n    <h1>Вход</h1>\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockEmail1") || (depth0 != null ? lookupProperty(depth0, "blockEmail1") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockEmail1",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 4
+                },
+                "end": {
+                    "line": 3,
+                    "column": 21
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockEmail") || (depth0 != null ? lookupProperty(depth0, "blockEmail") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockEmail",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 4
+                },
+                "end": {
+                    "line": 4,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockLogin") || (depth0 != null ? lookupProperty(depth0, "blockLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockLogin",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 8
+                    "column": 4
                 },
                 "end": {
                     "line": 5,
-                    "column": 30
+                    "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElName") || (depth0 != null ? lookupProperty(depth0, "startFormElName") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElName",
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockName") || (depth0 != null ? lookupProperty(depth0, "blockName") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockName",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 6,
-                    "column": 8
+                    "column": 4
                 },
                 "end": {
                     "line": 6,
+                    "column": 19
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockSurname") || (depth0 != null ? lookupProperty(depth0, "blockSurname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockSurname",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 4
+                },
+                "end": {
+                    "line": 7,
+                    "column": 22
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockPhone") || (depth0 != null ? lookupProperty(depth0, "blockPhone") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockPhone",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 4
+                },
+                "end": {
+                    "line": 8,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockPassword") || (depth0 != null ? lookupProperty(depth0, "blockPassword") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockPassword",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 4
+                },
+                "end": {
+                    "line": 9,
+                    "column": 23
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockPasswordDouble") || (depth0 != null ? lookupProperty(depth0, "blockPasswordDouble") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockPasswordDouble",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 4
+                },
+                "end": {
+                    "line": 10,
                     "column": 29
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElSurname") || (depth0 != null ? lookupProperty(depth0, "startFormElSurname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElSurname",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 7,
-                    "column": 8
-                },
-                "end": {
-                    "line": 7,
-                    "column": 32
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormPhone") || (depth0 != null ? lookupProperty(depth0, "startFormPhone") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormPhone",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 8,
-                    "column": 8
-                },
-                "end": {
-                    "line": 8,
-                    "column": 28
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElPassword") || (depth0 != null ? lookupProperty(depth0, "startFormElPassword") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElPassword",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 9,
-                    "column": 8
-                },
-                "end": {
-                    "line": 9,
-                    "column": 33
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "startFormElPasswordDouble") || (depth0 != null ? lookupProperty(depth0, "startFormElPasswordDouble") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "startFormElPasswordDouble",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 10,
-                    "column": 8
-                },
-                "end": {
-                    "line": 10,
-                    "column": 39
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n    <div class="form__buttons text-center">\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n</div>\n<div class="form__buttons text-center">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "button",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 13,
-                    "column": 8
+                    "column": 4
                 },
                 "end": {
                     "line": 13,
-                    "column": 20
+                    "column": 16
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        <a href="" class=" c-blue">Войти</a>\r\n    </div>\r\n</form>';
+        }) : helper)) != null ? stack1 : "") + '\n    <a href="" class=" c-blue">Войти</a>\n</div>\n';
     },
     "useData": true
 });
@@ -3301,7 +3589,7 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageChatEmptyHbs = require("./pageChatEmpty.hbs");
 var _pageChatEmptyHbsDefault = parcelHelpers.interopDefault(_pageChatEmptyHbs);
-var _search = require("../../../components/form/search");
+var _search = require("../../../components/formBlocks/search");
 var _chatList = require("../../../components/chat/chatList");
 class PageChatEmpty extends (0, _blockDefault.default) {
     constructor(){
@@ -3322,7 +3610,7 @@ class PageChatEmpty extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3yaf":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/chat/chatList":"hoBsF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"f3yaf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3366,68 +3654,6 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 }
             }
         }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat empty">\r\n    <span class="fs-12">Выберите чат чтобы отправить сообщение</span>\r\n</div>';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9p52b":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "FormSearchChat", ()=>FormSearchChat);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _searchHbs = require("./search.hbs");
-var _searchHbsDefault = parcelHelpers.interopDefault(_searchHbs);
-var _input = require("../input");
-class FormSearchChat extends (0, _blockDefault.default) {
-    constructor(props){
-        super("form", props);
-    }
-    init() {
-        super.init();
-        this.element?.classList.add("search-form");
-        this.children.input = new (0, _input.InputText)({
-            name: "search",
-            placeholder: "Поиск",
-            required: true
-        });
-    }
-    render() {
-        return this.compile((0, _searchHbsDefault.default), this.props);
-    }
-}
-
-},{"../../../utils/Block":"915bj","./search.hbs":"6PkAF","../input":"6brp5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6PkAF":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "input",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 0
-                },
-                "end": {
-                    "line": 1,
-                    "column": 11
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n<span class="icon-search"></span>\r\n\r\n';
     },
     "useData": true
 });
@@ -3596,6 +3822,71 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Y7Rt":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormSearchChat", ()=>FormSearchChat);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _searchHbs = require("./search.hbs");
+var _searchHbsDefault = parcelHelpers.interopDefault(_searchHbs);
+var _input = require("../../input/input");
+class FormSearchChat extends (0, _blockDefault.default) {
+    constructor(props){
+        super("form", props);
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("search-form");
+        this.children.input = new (0, _input.Input2)({
+            disabled: false,
+            type: (0, _input.inputType).text,
+            validators: [],
+            name: "search",
+            placeholder: "Поиск",
+            required: true
+        });
+    }
+    render() {
+        return this.compile((0, _searchHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./search.hbs":"1Y6Ng","../../input/input":"ie7CD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Y6Ng":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "input",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 11
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\r\n<span class="icon-search"></span>\r\n\r\n';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
 },{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RzXZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -3604,7 +3895,7 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageChatHbs = require("./pageChat.hbs");
 var _pageChatHbsDefault = parcelHelpers.interopDefault(_pageChatHbs);
-var _search = require("../../../components/form/search");
+var _search = require("../../../components/formBlocks/search");
 var _chatList = require("../../../components/chat/chatList");
 var _chatHeader = require("../../../components/chat/chatHeader");
 var _chatFooter = require("../../../components/chat/chatFooter");
@@ -3627,6 +3918,9 @@ class PageChat extends (0, _blockDefault.default) {
         });
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf"
+        }, {
             showMenu: false
         });
     }
@@ -3635,7 +3929,7 @@ class PageChat extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4XNp":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"c4XNp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3791,21 +4085,32 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ChatFooter", ()=>ChatFooter);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
 var _chatFooterHbs = require("./chatFooter.hbs");
 var _chatFooterHbsDefault = parcelHelpers.interopDefault(_chatFooterHbs);
-var _input = require("../../form/input");
-class ChatFooter extends (0, _blockDefault.default) {
-    constructor(props){
-        super("form", props);
+var _buttonWithIcon = require("../../button/buttonWithIcon");
+var _formBlock = require("../../formBlocks/formBlock");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../../form/form");
+class ChatFooter extends (0, _form.Form) {
+    constructor(props, showMenu){
+        super({
+            ...props,
+            ...showMenu
+        });
     }
     init() {
         super.init();
         this.element?.classList.add("chat__footer");
-        this.children.input = new (0, _input.InputText)({
-            name: "message",
-            placeholder: "Сообщение"
+        this.children.input = new (0, _formBlock.FormBlockMsssage)();
+        this.children.button = new (0, _buttonWithIcon.ButtonWithIcon)({
+            class: "no-style send-message",
+            events: {
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
+                }
+            },
+            iconClass: "icon-arrow-right",
+            type: "submit"
         });
     }
     render() {
@@ -3813,7 +4118,7 @@ class ChatFooter extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./chatFooter.hbs":"75UPv","../../form/input":"6brp5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
+},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../../utils/funcions":"2hNw3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../formBlocks/formBlock":"5zOur","../../form/form":"1enI1"}],"75UPv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3827,7 +4132,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
         ">= 4.3.0"
     ],
     "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
@@ -3847,7 +4152,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 68
                 }
             }
-        })) != null ? stack1 : "") + '">\r\n    <span class="icon-clip"></span>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-media c-blue"></span>\r\n            <span>Фото или Видео</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-file c-blue "></span>\r\n            <span>Файл</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-location c-blue "></span>\r\n            <span>Локация</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
+        })) != null ? stack1 : "") + '">\n    <span class="icon-clip"></span>\n    <div class="menu">\n        <button class="no-style js--add-interlocutor">\n            <span class="icon-media c-blue"></span>\n            <span>Фото или Видео</span>\n        </button>\n        <button class="no-style js--remove-interlocutor">\n            <span class="icon-file c-blue "></span>\n            <span>Файл</span>\n        </button>\n        <button class="no-style js--remove-interlocutor">\n            <span class="icon-location c-blue "></span>\n            <span>Локация</span>\n        </button>\n    </div>\n</div>\n\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "input",
             "hash": {},
             "data": data,
@@ -3861,7 +4166,94 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 11
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n\r\n<button type="submit" class="no-style send-message">\r\n    <span class="icon-arrow-right"></span>\r\n</button>';
+        }) : helper)) != null ? stack1 : "") + "\n\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 21,
+                    "column": 0
+                },
+                "end": {
+                    "line": 21,
+                    "column": 12
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dUu7n":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ButtonWithIcon", ()=>ButtonWithIcon);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _buttonWithIconHbs = require("./buttonWithIcon.hbs");
+var _buttonWithIconHbsDefault = parcelHelpers.interopDefault(_buttonWithIconHbs);
+class ButtonWithIcon extends (0, _blockDefault.default) {
+    constructor(props){
+        super("button", props);
+    }
+    init() {
+        if (this.props.class) {
+            const classes = this.props.class.split(" ");
+            for (const classEl of classes)this.element?.classList.add(classEl);
+        }
+        if (this.props.type) this.element?.setAttribute("type", this.props.type);
+    }
+    render() {
+        return this.compile((0, _buttonWithIconHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./buttonWithIcon.hbs":"fgi40","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fgi40":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return alias4((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "label",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 11
+                }
+            }
+        }) : helper)) + '\n<span class="' + alias4((helper = (helper = lookupProperty(helpers, "iconClass") || (depth0 != null ? lookupProperty(depth0, "iconClass") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "iconClass",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 13
+                },
+                "end": {
+                    "line": 2,
+                    "column": 26
+                }
+            }
+        }) : helper)) + '"></span>\n';
     },
     "useData": true
 });
@@ -4161,7 +4553,7 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageChatFunctionsHbs = require("./pageChatFunctions.hbs");
 var _pageChatFunctionsHbsDefault = parcelHelpers.interopDefault(_pageChatFunctionsHbs);
-var _search = require("../../../components/form/search");
+var _search = require("../../../components/formBlocks/search");
 var _chatList = require("../../../components/chat/chatList");
 var _chatHeader = require("../../../components/chat/chatHeader");
 var _chatContent = require("../../../components/chat/chatContent");
@@ -4184,6 +4576,9 @@ class PageChatFunctions extends (0, _blockDefault.default) {
         });
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf"
+        }, {
             showMenu: true
         });
     }
@@ -4192,7 +4587,7 @@ class PageChatFunctions extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatFunctions.hbs":"Vy3j4","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Vy3j4":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatFunctions.hbs":"Vy3j4","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"Vy3j4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4291,7 +4686,7 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageChatSearchHbs = require("./pageChatSearch.hbs");
 var _pageChatSearchHbsDefault = parcelHelpers.interopDefault(_pageChatSearchHbs);
-var _search = require("../../../components/form/search");
+var _search = require("../../../components/formBlocks/search");
 var _chatHeader = require("../../../components/chat/chatHeader");
 var _chatContent = require("../../../components/chat/chatContent");
 var _chatFooter = require("../../../components/chat/chatFooter");
@@ -4314,6 +4709,9 @@ class PageChatSearch extends (0, _blockDefault.default) {
         });
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf"
+        }, {
             showMenu: false
         });
     }
@@ -4322,7 +4720,7 @@ class PageChatSearch extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/form/search":"9p52b","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hwrCx":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatFooter":"3MFSa"}],"hwrCx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4584,12 +4982,11 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageChatAddUserHbs = require("./pageChatAddUser.hbs");
 var _pageChatAddUserHbsDefault = parcelHelpers.interopDefault(_pageChatAddUserHbs);
-var _search = require("../../../components/form/search");
+var _search = require("../../../components/formBlocks/search");
 var _chatList = require("../../../components/chat/chatList");
 var _chatHeader = require("../../../components/chat/chatHeader");
 var _chatContent = require("../../../components/chat/chatContent");
 var _chatFooter = require("../../../components/chat/chatFooter");
-var _input = require("../../../components/form/input");
 var _modal = require("../../../components/modal/modal");
 class PageChatAddUser extends (0, _blockDefault.default) {
     constructor(){
@@ -4609,21 +5006,18 @@ class PageChatAddUser extends (0, _blockDefault.default) {
         });
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf"
+        }, {
             showMenu: false
         });
         this.children.chatModal = new (0, _modal.ChatModal)({
-            title: "Добавить пользователя",
-            formAction: "",
-            formMethod: "post",
-            inputProps: {
-                label: "Логин",
-                input: new (0, _input.InputText)({
-                    name: "login",
-                    placeholder: "Логин",
-                    required: true
-                })
+            buttonValue: "Добавить",
+            formProps: {
+                action: "sdf",
+                method: "sdf"
             },
-            buttonValue: "Добавить"
+            title: "Добавить пользователя"
         });
     }
     render() {
@@ -4631,7 +5025,7 @@ class PageChatAddUser extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/form/input":"6brp5","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ZQdk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"5ZQdk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4759,12 +5153,8 @@ class Modal extends (0, _blockDefault.default) {
     render() {
         return this.compile((0, _modalHbsDefault.default), this.props);
     }
-    show() {
-        console.log(1);
-    }
-    hide() {
-        console.log(-1);
-    }
+    show() {}
+    hide() {}
 }
 class ChatModal extends Modal {
     constructor(props){
@@ -4785,7 +5175,7 @@ class ProfileModal extends Modal {
     }
 }
 
-},{"../../../utils/Block":"915bj","./modal.hbs":"eNFgj","../chatModalContent":"dE6qI","../profileModalContent":"fr3hT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eNFgj":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./modal.hbs":"eNFgj","../profileModalContent":"fr3hT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../chatModalContent":"dE6qI"}],"eNFgj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4800,7 +5190,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="modal__overlay"></div>\r\n<div class="modal__content">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return '<div class="modal__overlay"></div>\n<div class="modal__content">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -4814,105 +5204,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 17
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n</div>";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dE6qI":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatModalContent", ()=>ChatModalContent);
-var _chatModalContentHbs = require("./chatModalContent.hbs");
-var _chatModalContentHbsDefault = parcelHelpers.interopDefault(_chatModalContentHbs);
-var _button = require("../../button");
-var _startFormEl = require("../../form/startFormEl");
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-class ChatModalContent extends (0, _blockDefault.default) {
-    constructor(props){
-        super("form", props);
-    }
-    init() {
-        super.init();
-        this.element?.setAttribute("action", this.props.formAction);
-        this.element?.setAttribute("method", this.props.formMethod);
-        this.children.inputEl = new (0, _startFormEl.StartFormEl)(this.props.inputProps);
-        this.children.button = new (0, _button.Button)({
-            class: "button",
-            events: {
-                click: ()=>{
-                    return true;
-                }
-            },
-            label: this.props.buttonValue,
-            type: "submit"
-        });
-    }
-    render() {
-        return this.compile((0, _chatModalContentHbsDefault.default), this.props);
-    }
-}
-
-},{"./chatModalContent.hbs":"ln52m","../../button":"dZaQH","../../form/startFormEl":"kseOO","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ln52m":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return "<h2>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "title",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 4
-                },
-                "end": {
-                    "line": 1,
-                    "column": 15
-                }
-            }
-        }) : helper)) + "</h2>\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "inputEl") || (depth0 != null ? lookupProperty(depth0, "inputEl") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "inputEl",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 0
-                },
-                "end": {
-                    "line": 2,
-                    "column": 13
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "button",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 0
-                },
-                "end": {
-                    "line": 3,
-                    "column": 12
-                }
-            }
-        }) : helper)) != null ? stack1 : "");
+        }) : helper)) != null ? stack1 : "") + "\n</div>";
     },
     "useData": true
 });
@@ -4924,11 +5216,11 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfileModalContent", ()=>ProfileModalContent);
 var _profileModalContentHbs = require("./profileModalContent.hbs");
 var _profileModalContentHbsDefault = parcelHelpers.interopDefault(_profileModalContentHbs);
-var _button = require("../../button");
-var _input = require("../../form/input");
+var _buttonSimple = require("../../button/buttonSimple");
+var _input = require("../../input/input");
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _fileEl = require("../../form/fileEl");
+var _fileEl = require("../../formBlocks/fileEl");
 class ProfileModalContent extends (0, _blockDefault.default) {
     constructor(props){
         super("form", props);
@@ -4939,14 +5231,15 @@ class ProfileModalContent extends (0, _blockDefault.default) {
         this.element?.setAttribute("method", this.props.formMethod);
         this.children.inputEl = new (0, _fileEl.FileFormEl)({
             fileLoaded: this.props.fileLoaded,
-            inputType: new (0, _input.InputFile)({
+            inputType: new (0, _input.Input2)({
+                type: (0, _input.inputType).file,
                 name: "file",
                 required: true,
                 value: this.props.inputValue
             }),
             text: this.props.fileText
         });
-        this.children.button = new (0, _button.Button)({
+        this.children.button = new (0, _buttonSimple.Button)({
             class: "button",
             events: {
                 click: function() {
@@ -4962,7 +5255,7 @@ class ProfileModalContent extends (0, _blockDefault.default) {
     }
 }
 
-},{"./profileModalContent.hbs":"dpEvH","../../button":"dZaQH","../../form/input":"6brp5","../../../utils/Block":"915bj","../../form/fileEl":"juls7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dpEvH":[function(require,module,exports) {
+},{"./profileModalContent.hbs":"dpEvH","../../button/buttonSimple":"aV1zM","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../input/input":"ie7CD","../../formBlocks/fileEl":"lrhcG"}],"dpEvH":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5081,7 +5374,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"juls7":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lrhcG":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "FileFormEl", ()=>FileFormEl);
@@ -5103,7 +5396,7 @@ class FileFormEl extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./startFormEl.hbs":"h33YE","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h33YE":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./startFormEl.hbs":"fIhLJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fIhLJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5171,6 +5464,166 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dE6qI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatModalContent", ()=>ChatModalContent);
+var _chatModalContentHbs = require("./chatModalContent.hbs");
+var _chatModalContentHbsDefault = parcelHelpers.interopDefault(_chatModalContentHbs);
+var _formChat = require("../../form/formChat/formChat");
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+class ChatModalContent extends (0, _blockDefault.default) {
+    constructor(props){
+        super("div", props);
+    }
+    init() {
+        super.init();
+        this.children.form = new (0, _formChat.FormChat)(this.props.formProps, this.props.title, this.props.buttonValue);
+    }
+    render() {
+        return this.compile((0, _chatModalContentHbsDefault.default), this.props);
+    }
+}
+
+},{"./chatModalContent.hbs":"ln52m","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../form/formChat/formChat":"3UUIP"}],"ln52m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "form",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 10
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3UUIP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormChat", ()=>FormChat);
+var _formBlock = require("../../formBlocks/formBlock");
+var _buttonSimple = require("../../button/buttonSimple");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../form");
+var _formChatHbs = require("./formChat.hbs");
+var _formChatHbsDefault = parcelHelpers.interopDefault(_formChatHbs);
+class FormChat extends (0, _form.Form) {
+    constructor(props, title, buttonValue){
+        const chatProps = {
+            title: title,
+            buttonValue: buttonValue
+        };
+        super({
+            ...props,
+            ...chatProps
+        });
+    }
+    init() {
+        super.init();
+        this.children.formBlock = new (0, _formBlock.FormBlockLogin)();
+        this.children.button = new (0, _buttonSimple.Button)({
+            class: "button",
+            events: {
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
+                }
+            },
+            label: this.props.buttonValue,
+            type: "submit"
+        });
+    }
+    render() {
+        return this.compile((0, _formChatHbsDefault.default), this.props);
+    }
+}
+
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1uQbk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "<h2>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "title",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 4
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) + "</h2>\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "formBlock") || (depth0 != null ? lookupProperty(depth0, "formBlock") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "formBlock",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 0
+                },
+                "end": {
+                    "line": 2,
+                    "column": 15
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 12
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
 },{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ngKl":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -5179,13 +5632,12 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageChatRemoveUserHbs = require("./pageChatRemoveUser.hbs");
 var _pageChatRemoveUserHbsDefault = parcelHelpers.interopDefault(_pageChatRemoveUserHbs);
-var _search = require("../../../components/form/search");
+var _search = require("../../../components/formBlocks/search");
 var _chatList = require("../../../components/chat/chatList");
 var _chatHeader = require("../../../components/chat/chatHeader");
 var _chatContent = require("../../../components/chat/chatContent");
 var _chatFooter = require("../../../components/chat/chatFooter");
 var _modal = require("../../../components/modal/modal");
-var _input = require("../../../components/form/input");
 class PageChatRemoveUser extends (0, _blockDefault.default) {
     constructor(){
         super("div", {});
@@ -5204,21 +5656,18 @@ class PageChatRemoveUser extends (0, _blockDefault.default) {
         });
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf"
+        }, {
             showMenu: false
         });
         this.children.chatModal = new (0, _modal.ChatModal)({
-            title: "Удалить пользователя",
-            formAction: "",
-            formMethod: "post",
-            inputProps: {
-                label: "Логин",
-                input: new (0, _input.InputText)({
-                    name: "login",
-                    placeholder: "Логин",
-                    required: true
-                })
+            buttonValue: "Удалить",
+            formProps: {
+                action: "sdf",
+                method: "sdf"
             },
-            buttonValue: "Удалить"
+            title: "Удалить пользователя"
         });
     }
     render() {
@@ -5226,7 +5675,7 @@ class PageChatRemoveUser extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/form/search":"9p52b","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","../../../components/form/input":"6brp5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gGqML":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"gGqML":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5408,8 +5857,14 @@ class ProfileContent extends (0, _blockDefault.default) {
     }
     init() {
         super.init();
-        this.children.form = new (0, _pageProfileForm.ProfileForm)(this.props.disabled);
-        this.children.modal = new (0, _modal.ProfileModal)(this.props.modalProps);
+        this.children.form = new (0, _pageProfileForm.ProfileForm)({
+            action: "sdf",
+            method: "sdf",
+            class: "edit-settings"
+        }, {
+            disabled: this.props.disabled
+        });
+        if (this.props.modalShow) this.children.modal = new (0, _modal.ProfileModal)(this.props.modalProps);
     }
     render() {
         return this.compile((0, _profileContentHbsDefault.default), this.props);
@@ -5492,78 +5947,51 @@ exports.default = templateFunction;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ProfileForm", ()=>ProfileForm);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
 var _pageProfileFormHbs = require("./pageProfileForm.hbs");
 var _pageProfileFormHbsDefault = parcelHelpers.interopDefault(_pageProfileFormHbs);
-var _input = require("../../form/input");
-var _profileEl = require("../../form/profileEl");
-var _button = require("../../button");
-class ProfileForm extends (0, _blockDefault.default) {
-    constructor(disabled){
-        super("form", {
-            disabled: disabled
+var _buttonSimple = require("../../button/buttonSimple");
+var _formBlock = require("../../formBlocks/formBlock");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../../form/form");
+class ProfileForm extends (0, _form.Form) {
+    constructor(props, disabled){
+        super({
+            ...props,
+            ...disabled
         });
     }
     init() {
         super.init();
         this.element?.classList.add("edit-settings");
-        this.element?.setAttribute("action", "sdf");
-        this.element?.setAttribute("method", "post");
-        this.children.profileElLogin = new (0, _profileEl.ProfileFormEl)({
-            input: new (0, _input.InputText)({
-                name: "login",
-                required: true,
-                disabled: this.props.disabled,
-                value: profileData.login
-            }),
-            label: "Логин"
+        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)({
+            disabled: this.props.disabled,
+            value: profileData.login
         });
-        this.children.profileElName = new (0, _profileEl.ProfileFormEl)({
-            input: new (0, _input.InputText)({
-                name: "first_name",
-                required: true,
-                disabled: this.props.disabled,
-                value: profileData.name
-            }),
-            label: "Имя"
+        this.children.blockName = new (0, _formBlock.FormBlockName)({
+            disabled: this.props.disabled,
+            value: profileData.name
         });
-        this.children.profileElSurname = new (0, _profileEl.ProfileFormEl)({
-            input: new (0, _input.InputText)({
-                name: "second_name",
-                required: true,
-                disabled: this.props.disabled,
-                value: profileData.surname
-            }),
-            label: "Фамилия"
+        this.children.blockSurname = new (0, _formBlock.FormBlockSurname)({
+            disabled: this.props.disabled,
+            value: profileData.surname
         });
-        this.children.profileElChatname = new (0, _profileEl.ProfileFormEl)({
-            input: new (0, _input.InputText)({
-                name: "display_name",
-                required: true,
-                disabled: this.props.disabled,
-                value: profileData.chatname
-            }),
-            label: "Имя в чате"
+        this.children.blockChatname = new (0, _formBlock.FormBlockChatname)({
+            disabled: this.props.disabled,
+            value: profileData.chatname
         });
-        this.children.profileElPhone = new (0, _profileEl.ProfileFormEl)({
-            input: new (0, _input.InputPhone)({
-                name: "phone",
-                required: true,
-                disabled: this.props.disabled,
-                value: profileData.phone
-            }),
-            label: "Телефон"
+        this.children.blockPhone = new (0, _formBlock.FormBlockPhone)({
+            disabled: this.props.disabled,
+            value: profileData.phone
         });
-        this.children.button = new (0, _button.Button)({
-            type: "submit",
-            class: "button m-auto",
+        this.children.button = new (0, _buttonSimple.Button)({
             events: {
-                click: function() {
-                    return true;
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
                 }
             },
-            label: "Сохранить"
+            label: "Сохранить",
+            class: "button m-auto",
+            type: "submit"
         });
     }
     render() {
@@ -5571,14 +5999,14 @@ class ProfileForm extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageProfileForm.hbs":"89e7h","../../form/input":"6brp5","../../form/profileEl":"i21Rg","../../button":"dZaQH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89e7h":[function(require,module,exports) {
+},{"./pageProfileForm.hbs":"89e7h","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../formBlocks/formBlock":"5zOur","../../form/form":"1enI1"}],"89e7h":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
 var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
 const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
     "1": function(container, depth0, helpers, partials, data) {
-        return '    <ul class="settings__data">\r\n        <li><a href="" class="c-blue">Изменить данные</a></li>\r\n        <li><a href="" class="c-blue">Изменить пароль</a></li>\r\n        <li><a href="" class="c-red">Выйти</a></li>\r\n    </ul>\r\n';
+        return '    <ul class="settings__data">\n        <li><a href="" class="c-blue">Изменить данные</a></li>\n        <li><a href="" class="c-blue">Изменить пароль</a></li>\n        <li><a href="" class="c-red">Выйти</a></li>\n    </ul>\n';
     },
     "3": function(container, depth0, helpers, partials, data) {
         var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -5591,15 +6019,15 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 18,
+                    "line": 19,
                     "column": 4
                 },
                 "end": {
-                    "line": 18,
+                    "line": 19,
                     "column": 16
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "compiler": [
         8,
@@ -5610,8 +6038,8 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<ul class="settings__data">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElLogin") || (depth0 != null ? lookupProperty(depth0, "profileElLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "profileElLogin",
+        return '<div class="settings__data">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockEmail") || (depth0 != null ? lookupProperty(depth0, "blockEmail") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockEmail",
             "hash": {},
             "data": data,
             "loc": {
@@ -5621,11 +6049,11 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 },
                 "end": {
                     "line": 2,
-                    "column": 24
+                    "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElName") || (depth0 != null ? lookupProperty(depth0, "profileElName") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "profileElName",
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockLogin") || (depth0 != null ? lookupProperty(depth0, "blockLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockLogin",
             "hash": {},
             "data": data,
             "loc": {
@@ -5635,52 +6063,66 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 },
                 "end": {
                     "line": 3,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockName") || (depth0 != null ? lookupProperty(depth0, "blockName") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockName",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 4
+                },
+                "end": {
+                    "line": 4,
+                    "column": 19
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockSurname") || (depth0 != null ? lookupProperty(depth0, "blockSurname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockSurname",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 22
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockChatname") || (depth0 != null ? lookupProperty(depth0, "blockChatname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockChatname",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 4
+                },
+                "end": {
+                    "line": 6,
                     "column": 23
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElSurname") || (depth0 != null ? lookupProperty(depth0, "profileElSurname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "profileElSurname",
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "blockPhone") || (depth0 != null ? lookupProperty(depth0, "blockPhone") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "blockPhone",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 4,
+                    "line": 7,
                     "column": 4
                 },
                 "end": {
-                    "line": 4,
-                    "column": 26
+                    "line": 7,
+                    "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElChatname") || (depth0 != null ? lookupProperty(depth0, "profileElChatname") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "profileElChatname",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 5,
-                    "column": 4
-                },
-                "end": {
-                    "line": 5,
-                    "column": 27
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "profileElPhone") || (depth0 != null ? lookupProperty(depth0, "profileElPhone") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "profileElPhone",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 6,
-                    "column": 4
-                },
-                "end": {
-                    "line": 6,
-                    "column": 24
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n</ul>\r\n\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "disabled") : depth0, {
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "disabled") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -5688,15 +6130,15 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 9,
+                    "line": 10,
                     "column": 0
                 },
                 "end": {
-                    "line": 15,
+                    "line": 16,
                     "column": 7
                 }
             }
-        })) != null ? stack1 : "") + "\r\n" + ((stack1 = lookupProperty(helpers, "unless").call(alias1, depth0 != null ? lookupProperty(depth0, "disabled") : depth0, {
+        })) != null ? stack1 : "") + "\n" + ((stack1 = lookupProperty(helpers, "unless").call(alias1, depth0 != null ? lookupProperty(depth0, "disabled") : depth0, {
             "name": "unless",
             "hash": {},
             "fn": container.program(3, data, 0),
@@ -5704,85 +6146,15 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 17,
+                    "line": 18,
                     "column": 0
                 },
                 "end": {
-                    "line": 19,
+                    "line": 20,
                     "column": 11
                 }
             }
         })) != null ? stack1 : "");
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i21Rg":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ProfileFormEl", ()=>ProfileFormEl);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _profileElHbs = require("./profileEl.hbs");
-var _profileElHbsDefault = parcelHelpers.interopDefault(_profileElHbs);
-class ProfileFormEl extends (0, _blockDefault.default) {
-    constructor(props){
-        super("li", props);
-    }
-    init() {
-        super.init();
-        this.children.input = this.props.input;
-    }
-    render() {
-        return this.compile((0, _profileElHbsDefault.default), this.props);
-    }
-}
-
-},{"../../../utils/Block":"915bj","./profileEl.hbs":"idFen","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"idFen":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return "<span>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "label",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 6
-                },
-                "end": {
-                    "line": 1,
-                    "column": 15
-                }
-            }
-        }) : helper)) + "</span>\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "input",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 0
-                },
-                "end": {
-                    "line": 2,
-                    "column": 11
-                }
-            }
-        }) : helper)) != null ? stack1 : "");
     },
     "useData": true
 });

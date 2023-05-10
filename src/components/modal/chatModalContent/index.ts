@@ -1,39 +1,17 @@
 import template from "./chatModalContent.hbs";
-import {Button} from "../../button";
-import {StartFormEl, StartFormElProps} from "../../form/startFormEl";
+import {chatModalContentProps} from "../modal";
+import {FormChat} from "../../form/formChat/formChat";
 import Block from "../../../utils/Block";
-
-export interface chatModalContentProps {
-    title: string,
-    inputProps?: StartFormElProps,
-    buttonValue: string,
-    formAction: string,
-    formMethod: string,
-}
 
 export class ChatModalContent extends Block {
     constructor(props: chatModalContentProps) {
-        super('form', props);
+        super('div', props);
     }
 
     protected init() {
         super.init();
 
-        this.element?.setAttribute('action', this.props.formAction)
-        this.element?.setAttribute('method', this.props.formMethod)
-
-        this.children.inputEl = new StartFormEl(this.props.inputProps);
-
-        this.children.button = new Button({
-            class: "button",
-            events: {
-                click: () => {
-                    return true;
-                }
-            },
-            label: this.props.buttonValue,
-            type: "submit"
-        })
+        this.children.form = new FormChat(this.props.formProps, this.props.title, this.props.buttonValue)
     }
 
 

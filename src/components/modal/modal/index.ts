@@ -1,7 +1,8 @@
 import Block from "../../../utils/Block";
 import template from "./modal.hbs";
-import {ChatModalContent, chatModalContentProps} from "../chatModalContent";
+import {ChatModalContent} from "../chatModalContent";
 import {ProfileModalContent, profileModalProps} from "../profileModalContent";
+import {formProps} from "../../form/form";
 
 export abstract class Modal extends Block {
     constructor(props: chatModalContentProps|profileModalProps) {
@@ -17,8 +18,16 @@ export abstract class Modal extends Block {
         return this.compile(template, this.props)
     }
 
-    show():void {console.log(1)}
-    hide():void {console.log(-1)}
+    show():void {//sdf
+    }
+    hide():void {//sd
+    }
+}
+
+export interface chatModalContentProps {
+    formProps: formProps,
+    title: string,
+    buttonValue: string
 }
 
 export class ChatModal extends Modal {

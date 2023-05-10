@@ -17,8 +17,15 @@ export class ProfileContent extends Block {
 
     protected init() {
         super.init();
-        this.children.form = new ProfileForm(this.props.disabled);
-        this.children.modal = new ProfileModal(this.props.modalProps)
+        this.children.form = new ProfileForm({
+            action: 'sdf',
+            method: 'sdf',
+            class: 'edit-settings'
+        }, {disabled: this.props.disabled});
+
+        if(this.props.modalShow){
+            this.children.modal = new ProfileModal(this.props.modalProps)
+        }
     }
 
 

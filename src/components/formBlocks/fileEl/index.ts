@@ -1,11 +1,11 @@
 import Block from "../../../utils/Block";
-import {Input} from "../input";
+import {Input2} from "../../input/input";
 import template from "./startFormEl.hbs";
 
 export interface FileFormElProps {
     fileLoaded: boolean,
     text: string,
-    inputType: Input
+    inputType: Input2
 }
 
 export class FileFormEl extends Block {

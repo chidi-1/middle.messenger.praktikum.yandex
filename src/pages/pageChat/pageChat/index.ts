@@ -1,6 +1,6 @@
 import Block from '../../../utils/Block';
 import template from './pageChat.hbs';
-import {FormSearchChat} from "../../../components/form/search";
+import {FormSearchChat} from "../../../components/formBlocks/search";
 import {ChatList} from "../../../components/chat/chatList";
 import {ChatHeader} from "../../../components/chat/chatHeader";
 import {ChatFooter} from "../../../components/chat/chatFooter";
@@ -24,7 +24,10 @@ export class PageChat extends Block {
 
         this.children.chatHeader = new ChatHeader({showMenu: false})
         this.children.chatContent = new ChatContent(messageList)
-        this.children.chatFooter = new ChatFooter({showMenu: false})
+        this.children.chatFooter = new ChatFooter({
+            action: "sdf",
+            method: "sdf"
+        },{showMenu: false})
     }
 
     render() {

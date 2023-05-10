@@ -4,12 +4,12 @@
 @import "css/text.css";
 @import "css/layout.css";
 @import "css/spacing.css";
-@import "css/form.css";
 @import "css/chat.css";
 @import "css/settings.css";
 
-@import "components/form/input/input.css";
-@import "components/form/search/search.css";
+@import "components/input/input/input.css";
+@import "components/formBlocks/search/search.css";
+@import "components/formBlocks/formBlock/formBlock.css";
 @import "components/button/button.css";
 @import "components/chat/chatList/chatlist.css";
 @import "components/modal/modal/modal.css";

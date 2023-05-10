@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'icomoon';
+  font-family: icomoon;
   src:  url('../../static/fonts/icomoon.eot?7nrus9');
   src:  url('../../static/fonts/icomoon.eot?7nrus9#iefix') format('embedded-opentype'),
     url('../../static/fonts/icomoon.ttf?7nrus9') format('truetype'),
@@ -11,7 +11,7 @@
 }
 
 [class^="icon-"], [class*=" icon-"] {
-  font-family: 'icomoon' !important;
+  font-family: icomoon, sans-serif !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -23,46 +23,50 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-plus:before {
+.icon-plus::before {
   content: "\e90a";
 }
-.icon-remove:before {
+
+.icon-remove::before {
   content: "\e90b";
 }
-.icon-angle-right:before {
+
+.icon-angle-right::before {
   content: "\e905";
 }
-.icon-double-tick:before {
+
+.icon-double-tick::before {
   content: "\e900";
 }
-.icon-clip:before {
+
+.icon-clip::before {
   content: "\e903";
-  
 }
-.icon-ellipsis:before {
+
+.icon-ellipsis::before {
   content: "\e904";
 }
-.icon-search:before {
+
+.icon-search::before {
   content: "\e906";
-  
 }
-.icon-location:before {
+
+.icon-location::before {
   content: "\e907";
-  
 }
-.icon-media:before {
+
+.icon-media::before {
   content: "\e908";
-  
 }
-.icon-file:before {
+
+.icon-file::before {
   content: "\e909";
-  
 }
-.icon-arrow-left:before {
+
+.icon-arrow-left::before {
   content: "\e901";
-  
 }
-.icon-arrow-right:before {
+
+.icon-arrow-right::before {
   content: "\e902";
-  
 }

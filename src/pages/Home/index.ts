@@ -1,6 +1,6 @@
 import Block from '../../utils/Block';
 import template from './home.hbs';
-import {Button} from '../../components/button/';
+import {Button} from '../../components/button/buttonSimple';
 import {renderDom} from "../../utils/renderDom";
 
 interface HomePageProps {

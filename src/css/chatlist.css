@@ -12,15 +12,17 @@ ul.contacts {
     padding: 10px;
     cursor: pointer;
 }
+
 .contacts__el.active {
     background: var(--blue-l);
 }
+
 .contacts__el.search-result {
     display: flex;
     align-items: center;
 }
 
-.contacts__el:before {
+.contacts__el::before {
     position: absolute;
     content: "";
     left: 10px;
@@ -30,7 +32,7 @@ ul.contacts {
     background: var(--chat-gray);
 }
 
-.contacts__el:last-child:after {
+.contacts__el:last-child::after {
     position: absolute;
     content: "";
     left: 10px;

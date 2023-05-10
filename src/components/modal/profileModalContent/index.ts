@@ -1,8 +1,8 @@
 import template from "./profileModalContent.hbs";
-import {Button} from "../../button";
-import {InputFile} from "../../form/input";
+import {Button} from "../../button/buttonSimple";
+import {Input2, inputType} from "../../input/input";
 import Block from "../../../utils/Block";
-import {FileFormEl} from "../../form/fileEl";
+import {FileFormEl} from "../../formBlocks/fileEl";
 
 export interface profileModalProps {
     title: string,
@@ -29,7 +29,8 @@ export class ProfileModalContent extends Block {
 
         this.children.inputEl = new FileFormEl({
             fileLoaded: this.props.fileLoaded,
-            inputType: new InputFile({
+            inputType: new Input2({
+                type: inputType.file,
                 name: "file",
                 required: true,
                 value: this.props.inputValue
