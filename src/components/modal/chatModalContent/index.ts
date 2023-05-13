@@ -3,7 +3,7 @@ import {chatModalContentProps} from "../modal";
 import {FormChat} from "../../form/formChat/formChat";
 import Block from "../../../utils/Block";
 
-export class ChatModalContent extends Block {
+export class ChatModalContent extends Block<chatModalContentProps> {
     constructor(props: chatModalContentProps) {
         super('div', props);
     }
@@ -19,5 +19,4 @@ export class ChatModalContent extends Block {
         return this.compile(template, this.props)
     }
 }
-
 

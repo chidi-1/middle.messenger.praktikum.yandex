@@ -1,6 +1,6 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import {
-    Input2,
+    Input,
     inputProps,
     inputType,
     isCharEmail, isContainsCapitalLetter,
@@ -11,14 +11,14 @@ import {
 } from "../../input/input";
 import template from "./formBlock.hbs";
 
-export interface FormBlockProps {
+export interface FormBlockProps extends IProperties {
     label: string;
     hasError?: boolean;
     errorText?: string;
     inputProps: inputProps;
 }
 
-export class FormBlock extends Block implements iValidable{
+export class FormBlock extends Block<FormBlockProps> implements iValidable{
     constructor(props: FormBlockProps) {
         super('div', props);
     }
@@ -29,11 +29,11 @@ export class FormBlock extends Block implements iValidable{
         if(this.props.hasError){
             this.element?.classList.add('error');
         }
-        this.children.input = new Input2(this.props.inputProps,this.checkValidAndRerender.bind(this));
+        this.children.input = new Input(this.props.inputProps,this.checkValidAndRerender.bind(this));
     }
 
     checkValidAndRerender(){
-        if((this.children.input as Input2).isValid()){
+        if((this.children.input as Input).isValid()){
             this.props.hasError = false;
         }
         else{
@@ -43,7 +43,6 @@ export class FormBlock extends Block implements iValidable{
             })
         }
     }
-
     protected render(): DocumentFragment {
         if(this.props.hasError){
             this.element?.classList.add('error');
@@ -55,28 +54,28 @@ export class FormBlock extends Block implements iValidable{
     }
 
     isValid(): boolean {
-        return (this.children.input as Input2).isValid();
+        return (this.children.input as Input).isValid();
     }
 
     validate(): void {
-        (this.children.input as Input2).validate();
+        (this.children.input as Input).validate();
         this.checkValidAndRerender();
     }
 
     getErrorText(): string {
-        return (this.children.input as Input2).getErrorText();
+        return (this.children.input as Input).getErrorText();
     }
 
     getName(): string {
-        return (this.children.input as Input2).getName();
+        return (this.children.input as Input).getName();
     }
 
     getValue(): string {
-        return (this.children.input as Input2).getValue();
+        return (this.children.input as Input).getValue();
     }
 
     getInputSubtmiData(): Record<string, string> {
-        return {key: (this.children.input as Input2).getName(), value: (this.children.input as Input2).getValue()}
+        return {key: (this.children.input as Input).getName(), value: (this.children.input as Input).getValue()}
     }
 }
 

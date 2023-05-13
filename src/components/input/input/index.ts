@@ -1,4 +1,4 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 
 export interface iValidable {
     validate(): void;
@@ -13,7 +13,7 @@ export enum inputType {
     file = 'file',
 }
 
-export interface inputProps {
+export interface inputProps extends IProperties {
     name: string;
     value?: string;
     required?: boolean;
@@ -101,7 +101,7 @@ export function isCharEmail(value: string) {
     }
 }
 
-export class Input2 extends Block implements iValidable {
+export class Input extends Block<inputProps> implements iValidable {
     onChanged?: () => void;
     errorText = '';
 
@@ -127,12 +127,12 @@ export class Input2 extends Block implements iValidable {
         super.init();
         this.element?.classList.add('input');
         // сделать через  белый список
-        this.setAttributes('type', this.props.type);
+        this.setAttributes('type', this.props.type!);
         this.setAttributes('name', this.props.name);
-        this.setAttributes('value', this.props.value);
+        this.setAttributes('value', this.props.value!);
         this.setAttributes('required', this.props.required);
         this.setAttributes('disabled', this.props.disabled);
-        this.setAttributes('placeholder', this.props.placeholder);
+        this.setAttributes('placeholder', this.props.placeholder!);
     }
 
     onChange(): void {
@@ -143,7 +143,7 @@ export class Input2 extends Block implements iValidable {
     }
 
     getValue(): string {
-        return this.props.value;
+        return this.props.value!;
     }
 
     getName(): string {
@@ -155,8 +155,8 @@ export class Input2 extends Block implements iValidable {
     }
 
     validate() {
-        for (const validator of this.props.validators) {
-            const validateResult = validator(this.props.value);
+        for (const validator of this.props.validators!) {
+            const validateResult = validator(this.props.value!);
 
             if (validateResult !== undefined) {
                 this.props.isValid = false;

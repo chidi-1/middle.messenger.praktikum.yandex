@@ -1,8 +1,7 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import template from "./chatListSearch.hbs";
 
-
-interface contactProps {
+interface contactProps extends IProperties{
     name: string;
     time: string;
     message: string;
@@ -10,11 +9,11 @@ interface contactProps {
     unread?: number
 }
 
-interface chatListProps {
+interface chatListProps extends IProperties {
     contacts: contactProps[];
 }
 
-export class ChatListSearchResult extends Block {
+export class ChatListSearchResult extends Block<chatListProps> {
     constructor(props: chatListProps) {
         super('ul', props);
     }
@@ -28,4 +27,3 @@ export class ChatListSearchResult extends Block {
         return this.compile(template, this.props)
     }
 }
-

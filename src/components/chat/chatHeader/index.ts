@@ -1,11 +1,11 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import template from "./chatHeader.hbs";
 
-export interface dropdownMenuProps {
+export interface dropdownMenuProps extends IProperties {
     showMenu: boolean;
 }
 
-export class ChatHeader extends Block {
+export class ChatHeader extends Block<dropdownMenuProps> {
     constructor(props: dropdownMenuProps) {
         super('div', props);
     }

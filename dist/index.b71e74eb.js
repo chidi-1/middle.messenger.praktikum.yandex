@@ -760,6 +760,12 @@ class Block {
             this._element?.addEventListener(eventName, events[eventName]);
         });
     }
+    _removeEvents() {
+        const { events ={}  } = this.props;
+        Object.keys(events).forEach((eventName)=>{
+            this._element?.removeEventListener(eventName, events[eventName]);
+        });
+    }
     _registerEvents(eventBus) {
         eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
@@ -801,6 +807,7 @@ class Block {
     }
     _render() {
         const fragment = this.render();
+        this._removeEvents();
         this._element.innerHTML = "";
         this._element.append(fragment);
         this._addEvents();
@@ -982,7 +989,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="site-navigation">\r\n    <h1>Список сверстанных страниц</h1>\r\n\r\n    <ul class="site-navigation__list">\r\n        <li class="site-navigation__el">\r\n            <span>Ошибка 404</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button404") || (depth0 != null ? lookupProperty(depth0, "button404") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="site-navigation">\n    <h1>Список сверстанных страниц</h1>\n\n    <ul class="site-navigation__list">\n        <li class="site-navigation__el">\n            <span>Ошибка 404</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button404") || (depth0 != null ? lookupProperty(depth0, "button404") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "button404",
             "hash": {},
             "data": data,
@@ -996,7 +1003,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 27
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Ошибка 500</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button500") || (depth0 != null ? lookupProperty(depth0, "button500") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Ошибка 500</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "button500") || (depth0 != null ? lookupProperty(depth0, "button500") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "button500",
             "hash": {},
             "data": data,
@@ -1010,7 +1017,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 27
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Форма Вход</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonLogin") || (depth0 != null ? lookupProperty(depth0, "buttonLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Форма Вход</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonLogin") || (depth0 != null ? lookupProperty(depth0, "buttonLogin") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonLogin",
             "hash": {},
             "data": data,
@@ -1024,7 +1031,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 29
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Форма Регистрация</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonReg") || (depth0 != null ? lookupProperty(depth0, "buttonReg") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Форма Регистрация</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonReg") || (depth0 != null ? lookupProperty(depth0, "buttonReg") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonReg",
             "hash": {},
             "data": data,
@@ -1038,7 +1045,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 27
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Чат выбор</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatEmpty") || (depth0 != null ? lookupProperty(depth0, "buttonChatEmpty") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Чат выбор</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatEmpty") || (depth0 != null ? lookupProperty(depth0, "buttonChatEmpty") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonChatEmpty",
             "hash": {},
             "data": data,
@@ -1052,7 +1059,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 33
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Чат переписка</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChat") || (depth0 != null ? lookupProperty(depth0, "buttonChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Чат переписка</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChat") || (depth0 != null ? lookupProperty(depth0, "buttonChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonChat",
             "hash": {},
             "data": data,
@@ -1066,7 +1073,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Чат функции чата</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatFunctions") || (depth0 != null ? lookupProperty(depth0, "buttonChatFunctions") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Чат функции чата</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatFunctions") || (depth0 != null ? lookupProperty(depth0, "buttonChatFunctions") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonChatFunctions",
             "hash": {},
             "data": data,
@@ -1080,7 +1087,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 37
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Чат поиск</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatSearch") || (depth0 != null ? lookupProperty(depth0, "buttonChatSearch") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Чат поиск</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatSearch") || (depth0 != null ? lookupProperty(depth0, "buttonChatSearch") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonChatSearch",
             "hash": {},
             "data": data,
@@ -1094,7 +1101,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 34
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Чат Добавить пользователя</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatAddUser") || (depth0 != null ? lookupProperty(depth0, "buttonChatAddUser") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Чат Добавить пользователя</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatAddUser") || (depth0 != null ? lookupProperty(depth0, "buttonChatAddUser") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonChatAddUser",
             "hash": {},
             "data": data,
@@ -1108,7 +1115,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 35
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Чат Удалить пользователя</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatRemoveUser") || (depth0 != null ? lookupProperty(depth0, "buttonChatRemoveUser") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Чат Удалить пользователя</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonChatRemoveUser") || (depth0 != null ? lookupProperty(depth0, "buttonChatRemoveUser") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonChatRemoveUser",
             "hash": {},
             "data": data,
@@ -1122,7 +1129,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 38
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n\r\n        <li class="site-navigation__el">\r\n            <span>Профиль </span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfil") || (depth0 != null ? lookupProperty(depth0, "buttonProfil") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n\n        <li class="site-navigation__el">\n            <span>Профиль </span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfil") || (depth0 != null ? lookupProperty(depth0, "buttonProfil") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonProfil",
             "hash": {},
             "data": data,
@@ -1136,7 +1143,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 30
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Профиль изменение данных</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfilEdit") || (depth0 != null ? lookupProperty(depth0, "buttonProfilEdit") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Профиль изменение данных</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfilEdit") || (depth0 != null ? lookupProperty(depth0, "buttonProfilEdit") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonProfilEdit",
             "hash": {},
             "data": data,
@@ -1150,7 +1157,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 34
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Профиль Загрузите файл</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModal") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Профиль Загрузите файл</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModal") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonProfileModal",
             "hash": {},
             "data": data,
@@ -1164,7 +1171,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 36
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Профиль Загрузите файл - успешно</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModalLoaded") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModalLoaded") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Профиль Загрузите файл - успешно</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModalLoaded") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModalLoaded") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonProfileModalLoaded",
             "hash": {},
             "data": data,
@@ -1178,7 +1185,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 42
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Профиль Загрузите файл - ошибка файла</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModalErrorFile") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModalErrorFile") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Профиль Загрузите файл - ошибка файла</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModalErrorFile") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModalErrorFile") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonProfileModalErrorFile",
             "hash": {},
             "data": data,
@@ -1192,7 +1199,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 45
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n        </li>\r\n        <li class="site-navigation__el">\r\n            <span>Профиль Загрузите файл - ошибка загрузки</span>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModalErrorLoad") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModalErrorLoad") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n        </li>\n        <li class="site-navigation__el">\n            <span>Профиль Загрузите файл - ошибка загрузки</span>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonProfileModalErrorLoad") || (depth0 != null ? lookupProperty(depth0, "buttonProfileModalErrorLoad") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "buttonProfileModalErrorLoad",
             "hash": {},
             "data": data,
@@ -1206,7 +1213,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 45
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        </li>\r\n    </ul>\r\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\n        </li>\n    </ul>\n</div>\n";
     },
     "useData": true
 });
@@ -2480,7 +2487,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 11
                 }
             }
-        }) : helper));
+        }) : helper)) + "\n";
     },
     "useData": true
 });
@@ -2501,7 +2508,7 @@ class PageError extends (0, _blockDefault.default) {
         super("div", {});
     }
     render() {
-        return this.compile((0, _pageErrorHbsDefault.default), this.props);
+        return this.compile((0, _pageErrorHbsDefault.default), {});
     }
 }
 class PageError404 extends PageError {
@@ -2544,7 +2551,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "errorContent") || (depth0 != null ? lookupProperty(depth0, "errorContent") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "errorContent") || (depth0 != null ? lookupProperty(depth0, "errorContent") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "errorContent",
             "hash": {},
             "data": data,
@@ -2558,7 +2565,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 18
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -2600,7 +2607,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="content text-center">\r\n    <p class="fs-40 mb-20">' + alias4((helper = (helper = lookupProperty(helpers, "number") || (depth0 != null ? lookupProperty(depth0, "number") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="content text-center">\n    <p class="fs-40 mb-20">' + alias4((helper = (helper = lookupProperty(helpers, "number") || (depth0 != null ? lookupProperty(depth0, "number") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "number",
             "hash": {},
             "data": data,
@@ -2614,7 +2621,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 37
                 }
             }
-        }) : helper)) + '</p>\r\n    <p class="fs-20 mb-70">' + alias4((helper = (helper = lookupProperty(helpers, "text") || (depth0 != null ? lookupProperty(depth0, "text") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) + '</p>\n    <p class="fs-20 mb-70">' + alias4((helper = (helper = lookupProperty(helpers, "text") || (depth0 != null ? lookupProperty(depth0, "text") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "text",
             "hash": {},
             "data": data,
@@ -2628,7 +2635,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 35
                 }
             }
-        }) : helper)) + '</p>\r\n    <a href="" class="c-blue fs-11">' + alias4((helper = (helper = lookupProperty(helpers, "linkText") || (depth0 != null ? lookupProperty(depth0, "linkText") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) + '</p>\n    <a href="" class="c-blue fs-11">' + alias4((helper = (helper = lookupProperty(helpers, "linkText") || (depth0 != null ? lookupProperty(depth0, "linkText") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "linkText",
             "hash": {},
             "data": data,
@@ -2642,7 +2649,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 48
                 }
             }
-        }) : helper)) + "</a>\r\n</div>";
+        }) : helper)) + "</a>\n</div>\n";
     },
     "useData": true
 });
@@ -2670,11 +2677,11 @@ class PageLogin extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageFormLoginHbsDefault.default), this.props);
+        return this.compile((0, _pageFormLoginHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageFormLogin.hbs":"h2zwk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/formLogin/formLogin":"6EqDK"}],"h2zwk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageFormLogin.hbs":"h2zwk","../../../components/form/formLogin/formLogin":"6EqDK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h2zwk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -2725,8 +2732,8 @@ class FormLogin extends (0, _form.Form) {
     }
     init() {
         super.init();
-        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)();
-        this.children.blockPassword = new (0, _formBlock.FormBlockPassword)();
+        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)({});
+        this.children.blockPassword = new (0, _formBlock.FormBlockPassword)({});
         this.children.button = new (0, _buttonSimple.Button)({
             events: {
                 click: ()=>{
@@ -2769,7 +2776,7 @@ class FormBlock extends (0, _blockDefault.default) {
         super.init();
         this.element?.classList.add("form__el");
         if (this.props.hasError) this.element?.classList.add("error");
-        this.children.input = new (0, _input.Input2)(this.props.inputProps, this.checkValidAndRerender.bind(this));
+        this.children.input = new (0, _input.Input)(this.props.inputProps, this.checkValidAndRerender.bind(this));
     }
     checkValidAndRerender() {
         if (this.children.input.isValid()) this.props.hasError = false;
@@ -3001,7 +3008,7 @@ parcelHelpers.export(exports, "isFirsLetterСapitalized", ()=>isFirsLetterСapit
 parcelHelpers.export(exports, "isContainsCapitalLetter", ()=>isContainsCapitalLetter);
 parcelHelpers.export(exports, "isContainsNumber", ()=>isContainsNumber);
 parcelHelpers.export(exports, "isCharEmail", ()=>isCharEmail);
-parcelHelpers.export(exports, "Input2", ()=>Input2);
+parcelHelpers.export(exports, "Input", ()=>Input);
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 let inputType;
@@ -3051,7 +3058,7 @@ function isContainsNumber(value) {
 function isCharEmail(value) {
     if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-zA-Z0-9-.]+$/.test(value)) return "Неправильный формат";
 }
-class Input2 extends (0, _blockDefault.default) {
+class Input extends (0, _blockDefault.default) {
     errorText = "";
     constructor(props, onChanged){
         const defaultProps = {
@@ -3248,7 +3255,6 @@ class Form extends (0, _blockDefault.default) {
         const defaultProps = {
             "events": {
                 "submit": ()=>{
-                    console.log("submit");
                     (0, _funcions.submitForm)(this);
                     event?.preventDefault();
                 }
@@ -3271,7 +3277,7 @@ class Form extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/funcions":"2hNw3"}],"lfBh0":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","../../utils/funcions":"2hNw3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lfBh0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3356,11 +3362,11 @@ class PageReg extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageFormRegHbsDefault.default), this.props);
+        return this.compile((0, _pageFormRegHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageFormReg.hbs":"h6xqZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/formReg/formReg":"1B7Eu"}],"h6xqZ":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageFormReg.hbs":"h6xqZ","../../../components/form/formReg/formReg":"1B7Eu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h6xqZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3411,13 +3417,13 @@ class FormReg extends (0, _form.Form) {
     }
     init() {
         super.init();
-        this.children.blockEmail1 = new (0, _formBlock.FormBlockEmail)();
-        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)();
-        this.children.blockName = new (0, _formBlock.FormBlockName)();
-        this.children.blockSurname = new (0, _formBlock.FormBlockSurname)();
-        this.children.blockPhone = new (0, _formBlock.FormBlockPhone)();
-        this.children.blockPassword = new (0, _formBlock.FormBlockPassword)();
-        this.children.blockPasswordDouble = new (0, _formBlock.FormBlockPasswordDouble)();
+        this.children.blockEmail1 = new (0, _formBlock.FormBlockEmail)({});
+        this.children.blockLogin = new (0, _formBlock.FormBlockLogin)({});
+        this.children.blockName = new (0, _formBlock.FormBlockName)({});
+        this.children.blockSurname = new (0, _formBlock.FormBlockSurname)({});
+        this.children.blockPhone = new (0, _formBlock.FormBlockPhone)({});
+        this.children.blockPassword = new (0, _formBlock.FormBlockPassword)({});
+        this.children.blockPasswordDouble = new (0, _formBlock.FormBlockPasswordDouble)({});
         this.children.button = new (0, _buttonSimple.Button)({
             events: {
                 click: ()=>{
@@ -3434,7 +3440,7 @@ class FormReg extends (0, _form.Form) {
     }
 }
 
-},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./formReg.hbs":"6ZzAn"}],"6ZzAn":[function(require,module,exports) {
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formReg.hbs":"6ZzAn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6ZzAn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3606,7 +3612,7 @@ class PageChatEmpty extends (0, _blockDefault.default) {
         this.children.chatList = new (0, _chatList.ChatList)(chatlist);
     }
     render() {
-        return this.compile((0, _pageChatEmptyHbsDefault.default), this.props);
+        return this.compile((0, _pageChatEmptyHbsDefault.default), {});
     }
 }
 
@@ -3625,7 +3631,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="aside">\n    <div class="aside__header">\n        <div class="text-right">\n            <button class="js--toggle-data no-style">\n                Профиль\n                <span class="icon-angle-right"></span>\n            </button>\n        </div>\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "formSearchChat",
             "hash": {},
             "data": data,
@@ -3639,7 +3645,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatList",
             "hash": {},
             "data": data,
@@ -3653,7 +3659,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat empty">\r\n    <span class="fs-12">Выберите чат чтобы отправить сообщение</span>\r\n</div>';
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat empty">\n    <span class="fs-12">Выберите чат чтобы отправить сообщение</span>\n</div>\n';
     },
     "useData": true
 });
@@ -3691,7 +3697,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "    " + alias1(container.lambda(depth0, depth0)) + '\r\n    <li class="contacts__el">\r\n        <div class="contacts__userpick"></div>\r\n        <div class="contacts__text">\r\n            <div class="space-between">\r\n                <span class="contacts__name">' + alias1((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
+        return "    " + alias1(container.lambda(depth0, depth0)) + '\n    <li class="contacts__el">\n        <div class="contacts__userpick"></div>\n        <div class="contacts__text">\n            <div class="space-between">\n                <span class="contacts__name">' + alias1((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
             "name": "name",
             "hash": {},
             "data": data,
@@ -3705,7 +3711,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 53
                 }
             }
-        }) : helper)) + '</span>\r\n                <span class="contacts__date">' + alias1((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
+        }) : helper)) + '</span>\n                <span class="contacts__date">' + alias1((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
             "name": "time",
             "hash": {},
             "data": data,
@@ -3719,7 +3725,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 53
                 }
             }
-        }) : helper)) + '</span>\r\n            </div>\r\n            <div class="space-between">\r\n                <p class="contacts__message">\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
+        }) : helper)) + '</span>\n            </div>\n            <div class="space-between">\n                <p class="contacts__message">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(2, data, 0),
@@ -3749,7 +3755,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 31
                 }
             }
-        }) : helper)) + "\r\n                </p>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
+        }) : helper)) + "\n                </p>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(4, data, 0),
@@ -3765,10 +3771,10 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 23
                 }
             }
-        })) != null ? stack1 : "") + "            </div>\r\n        </div>\r\n    </li>\r\n";
+        })) != null ? stack1 : "") + "            </div>\n        </div>\n    </li>\n";
     },
     "2": function(container, depth0, helpers, partials, data) {
-        return '                        <span class="fw-600">Вы: </span>\r\n';
+        return '                        <span class="fw-600">Вы: </span>\n';
     },
     "4": function(container, depth0, helpers, partials, data) {
         var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -3789,7 +3795,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 61
                 }
             }
-        }) : helper)) + "</span>\r\n";
+        }) : helper)) + "</span>\n";
     },
     "compiler": [
         8,
@@ -3838,7 +3844,7 @@ class FormSearchChat extends (0, _blockDefault.default) {
     init() {
         super.init();
         this.element?.classList.add("search-form");
-        this.children.input = new (0, _input.Input2)({
+        this.children.input = new (0, _input.Input)({
             disabled: false,
             type: (0, _input.inputType).text,
             validators: [],
@@ -3881,7 +3887,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 11
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n<span class="icon-search"></span>\r\n\r\n';
+        }) : helper)) != null ? stack1 : "") + '\n<span class="icon-search"></span>\n';
     },
     "useData": true
 });
@@ -3925,11 +3931,11 @@ class PageChat extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageChatHbsDefault.default), this.props);
+        return this.compile((0, _pageChatHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"c4XNp":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4XNp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3944,7 +3950,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="aside">\n    <div class="aside__header">\n        <div class="text-right">\n            <button class="js--toggle-data no-style">\n                Профиль\n                <span class="icon-angle-right"></span>\n            </button>\n        </div>\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "formSearchChat",
             "hash": {},
             "data": data,
@@ -3958,7 +3964,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatList",
             "hash": {},
             "data": data,
@@ -3972,7 +3978,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatHeader",
             "hash": {},
             "data": data,
@@ -3986,7 +3992,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatContent",
             "hash": {},
             "data": data,
@@ -4000,7 +4006,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 21
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatFooter",
             "hash": {},
             "data": data,
@@ -4014,7 +4020,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n";
     },
     "useData": true
 });
@@ -4059,7 +4065,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '\r\n    <div class="chat__interlocutor">\r\n        <div class="contacts__userpick"></div>\r\n        <span class="contacts__name fw-600">Вадим</span>\r\n    </div>\r\n    <div class="chat__settings menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
+        return '<div class="chat__interlocutor">\n    <div class="contacts__userpick"></div>\n    <span class="contacts__name fw-600">Вадим</span>\n</div>\n<div class="chat__settings menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -4067,15 +4073,15 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 6,
-                    "column": 41
+                    "line": 5,
+                    "column": 37
                 },
                 "end": {
-                    "line": 6,
-                    "column": 70
+                    "line": 5,
+                    "column": 66
                 }
             }
-        })) != null ? stack1 : "") + '">\r\n        <button class="no-style js--toggle-interlocutor-menu">\r\n            <span class="icon-ellipsis"></span>\r\n        </button>\r\n        <div class="menu">\r\n            <button class="no-style js--add-interlocutor">\r\n                <span class="icon-plus c-blue"></span>\r\n                <span>Добавить пользователя</span>\r\n            </button>\r\n            <button class="no-style js--remove-interlocutor">\r\n                <span class="icon-remove c-blue "></span>\r\n                <span>Удалить пользователя</span>\r\n            </button>\r\n        </div>\r\n    </div>';
+        })) != null ? stack1 : "") + '">\n    <button class="no-style js--toggle-interlocutor-menu">\n        <span class="icon-ellipsis"></span>\n    </button>\n    <div class="menu">\n        <button class="no-style js--add-interlocutor">\n            <span class="icon-plus c-blue"></span>\n            <span>Добавить пользователя</span>\n        </button>\n        <button class="no-style js--remove-interlocutor">\n            <span class="icon-remove c-blue "></span>\n            <span>Удалить пользователя</span>\n        </button>\n    </div>\n</div>\n';
     },
     "useData": true
 });
@@ -4101,7 +4107,7 @@ class ChatFooter extends (0, _form.Form) {
     init() {
         super.init();
         this.element?.classList.add("chat__footer");
-        this.children.input = new (0, _formBlock.FormBlockMsssage)();
+        this.children.input = new (0, _formBlock.FormBlockMsssage)({});
         this.children.button = new (0, _buttonWithIcon.ButtonWithIcon)({
             class: "no-style send-message",
             events: {
@@ -4118,7 +4124,7 @@ class ChatFooter extends (0, _form.Form) {
     }
 }
 
-},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../../utils/funcions":"2hNw3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../formBlocks/formBlock":"5zOur","../../form/form":"1enI1"}],"75UPv":[function(require,module,exports) {
+},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4344,7 +4350,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 45
                 }
             }
-        }) : helper)) + "</span>\r\n";
+        }) : helper)) + "</span>\n";
     },
     "4": function(container, depth0, helpers, partials, data) {
         var stack1, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -4367,7 +4373,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 55
                 }
             }
-        })) != null ? stack1 : "") + '">\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "text") : depth0, {
+        })) != null ? stack1 : "") + '">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "text") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(7, data, 0),
@@ -4399,7 +4405,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 23
                 }
             }
-        })) != null ? stack1 : "") + "            </div>\r\n";
+        })) != null ? stack1 : "") + "            </div>\n";
     },
     "5": function(container, depth0, helpers, partials, data) {
         return " own ";
@@ -4409,7 +4415,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '                    <div class="text">\r\n                        <div class="message__el">\r\n' + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "text") : depth0, {
+        return '                    <div class="text">\n                        <div class="message__el">\n' + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "text") : depth0, {
             "name": "each",
             "hash": {},
             "fn": container.program(8, data, 0),
@@ -4455,10 +4461,10 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 82
                 }
             }
-        }) : helper)) + "</span>\r\n                        </div>\r\n                    </div>\r\n";
+        }) : helper)) + "</span>\n                        </div>\n                    </div>\n";
     },
     "8": function(container, depth0, helpers, partials, data) {
-        return "                                <p>" + container.escapeExpression(container.lambda(depth0, depth0)) + "</p>\r\n";
+        return "                                <p>" + container.escapeExpression(container.lambda(depth0, depth0)) + "</p>\n";
     },
     "10": function(container, depth0, helpers, partials, data) {
         return " readed ";
@@ -4468,7 +4474,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '                    <div class="image">\r\n                        <div class="message__el ">\r\n                            <img src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '                    <div class="image">\n                        <div class="message__el ">\n                            <img src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "img",
             "hash": {},
             "data": data,
@@ -4482,7 +4488,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 45
                 }
             }
-        }) : helper)) + '" alt="">\r\n                            <span class="time ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
+        }) : helper)) + '" alt="">\n                            <span class="time ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(10, data, 0),
@@ -4512,7 +4518,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 82
                 }
             }
-        }) : helper)) + "</span>\r\n                        </div>\r\n                    </div>\r\n";
+        }) : helper)) + "</span>\n                        </div>\n                    </div>\n";
     },
     "compiler": [
         8,
@@ -4523,7 +4529,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="scroll-wrap">\r\n' + ((stack1 = lookupProperty(helpers, "each").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "messages") : depth0, {
+        return '<div class="scroll-wrap">\n' + ((stack1 = lookupProperty(helpers, "each").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "messages") : depth0, {
             "name": "each",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -4539,7 +4545,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        })) != null ? stack1 : "") + "</div>";
+        })) != null ? stack1 : "") + "</div>\n";
     },
     "useData": true
 });
@@ -4583,11 +4589,11 @@ class PageChatFunctions extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageChatFunctionsHbsDefault.default), this.props);
+        return this.compile((0, _pageChatFunctionsHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatFunctions.hbs":"Vy3j4","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"Vy3j4":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatFunctions.hbs":"Vy3j4","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Vy3j4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4602,7 +4608,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="aside">\n    <div class="aside__header">\n        <div class="text-right">\n            <button class="js--toggle-data no-style">\n                Профиль\n                <span class="icon-angle-right"></span>\n            </button>\n        </div>\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "formSearchChat",
             "hash": {},
             "data": data,
@@ -4616,7 +4622,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatList",
             "hash": {},
             "data": data,
@@ -4630,7 +4636,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatHeader",
             "hash": {},
             "data": data,
@@ -4644,7 +4650,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatContent",
             "hash": {},
             "data": data,
@@ -4658,7 +4664,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 21
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatFooter",
             "hash": {},
             "data": data,
@@ -4672,7 +4678,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n";
     },
     "useData": true
 });
@@ -4716,11 +4722,11 @@ class PageChatSearch extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageChatSearchHbsDefault.default), this.props);
+        return this.compile((0, _pageChatSearchHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatFooter":"3MFSa"}],"hwrCx":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hwrCx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4735,7 +4741,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="aside">\n    <div class="aside__header">\n        <div class="text-right">\n            <button class="js--toggle-data no-style">\n                Профиль\n                <span class="icon-angle-right"></span>\n            </button>\n        </div>\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "formSearchChat",
             "hash": {},
             "data": data,
@@ -4749,7 +4755,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatList",
             "hash": {},
             "data": data,
@@ -4763,7 +4769,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatHeader",
             "hash": {},
             "data": data,
@@ -4777,7 +4783,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatContent",
             "hash": {},
             "data": data,
@@ -4791,7 +4797,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 21
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatFooter",
             "hash": {},
             "data": data,
@@ -4805,7 +4811,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n";
     },
     "useData": true
 });
@@ -4843,7 +4849,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "    " + alias1(container.lambda(depth0, depth0)) + '\r\n    <li class="contacts__el search-result ">\r\n        <div class="contacts__userpick"></div>\r\n        <div class="contacts__text">\r\n            <div class="space-between">\r\n                <span class="contacts__name">' + alias1((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
+        return "    " + alias1(container.lambda(depth0, depth0)) + '\n    <li class="contacts__el search-result ">\n        <div class="contacts__userpick"></div>\n        <div class="contacts__text">\n            <div class="space-between">\n                <span class="contacts__name">' + alias1((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
             "name": "name",
             "hash": {},
             "data": data,
@@ -4857,7 +4863,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 53
                 }
             }
-        }) : helper)) + '</span>\r\n                <span class="contacts__date">' + alias1((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
+        }) : helper)) + '</span>\n                <span class="contacts__date">' + alias1((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias3, typeof helper === alias4 ? helper.call(alias2, {
             "name": "time",
             "hash": {},
             "data": data,
@@ -4871,7 +4877,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 53
                 }
             }
-        }) : helper)) + '</span>\r\n            </div>\r\n            <div class="space-between">\r\n                <p class="contacts__message">\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
+        }) : helper)) + '</span>\n            </div>\n            <div class="space-between">\n                <p class="contacts__message">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(2, data, 0),
@@ -4901,7 +4907,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 31
                 }
             }
-        }) : helper)) + "\r\n                </p>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
+        }) : helper)) + "\n                </p>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias2, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(4, data, 0),
@@ -4917,10 +4923,10 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 23
                 }
             }
-        })) != null ? stack1 : "") + "            </div>\r\n        </div>\r\n    </li>\r\n";
+        })) != null ? stack1 : "") + "            </div>\n        </div>\n    </li>\n";
     },
     "2": function(container, depth0, helpers, partials, data) {
-        return '                        <span class="fw-600">Вы: </span>\r\n';
+        return '                        <span class="fw-600">Вы: </span>\n';
     },
     "4": function(container, depth0, helpers, partials, data) {
         var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -4941,7 +4947,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 61
                 }
             }
-        }) : helper)) + "</span>\r\n";
+        }) : helper)) + "</span>\n";
     },
     "compiler": [
         8,
@@ -5021,11 +5027,11 @@ class PageChatAddUser extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageChatAddUserHbsDefault.default), this.props);
+        return this.compile((0, _pageChatAddUserHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"5ZQdk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ZQdk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5040,7 +5046,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="aside">\n    <div class="aside__header">\n        <div class="text-right">\n            <button class="js--toggle-data no-style">\n                Профиль\n                <span class="icon-angle-right"></span>\n            </button>\n        </div>\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "formSearchChat",
             "hash": {},
             "data": data,
@@ -5054,7 +5060,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatList",
             "hash": {},
             "data": data,
@@ -5068,7 +5074,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatHeader",
             "hash": {},
             "data": data,
@@ -5082,7 +5088,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatContent",
             "hash": {},
             "data": data,
@@ -5096,7 +5102,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 21
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatFooter",
             "hash": {},
             "data": data,
@@ -5110,7 +5116,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n</div>\r\n\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatModal",
             "hash": {},
             "data": data,
@@ -5124,7 +5130,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 15
                 }
             }
-        }) : helper)) != null ? stack1 : "");
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -5175,7 +5181,7 @@ class ProfileModal extends Modal {
     }
 }
 
-},{"../../../utils/Block":"915bj","./modal.hbs":"eNFgj","../profileModalContent":"fr3hT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../chatModalContent":"dE6qI"}],"eNFgj":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./modal.hbs":"eNFgj","../chatModalContent":"dE6qI","../profileModalContent":"fr3hT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eNFgj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5204,7 +5210,167 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 17
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\n</div>";
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dE6qI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatModalContent", ()=>ChatModalContent);
+var _chatModalContentHbs = require("./chatModalContent.hbs");
+var _chatModalContentHbsDefault = parcelHelpers.interopDefault(_chatModalContentHbs);
+var _formChat = require("../../form/formChat/formChat");
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+class ChatModalContent extends (0, _blockDefault.default) {
+    constructor(props){
+        super("div", props);
+    }
+    init() {
+        super.init();
+        this.children.form = new (0, _formChat.FormChat)(this.props.formProps, this.props.title, this.props.buttonValue);
+    }
+    render() {
+        return this.compile((0, _chatModalContentHbsDefault.default), this.props);
+    }
+}
+
+},{"./chatModalContent.hbs":"ln52m","../../form/formChat/formChat":"3UUIP","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ln52m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "form",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 10
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3UUIP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormChat", ()=>FormChat);
+var _formBlock = require("../../formBlocks/formBlock");
+var _buttonSimple = require("../../button/buttonSimple");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../form");
+var _formChatHbs = require("./formChat.hbs");
+var _formChatHbsDefault = parcelHelpers.interopDefault(_formChatHbs);
+class FormChat extends (0, _form.Form) {
+    constructor(props, title, buttonValue){
+        const chatProps = {
+            title: title,
+            buttonValue: buttonValue
+        };
+        super({
+            ...props,
+            ...chatProps
+        });
+    }
+    init() {
+        super.init();
+        this.children.formBlock = new (0, _formBlock.FormBlockLogin)({});
+        this.children.button = new (0, _buttonSimple.Button)({
+            class: "button",
+            events: {
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
+                }
+            },
+            label: this.props.buttonValue,
+            type: "submit"
+        });
+    }
+    render() {
+        return this.compile((0, _formChatHbsDefault.default), this.props);
+    }
+}
+
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1uQbk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return "<h2>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "title",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 4
+                },
+                "end": {
+                    "line": 1,
+                    "column": 13
+                }
+            }
+        }) : helper)) + "</h2>\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "formBlock") || (depth0 != null ? lookupProperty(depth0, "formBlock") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "formBlock",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 0
+                },
+                "end": {
+                    "line": 2,
+                    "column": 15
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 12
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -5231,7 +5397,7 @@ class ProfileModalContent extends (0, _blockDefault.default) {
         this.element?.setAttribute("method", this.props.formMethod);
         this.children.inputEl = new (0, _fileEl.FileFormEl)({
             fileLoaded: this.props.fileLoaded,
-            inputType: new (0, _input.Input2)({
+            inputType: new (0, _input.Input)({
                 type: (0, _input.inputType).file,
                 name: "file",
                 required: true,
@@ -5255,7 +5421,7 @@ class ProfileModalContent extends (0, _blockDefault.default) {
     }
 }
 
-},{"./profileModalContent.hbs":"dpEvH","../../button/buttonSimple":"aV1zM","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../input/input":"ie7CD","../../formBlocks/fileEl":"lrhcG"}],"dpEvH":[function(require,module,exports) {
+},{"./profileModalContent.hbs":"dpEvH","../../button/buttonSimple":"aV1zM","../../input/input":"ie7CD","../../../utils/Block":"915bj","../../formBlocks/fileEl":"lrhcG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dpEvH":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5269,21 +5435,21 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '    <div class="form__error text-center">\r\n        <span class="c-red">' + ((stack1 = (helper = (helper = lookupProperty(helpers, "errortext") || (depth0 != null ? lookupProperty(depth0, "errortext") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return '    <div class="form__error text-center">\n        <span class="c-red">' + ((stack1 = (helper = (helper = lookupProperty(helpers, "errortext") || (depth0 != null ? lookupProperty(depth0, "errortext") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "errortext",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 7,
+                    "line": 6,
                     "column": 28
                 },
                 "end": {
-                    "line": 7,
+                    "line": 6,
                     "column": 43
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "</span>\r\n    </div>\r\n";
+        }) : helper)) != null ? stack1 : "") + "</span>\n    </div>\n";
     },
     "compiler": [
         8,
@@ -5294,7 +5460,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return "\r\n<h2" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "titleError") : depth0, {
+        return "<h2" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "titleError") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -5302,11 +5468,11 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 2,
+                    "line": 1,
                     "column": 3
                 },
                 "end": {
-                    "line": 2,
+                    "line": 1,
                     "column": 43
                 }
             }
@@ -5316,43 +5482,43 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 2,
+                    "line": 1,
                     "column": 44
                 },
                 "end": {
-                    "line": 2,
+                    "line": 1,
                     "column": 55
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "</h2>\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "inputEl") || (depth0 != null ? lookupProperty(depth0, "inputEl") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "</h2>\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "inputEl") || (depth0 != null ? lookupProperty(depth0, "inputEl") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "inputEl",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 3,
+                    "line": 2,
                     "column": 0
                 },
                 "end": {
-                    "line": 3,
+                    "line": 2,
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "button",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 4,
+                    "line": 3,
                     "column": 0
                 },
                 "end": {
-                    "line": 4,
+                    "line": 3,
                     "column": 12
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "hasError") : depth0, {
+        }) : helper)) != null ? stack1 : "") + "\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "hasError") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(3, data, 0),
@@ -5360,11 +5526,11 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 5,
+                    "line": 4,
                     "column": 0
                 },
                 "end": {
-                    "line": 9,
+                    "line": 8,
                     "column": 7
                 }
             }
@@ -5464,166 +5630,6 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dE6qI":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatModalContent", ()=>ChatModalContent);
-var _chatModalContentHbs = require("./chatModalContent.hbs");
-var _chatModalContentHbsDefault = parcelHelpers.interopDefault(_chatModalContentHbs);
-var _formChat = require("../../form/formChat/formChat");
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-class ChatModalContent extends (0, _blockDefault.default) {
-    constructor(props){
-        super("div", props);
-    }
-    init() {
-        super.init();
-        this.children.form = new (0, _formChat.FormChat)(this.props.formProps, this.props.title, this.props.buttonValue);
-    }
-    render() {
-        return this.compile((0, _chatModalContentHbsDefault.default), this.props);
-    }
-}
-
-},{"./chatModalContent.hbs":"ln52m","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../form/formChat/formChat":"3UUIP"}],"ln52m":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "form",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 0
-                },
-                "end": {
-                    "line": 1,
-                    "column": 10
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\n";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3UUIP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "FormChat", ()=>FormChat);
-var _formBlock = require("../../formBlocks/formBlock");
-var _buttonSimple = require("../../button/buttonSimple");
-var _funcions = require("../../../utils/funcions");
-var _form = require("../form");
-var _formChatHbs = require("./formChat.hbs");
-var _formChatHbsDefault = parcelHelpers.interopDefault(_formChatHbs);
-class FormChat extends (0, _form.Form) {
-    constructor(props, title, buttonValue){
-        const chatProps = {
-            title: title,
-            buttonValue: buttonValue
-        };
-        super({
-            ...props,
-            ...chatProps
-        });
-    }
-    init() {
-        super.init();
-        this.children.formBlock = new (0, _formBlock.FormBlockLogin)();
-        this.children.button = new (0, _buttonSimple.Button)({
-            class: "button",
-            events: {
-                click: ()=>{
-                    (0, _funcions.validateForm)(this);
-                }
-            },
-            label: this.props.buttonValue,
-            type: "submit"
-        });
-    }
-    render() {
-        return this.compile((0, _formChatHbsDefault.default), this.props);
-    }
-}
-
-},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1uQbk":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return "<h2>" + container.escapeExpression((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "title",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 4
-                },
-                "end": {
-                    "line": 1,
-                    "column": 13
-                }
-            }
-        }) : helper)) + "</h2>\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "formBlock") || (depth0 != null ? lookupProperty(depth0, "formBlock") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "formBlock",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 0
-                },
-                "end": {
-                    "line": 2,
-                    "column": 15
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "button",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 0
-                },
-                "end": {
-                    "line": 3,
-                    "column": 12
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\n";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
 },{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7ngKl":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -5671,11 +5677,11 @@ class PageChatRemoveUser extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageChatRemoveUserHbsDefault.default), this.props);
+        return this.compile((0, _pageChatRemoveUserHbsDefault.default), {});
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"gGqML":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gGqML":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5690,7 +5696,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        return '<div class="aside">\n    <div class="aside__header">\n        <div class="text-right">\n            <button class="js--toggle-data no-style">\n                Профиль\n                <span class="icon-angle-right"></span>\n            </button>\n        </div>\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "formSearchChat",
             "hash": {},
             "data": data,
@@ -5704,7 +5710,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 28
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatList",
             "hash": {},
             "data": data,
@@ -5718,7 +5724,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatHeader",
             "hash": {},
             "data": data,
@@ -5732,7 +5738,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatContent",
             "hash": {},
             "data": data,
@@ -5746,7 +5752,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 21
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatFooter",
             "hash": {},
             "data": data,
@@ -5760,7 +5766,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n</div>\r\n\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatModal",
             "hash": {},
             "data": data,
@@ -5774,7 +5780,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 15
                 }
             }
-        }) : helper)) != null ? stack1 : "");
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -5802,7 +5808,7 @@ class pageProfil extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageProfilHbsDefault.default), this.props);
+        return this.compile((0, _pageProfilHbsDefault.default), {});
     }
 }
 
@@ -5821,7 +5827,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -5835,7 +5841,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -5896,7 +5902,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 15
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "compiler": [
         8,
@@ -5907,7 +5913,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="settings-modal open">\r\n    <button class="close-settings">\r\n        <span class="icon-arrow-left"></span>\r\n    </button>\r\n    <div class="settings">\r\n        <div class="settings__content">\r\n            <div class="settings__userpick">\r\n                <button  class="no-userpick">\r\n                    <span class="icon-media"></span>\r\n                </button>\r\n                <span class="settings__name"></span>\r\n            </div>\r\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
+        return '<div class="settings-modal open">\n    <button class="close-settings">\n        <span class="icon-arrow-left"></span>\n    </button>\n    <div class="settings">\n        <div class="settings__content">\n            <div class="settings__userpick">\n                <button  class="no-userpick">\n                    <span class="icon-media"></span>\n                </button>\n                <span class="settings__name"></span>\n            </div>\n            ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "form") || (depth0 != null ? lookupProperty(depth0, "form") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
             "name": "form",
             "hash": {},
             "data": data,
@@ -5921,7 +5927,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n        </div>\r\n    </div>\r\n</div>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "modalShow") : depth0, {
+        }) : helper)) != null ? stack1 : "") + "\n        </div>\n    </div>\n</div>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "modalShow") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -5999,7 +6005,7 @@ class ProfileForm extends (0, _form.Form) {
     }
 }
 
-},{"./pageProfileForm.hbs":"89e7h","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../formBlocks/formBlock":"5zOur","../../form/form":"1enI1"}],"89e7h":[function(require,module,exports) {
+},{"./pageProfileForm.hbs":"89e7h","../../button/buttonSimple":"aV1zM","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89e7h":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -6182,7 +6188,7 @@ class pageProfilEdit extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageProfilEditHbsDefault.default), this.props);
+        return this.compile((0, _pageProfilEditHbsDefault.default), {});
     }
 }
 
@@ -6201,7 +6207,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -6215,7 +6221,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -6251,7 +6257,7 @@ class pageProfilModal extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageProfileModalHbsDefault.default), this.props);
+        return this.compile((0, _pageProfileModalHbsDefault.default), {});
     }
 }
 
@@ -6270,7 +6276,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -6284,7 +6290,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -6320,7 +6326,7 @@ class PageProfileModalLoaded extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageProfileModalLoadHbsDefault.default), this.props);
+        return this.compile((0, _pageProfileModalLoadHbsDefault.default), {});
     }
 }
 
@@ -6339,7 +6345,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -6353,7 +6359,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -6390,7 +6396,7 @@ class PageProfileModalErrorFile extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageProfileModalErrorFileHbsDefault.default), this.props);
+        return this.compile((0, _pageProfileModalErrorFileHbsDefault.default), {});
     }
 }
 
@@ -6409,7 +6415,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -6423,7 +6429,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -6460,7 +6466,7 @@ class PageProfileModalErrorLoad extends (0, _blockDefault.default) {
         });
     }
     render() {
-        return this.compile((0, _pageProfileModalErrorLoadHbsDefault.default), this.props);
+        return this.compile((0, _pageProfileModalErrorLoadHbsDefault.default), {});
     }
 }
 
@@ -6479,7 +6485,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return (stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "content") || (depth0 != null ? lookupProperty(depth0, "content") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
             "name": "content",
             "hash": {},
             "data": data,
@@ -6493,7 +6499,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 13
                 }
             }
-        }) : helper)) != null ? stack1 : "";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });

@@ -1,8 +1,12 @@
 import {EventBus} from "./EventBus";
 import {nanoid} from 'nanoid';
 
+export interface IProperties {
+    events?: Record<string, () => void>;
+}
+
 // Нельзя создавать экземпляр данного класса
-class Block {
+class Block<T extends IProperties> {
     static EVENTS = {
         INIT: "init",
         FLOW_CDM: "flow:component-did-mount",
@@ -11,13 +15,13 @@ class Block {
     };
 
     public id = nanoid(6);
-    protected props: any;
-    public children: Record<string, Block>;
+    protected props: T;
+    public children: Record<string, any>;
     private eventBus: () => EventBus;
     private _element: HTMLElement | null = null;
     private _meta: { tagName: string; props: any; };
 
-    constructor(tagName = "div", props: Record<string, any>, children: Record<string, Block> = {}) {
+    constructor(tagName = "div", props: T, children: Record<string, any> = {}) {
         const eventBus = new EventBus();
 
         this._meta = {
@@ -40,6 +44,14 @@ class Block {
 
         Object.keys(events).forEach(eventName => {
             this._element?.addEventListener(eventName, events[eventName]);
+        });
+    }
+
+    _removeEvents() {
+        const {events = {}} = this.props as { events: Record<string, () => void> };
+
+        Object.keys(events).forEach(eventName => {
+            this._element?.removeEventListener(eventName, events[eventName]);
         });
     }
 
@@ -90,7 +102,7 @@ class Block {
         return true;
     }
 
-    setProps = (nextProps: any) => {
+    setProps = (nextProps: T) => {
         if (!nextProps) {
             return;
         }
@@ -104,6 +116,8 @@ class Block {
 
     private _render() {
         const fragment = this.render();
+
+        this._removeEvents();
 
         this._element!.innerHTML = '';
 

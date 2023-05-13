@@ -1,10 +1,10 @@
 import template from "./profileModalContent.hbs";
 import {Button} from "../../button/buttonSimple";
-import {Input2, inputType} from "../../input/input";
-import Block from "../../../utils/Block";
+import {Input, inputType} from "../../input/input";
+import Block, {IProperties} from "../../../utils/Block";
 import {FileFormEl} from "../../formBlocks/fileEl";
 
-export interface profileModalProps {
+export interface profileModalProps extends IProperties {
     title: string,
     titleError?: boolean,
     fileText: string,
@@ -16,7 +16,7 @@ export interface profileModalProps {
     formMethod: string,
 }
 
-export class ProfileModalContent extends Block {
+export class ProfileModalContent extends Block<profileModalProps> {
     constructor(props: profileModalProps) {
         super('form', props);
     }
@@ -29,7 +29,7 @@ export class ProfileModalContent extends Block {
 
         this.children.inputEl = new FileFormEl({
             fileLoaded: this.props.fileLoaded,
-            inputType: new Input2({
+            inputType: new Input({
                 type: inputType.file,
                 name: "file",
                 required: true,

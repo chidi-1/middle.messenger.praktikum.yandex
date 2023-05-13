@@ -43,4 +43,3 @@ export class ProfileForm extends Form {
         return this.compile(template, this.props)
     }
 }
-

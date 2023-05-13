@@ -1,7 +1,7 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import template from "./button.hbs";
 
-export interface ButtonProps {
+export interface ButtonProps extends IProperties{
     label: string;
     class?: string,
     type?: string,
@@ -10,7 +10,7 @@ export interface ButtonProps {
     };
 }
 
-export class Button extends Block {
+export class Button extends Block<ButtonProps> {
     constructor(props: ButtonProps) {
         super('button', props);
     }

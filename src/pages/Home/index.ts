@@ -1,13 +1,13 @@
-import Block from '../../utils/Block';
+import Block, {IProperties} from '../../utils/Block';
 import template from './home.hbs';
 import {Button} from '../../components/button/buttonSimple';
 import {renderDom} from "../../utils/renderDom";
 
-interface HomePageProps {
+interface HomePageProps extends IProperties {
     title: string;
 }
 
-export class HomePage extends Block {
+export class HomePage extends Block<HomePageProps> {
     constructor(props: HomePageProps) {
         super('div', props);
     }

@@ -1,16 +1,16 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import template from "./profileContent.hbs";
 import {ProfileModal} from "../../modal/modal";
 import {ProfileForm} from "../pageProfileForm";
 import {profileModalProps} from "../../modal/profileModalContent";
 
-interface ProfileContentProps {
+interface ProfileContentProps extends IProperties {
     modalShow: boolean,
     disabled: boolean,
     modalProps?: profileModalProps
 }
 
-export class ProfileContent extends Block {
+export class ProfileContent extends Block<ProfileContentProps> {
     constructor(props: ProfileContentProps) {
         super('div', props);
     }

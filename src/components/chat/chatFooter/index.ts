@@ -10,10 +10,11 @@ export class ChatFooter extends Form {
     }
 
     protected init() {
+
         super.init();
         this.element?.classList.add('chat__footer');
 
-        this.children.input = new FormBlockMsssage();
+        this.children.input = new FormBlockMsssage({});
 
         this.children.button = new ButtonWithIcon({
             class: "no-style send-message",

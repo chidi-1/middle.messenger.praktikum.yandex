@@ -1,7 +1,7 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import template from "./buttonWithIconAndText.hbs";
 
-export interface ButtonIconProps {
+export interface ButtonIconTextProps  extends IProperties{
     label: string;
     class?: string,
     type?: string,
@@ -11,8 +11,8 @@ export interface ButtonIconProps {
     };
 }
 
-export class Button extends Block {
-    constructor(props: ButtonIconProps) {
+export class Button extends Block<ButtonIconTextProps> {
+    constructor(props: ButtonIconTextProps) {
         super('button', props);
     }
     protected init() {

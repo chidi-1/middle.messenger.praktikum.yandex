@@ -1,7 +1,7 @@
-import Block from "../../../utils/Block";
+import Block, {IProperties} from "../../../utils/Block";
 import template from "./chatContent.hbs";
 
-interface messageProps {
+interface MessageProps extends IProperties {
     date: string;
     time: string;
     message: [];
@@ -10,11 +10,11 @@ interface messageProps {
     separator?: number;
 }
 
-interface chatContentProps {
-    messages: messageProps[];
+interface chatContentProps extends IProperties {
+    messages: MessageProps[];
 }
 
-export class ChatContent extends Block {
+export class ChatContent extends Block<chatContentProps> {
     constructor(props:chatContentProps) {
         super('div', props);
     }

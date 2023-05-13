@@ -1,19 +1,18 @@
-import Block from "../../utils/Block";
+import Block, {IProperties} from "../../utils/Block";
 import {submitForm} from "../../utils/funcions";
 
-export interface formProps {
+export interface formProps extends IProperties {
     action: string;
     method: string;
     class?: string;
     iValid?: boolean;
 }
 
-export abstract class Form extends Block {
+export abstract class Form extends Block<formProps> {
     constructor(props: formProps) {
         const defaultProps = {
             'events': {
                 'submit': () => {
-                    console.log('submit');
                     submitForm(this);
                     event?.preventDefault()
                 },
@@ -32,7 +31,7 @@ export abstract class Form extends Block {
         }
     }
 
-    isValid(): boolean{
+    isValid(): boolean|undefined{
         return this.props.iValid;
     }
 }

@@ -1,14 +1,14 @@
-import Block from "../../../utils/Block";
-import {Input2} from "../../input/input";
+import Block, {IProperties} from "../../../utils/Block";
+import {Input} from "../../input/input";
 import template from "./startFormEl.hbs";
 
-export interface FileFormElProps {
+export interface FileFormElProps extends IProperties{
     fileLoaded: boolean,
     text: string,
-    inputType: Input2
+    inputType: Input
 }
 
-export class FileFormEl extends Block {
+export class FileFormEl extends Block<FileFormElProps> {
     constructor(props: FileFormElProps) {
         super('div', props);
     }

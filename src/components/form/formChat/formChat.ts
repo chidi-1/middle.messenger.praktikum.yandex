@@ -16,7 +16,7 @@ export class FormChat extends Form {
     protected init() {
         super.init();
 
-        this.children.formBlock = new FormBlockLogin();
+        this.children.formBlock = new FormBlockLogin({});
 
         this.children.button = new Button({
             class: "button",
