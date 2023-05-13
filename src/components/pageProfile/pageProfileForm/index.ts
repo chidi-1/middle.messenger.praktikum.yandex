@@ -9,10 +9,10 @@ import {
     FormBlockSurname
 } from "../../formBlocks/formBlock";
 import {validateForm} from "../../../utils/funcions";
-import {Form, formProps} from "../../form/form";
+import {Form, IFormProps} from "../../form/form";
 
 export class ProfileForm extends Form {
-    constructor(props: formProps, disabled: {disabled: boolean}) {
+    constructor(props: IFormProps, disabled: {disabled: boolean}) {
         super({...props, ...disabled});
     }
 

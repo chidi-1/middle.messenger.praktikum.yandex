@@ -7,14 +7,11 @@ import {
 } from "../../formBlocks/formBlock";
 import {Button} from "../../button/buttonSimple";
 import {validateForm} from "../../../utils/funcions";
-import {Form, formProps} from "../form";
+import {Form, IFormProps} from "../form";
 import template from "./formReg.hbs";
 
-export class FormReg extends Form {
-    constructor(props: formProps) {
-        super(props);
-    }
-
+export class FormReg extends Form<IFormProps> {
+    
     protected init() {
         super.init();
 

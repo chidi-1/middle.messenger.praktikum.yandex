@@ -2,7 +2,7 @@ import Block, {IProperties} from "../../../utils/Block";
 import template from "./modal.hbs";
 import {ChatModalContent} from "../chatModalContent";
 import {ProfileModalContent, profileModalProps} from "../profileModalContent";
-import {formProps} from "../../form/form";
+import {IFormProps} from "../../form/form";
 
 export abstract class Modal extends Block<chatModalContentProps|profileModalProps> {
     constructor(props: chatModalContentProps|profileModalProps) {
@@ -25,7 +25,7 @@ export abstract class Modal extends Block<chatModalContentProps|profileModalProp
 }
 
 export interface chatModalContentProps extends IProperties {
-    formProps: formProps,
+    formProps: IFormProps,
     title: string,
     buttonValue: string
 }

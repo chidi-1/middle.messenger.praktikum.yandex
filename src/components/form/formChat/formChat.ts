@@ -1,17 +1,15 @@
 import {FormBlockLogin,} from "../../formBlocks/formBlock";
 import {Button} from "../../button/buttonSimple";
 import {validateForm} from "../../../utils/funcions";
-import {Form, formProps} from "../form";
+import {Form, IFormProps} from "../form";
 import template from "./formChat.hbs";
 
-export class FormChat extends Form {
-    constructor(props: formProps, title:string, buttonValue:string,) {
-        const chatProps = {
-            title: title,
-            buttonValue: buttonValue
-        }
-        super({...props, ...chatProps});
-    }
+export interface IFormChatProps extends IFormProps{
+    title: string,
+    buttonValue: string
+}
+
+export class FormChat extends Form<IFormChatProps> {
 
     protected init() {
         super.init();

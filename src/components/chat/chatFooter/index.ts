@@ -2,10 +2,10 @@ import template from "./chatFooter.hbs";
 import {ButtonWithIcon} from "../../button/buttonWithIcon";
 import {FormBlockMsssage} from "../../formBlocks/formBlock";
 import {validateForm} from "../../../utils/funcions";
-import {Form, formProps} from "../../form/form";
+import {Form, IFormProps} from "../../form/form";
 
 export class ChatFooter extends Form {
-    constructor(props: formProps, showMenu: {showMenu: boolean}) {
+    constructor(props: IFormProps, showMenu: {showMenu: boolean}) {
         super({...props, ...showMenu});
     }
 

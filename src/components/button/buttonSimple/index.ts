@@ -14,6 +14,7 @@ export class Button extends Block<ButtonProps> {
     constructor(props: ButtonProps) {
         super('button', props);
     }
+
     protected init() {
         if(this.props.class){
             const classes = this.props.class.split(' ')
