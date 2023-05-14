@@ -1,5 +1,6 @@
 import {EventBus} from "./EventBus";
 import {nanoid} from 'nanoid';
+import {IFormBlockProps} from "../components/formBlocks/formBlock";
 
 export interface IProperties {
     events?: Record<string, () => void>;
@@ -51,7 +52,7 @@ class Block<T extends IProperties> {
         const {events = {}} = this.props as { events: Record<string, () => void> };
 
         Object.keys(events).forEach(eventName => {
-            this._element?.removeEventListener(eventName, events[eventName]);
+            this._element?.removeEventListener(eventName, events[eventName  ]);
         });
     }
 
@@ -195,7 +196,6 @@ class Block<T extends IProperties> {
                 const oldTarget = {...target}
 
                 target[prop] = value;
-
                 // Запускаем обновление компоненты
                 // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);

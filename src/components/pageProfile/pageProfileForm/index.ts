@@ -1,4 +1,3 @@
-import Block from "../../../utils/Block";
 import template from "./pageProfileForm.hbs";
 import {Button} from "../../button/buttonSimple";
 import {
@@ -11,11 +10,12 @@ import {
 import {validateForm} from "../../../utils/funcions";
 import {Form, IFormProps} from "../../form/form";
 
-export class ProfileForm extends Form {
-    constructor(props: IFormProps, disabled: {disabled: boolean}) {
-        super({...props, ...disabled});
-    }
+export interface IProfileFormProps2 extends IFormProps{
+    disabled: boolean,
+    value?: string
+}
 
+export class ProfileForm extends Form<IProfileFormProps2> {
     protected init() {
         super.init();
         this.element?.classList.add('edit-settings');

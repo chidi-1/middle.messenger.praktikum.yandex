@@ -4,13 +4,13 @@ import {FormBlockMsssage} from "../../formBlocks/formBlock";
 import {validateForm} from "../../../utils/funcions";
 import {Form, IFormProps} from "../../form/form";
 
-export class ChatFooter extends Form {
-    constructor(props: IFormProps, showMenu: {showMenu: boolean}) {
-        super({...props, ...showMenu});
-    }
+export interface IChatFooterProps extends IFormProps {
+    showMenu: boolean;
+}
+
+export class ChatFooter extends Form<IChatFooterProps> {
 
     protected init() {
-
         super.init();
         this.element?.classList.add('chat__footer');
 

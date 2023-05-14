@@ -1,36 +1,25 @@
 import template from "./profileModalContent.hbs";
 import {Button} from "../../button/buttonSimple";
-import {Input, inputType} from "../../input/input";
-import Block, {IProperties} from "../../../utils/Block";
+import {Input, InputType} from "../../input/input";
+import Block from "../../../utils/Block";
 import {FileFormEl} from "../../formBlocks/fileEl";
+import {IProfileModalProps} from "../modal";
 
-export interface profileModalProps extends IProperties {
-    title: string,
-    titleError?: boolean,
-    fileText: string,
-    hasError: boolean,
-    errortext?: string,
-    fileLoaded: boolean,
-    inputValue?: string,
-    formAction: string,
-    formMethod: string,
-}
-
-export class ProfileModalContent extends Block<profileModalProps> {
-    constructor(props: profileModalProps) {
+export class ProfileModalContent extends Block<IProfileModalProps> {
+    constructor(props: IProfileModalProps) {
         super('form', props);
     }
 
     protected init() {
         super.init();
 
-        this.element?.setAttribute('action', this.props.formAction)
-        this.element?.setAttribute('method', this.props.formMethod)
+        this.element?.setAttribute('action', this.props.action)
+        this.element?.setAttribute('method', this.props.method)
 
         this.children.inputEl = new FileFormEl({
             fileLoaded: this.props.fileLoaded,
             inputType: new Input({
-                type: inputType.file,
+                type: InputType.file,
                 name: "file",
                 required: true,
                 value: this.props.inputValue

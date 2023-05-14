@@ -1,9 +1,9 @@
 import Block from "../../../utils/Block";
 import template from "./search.hbs";
-import {Input, inputProps, inputType} from "../../input/input";
+import {Input, InputProps, InputType} from "../../input/input";
 
-export class FormSearchChat extends Block<inputProps> {
-    constructor(props: inputProps) {
+export class FormSearchChat extends Block<InputProps> {
+    constructor(props: InputProps) {
         super('form', props);
     }
 
@@ -13,7 +13,7 @@ export class FormSearchChat extends Block<inputProps> {
 
         this.children.input = new Input({
             disabled: false,
-            type: inputType.text,
+            type: InputType.text,
             validators: [],
             name: "search",
             placeholder: "Поиск",

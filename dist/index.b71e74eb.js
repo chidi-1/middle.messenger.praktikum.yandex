@@ -727,7 +727,7 @@ class HomePage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../components/button/buttonSimple":"aV1zM"}],"915bj":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/buttonSimple":"aV1zM","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"915bj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _eventBus = require("./EventBus");
@@ -2681,7 +2681,7 @@ class PageLogin extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageFormLogin.hbs":"h2zwk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/formLogin/formLogin":"6EqDK"}],"h2zwk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageFormLogin.hbs":"h2zwk","../../../components/form/formLogin/formLogin":"6EqDK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h2zwk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -2777,10 +2777,10 @@ class FormBlock extends (0, _blockDefault.default) {
     }
     checkValidAndRerender() {
         if (this.children.input.isValid()) this.props.hasError = false;
-        else this.setProps({
-            hasError: true,
-            errorText: this.getErrorText()
-        });
+        else {
+            this.props.hasError = true;
+            this.props.errorText = this.getErrorText();
+        }
     }
     render() {
         if (this.props.hasError) this.element?.classList.add("error");
@@ -2814,9 +2814,11 @@ class FormBlockEmail extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "email",
                 placeholder: "Почта",
-                type: (0, _input.inputType).email,
+                type: (0, _input.InputType).email,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isCharEmail)
@@ -2833,9 +2835,11 @@ class FormBlockLogin extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "login",
                 placeholder: "Логин",
-                type: (0, _input.inputType).text,
+                type: (0, _input.InputType).text,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isLengthLogin),
@@ -2853,9 +2857,11 @@ class FormBlockName extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "first_name",
                 placeholder: "Имя",
-                type: (0, _input.inputType).text,
+                type: (0, _input.InputType).text,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isFirsLetterСapitalized),
@@ -2873,9 +2879,11 @@ class FormBlockSurname extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "second_name",
                 placeholder: "Фамилия",
-                type: (0, _input.inputType).text,
+                type: (0, _input.InputType).text,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isFirsLetterСapitalized),
@@ -2893,9 +2901,11 @@ class FormBlockChatname extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "second_name",
                 placeholder: "Фамилия",
-                type: (0, _input.inputType).text,
+                type: (0, _input.InputType).text,
                 validators: [
                     (0, _input.isLength)
                 ]
@@ -2911,9 +2921,11 @@ class FormBlockPhone extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "phone",
                 placeholder: "Телефон",
-                type: (0, _input.inputType).text,
+                type: (0, _input.InputType).text,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isLengthPhone),
@@ -2932,9 +2944,11 @@ class FormBlockPassword extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "password",
                 placeholder: "Пароль",
-                type: (0, _input.inputType).password,
+                type: (0, _input.InputType).password,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isLengthPassword),
@@ -2953,9 +2967,11 @@ class FormBlockPasswordDouble extends FormBlock {
     constructor(props){
         const data = {
             inputProps: {
+                disabled: false,
+                value: "",
                 name: "password_double",
                 placeholder: "Пароль (ещё раз)",
-                type: (0, _input.inputType).password,
+                type: (0, _input.InputType).password,
                 validators: [
                     (0, _input.isLength),
                     (0, _input.isLengthPassword),
@@ -2976,7 +2992,7 @@ class FormBlockMsssage extends FormBlock {
             inputProps: {
                 name: "message",
                 placeholder: "Сообщение",
-                type: (0, _input.inputType).text,
+                type: (0, _input.InputType).text,
                 validators: [
                     (0, _input.isLength)
                 ]
@@ -2990,7 +3006,8 @@ class FormBlockMsssage extends FormBlock {
 },{"../../../utils/Block":"915bj","../../input/input":"ie7CD","./formBlock.hbs":"hgXTz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ie7CD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "inputType", ()=>inputType);
+parcelHelpers.export(exports, "InputType", ()=>InputType);
+parcelHelpers.export(exports, "Input", ()=>Input);
 // валидаторы
 parcelHelpers.export(exports, "isLength", ()=>isLength);
 parcelHelpers.export(exports, "isLengthPassword", ()=>isLengthPassword);
@@ -3005,56 +3022,15 @@ parcelHelpers.export(exports, "isFirsLetterСapitalized", ()=>isFirsLetterСapit
 parcelHelpers.export(exports, "isContainsCapitalLetter", ()=>isContainsCapitalLetter);
 parcelHelpers.export(exports, "isContainsNumber", ()=>isContainsNumber);
 parcelHelpers.export(exports, "isCharEmail", ()=>isCharEmail);
-parcelHelpers.export(exports, "Input", ()=>Input);
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-let inputType;
-(function(inputType) {
-    inputType["text"] = "text";
-    inputType["email"] = "email";
-    inputType["password"] = "password";
-    inputType["file"] = "file";
-})(inputType || (inputType = {}));
-function isLength(value) {
-    if (value == undefined || value.length < 1) return "Введите значение";
-}
-function isLengthPassword(value) {
-    if (value.length < 8 || value.length > 40) return "Длина должна быть от 8 до 40 символов";
-}
-function isLengthLogin(value) {
-    if (value.length < 3 || value.length > 20) return "Длина должна быть от 3 до 20 символов";
-}
-function isLengthPhone(value) {
-    if (value.length < 10 || value.length > 15) return "Длина должна быть от 10 до 15 символов";
-}
-function isContainsCharName(value) {
-    if (!/^[A-ZА-ЯЁ-]+$/i.test(value)) return "Содержит недопустимые символы";
-}
-function isContainsCharLogin(value) {
-    if (!/^[A-Z0-9-_]+$/i.test(value)) return "Содержит недопустимые символы";
-}
-function isContainsCharPhone(value) {
-    if (!/^[0-9+]+$/i.test(value)) return "Содержит недопустимые символы";
-}
-function isPlusPositionCorrect(value) {
-    if (value.includes("+") && value.indexOf("+") != 0) return "Плюс может быть только первым символом";
-}
-function isContainsLetter(value) {
-    if (value.match(/[A-z]/g) == null) return "Хотя бы одна буква";
-}
-function isFirsLetterСapitalized(value) {
-    if (value[0] == value[0].toLocaleLowerCase()) return "Первая буква должна быть заглавной";
-}
-function isContainsCapitalLetter(value) {
-    if (!hasCapital(value)) return "Хотя бы одна заглавная";
-}
-const hasCapital = (s)=>!(s === s.toLowerCase());
-function isContainsNumber(value) {
-    if (!/[0-9]/.test(value)) return "Хотя бы одна цифра";
-}
-function isCharEmail(value) {
-    if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-zA-Z0-9-.]+$/.test(value)) return "Неправильный формат";
-}
+let InputType;
+(function(InputType) {
+    InputType["text"] = "text";
+    InputType["email"] = "email";
+    InputType["password"] = "password";
+    InputType["file"] = "file";
+})(InputType || (InputType = {}));
 class Input extends (0, _blockDefault.default) {
     errorText = "";
     constructor(props, onChanged){
@@ -3099,6 +3075,7 @@ class Input extends (0, _blockDefault.default) {
         return this.props.name;
     }
     isValid() {
+        if (this.props.isValid === undefined) return false;
         return this.props.isValid;
     }
     validate() {
@@ -3116,8 +3093,48 @@ class Input extends (0, _blockDefault.default) {
         return this.errorText;
     }
     setAttributes(name, value) {
-        if (value) this.element?.setAttribute(name, value);
+        if (value) this.element?.setAttribute(name, value.toString());
     }
+}
+function isLength(value) {
+    if (value == undefined || value.length < 1) return "Введите значение";
+}
+function isLengthPassword(value) {
+    if (value.length < 8 || value.length > 40) return "Длина должна быть от 8 до 40 символов";
+}
+function isLengthLogin(value) {
+    if (value.length < 3 || value.length > 20) return "Длина должна быть от 3 до 20 символов";
+}
+function isLengthPhone(value) {
+    if (value.length < 10 || value.length > 15) return "Длина должна быть от 10 до 15 символов";
+}
+function isContainsCharName(value) {
+    if (!/^[A-ZА-ЯЁ-]+$/i.test(value)) return "Содержит недопустимые символы";
+}
+function isContainsCharLogin(value) {
+    if (!/^[A-Z0-9-_]+$/i.test(value)) return "Содержит недопустимые символы";
+}
+function isContainsCharPhone(value) {
+    if (!/^[0-9+]+$/i.test(value)) return "Содержит недопустимые символы";
+}
+function isPlusPositionCorrect(value) {
+    if (value.includes("+") && value.indexOf("+") != 0) return "Плюс может быть только первым символом";
+}
+function isContainsLetter(value) {
+    if (value.match(/[A-z]/g) == null) return "Хотя бы одна буква";
+}
+function isFirsLetterСapitalized(value) {
+    if (value[0] == value[0].toLocaleLowerCase()) return "Первая буква должна быть заглавной";
+}
+function isContainsCapitalLetter(value) {
+    if (!hasCapital(value)) return "Хотя бы одна заглавная";
+}
+const hasCapital = (s)=>!(s === s.toLowerCase());
+function isContainsNumber(value) {
+    if (!/[0-9]/.test(value)) return "Хотя бы одна цифра";
+}
+function isCharEmail(value) {
+    if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z]+\.[a-zA-Z0-9-.]+$/.test(value)) return "Неправильный формат";
 }
 
 },{"../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hgXTz":[function(require,module,exports) {
@@ -3363,7 +3380,7 @@ class PageReg extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageFormReg.hbs":"h6xqZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/form/formReg/formReg":"1B7Eu"}],"h6xqZ":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageFormReg.hbs":"h6xqZ","../../../components/form/formReg/formReg":"1B7Eu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h6xqZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3610,7 +3627,7 @@ class PageChatEmpty extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/chat/chatList":"hoBsF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"f3yaf":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3yaf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3654,6 +3671,71 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 }
             }
         }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat empty">\r\n    <span class="fs-12">Выберите чат чтобы отправить сообщение</span>\r\n</div>\r\n';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Y7Rt":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormSearchChat", ()=>FormSearchChat);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _searchHbs = require("./search.hbs");
+var _searchHbsDefault = parcelHelpers.interopDefault(_searchHbs);
+var _input = require("../../input/input");
+class FormSearchChat extends (0, _blockDefault.default) {
+    constructor(props){
+        super("form", props);
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("search-form");
+        this.children.input = new (0, _input.Input)({
+            disabled: false,
+            type: (0, _input.InputType).text,
+            validators: [],
+            name: "search",
+            placeholder: "Поиск",
+            required: true
+        });
+    }
+    render() {
+        return this.compile((0, _searchHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./search.hbs":"1Y6Ng","../../input/input":"ie7CD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Y6Ng":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "input",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 11
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\r\n<span class="icon-search"></span>\r\n';
     },
     "useData": true
 });
@@ -3822,71 +3904,6 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Y7Rt":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "FormSearchChat", ()=>FormSearchChat);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _searchHbs = require("./search.hbs");
-var _searchHbsDefault = parcelHelpers.interopDefault(_searchHbs);
-var _input = require("../../input/input");
-class FormSearchChat extends (0, _blockDefault.default) {
-    constructor(props){
-        super("form", props);
-    }
-    init() {
-        super.init();
-        this.element?.classList.add("search-form");
-        this.children.input = new (0, _input.Input)({
-            disabled: false,
-            type: (0, _input.inputType).text,
-            validators: [],
-            name: "search",
-            placeholder: "Поиск",
-            required: true
-        });
-    }
-    render() {
-        return this.compile((0, _searchHbsDefault.default), this.props);
-    }
-}
-
-},{"../../../utils/Block":"915bj","./search.hbs":"1Y6Ng","../../input/input":"ie7CD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Y6Ng":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "input",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 0
-                },
-                "end": {
-                    "line": 1,
-                    "column": 11
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n<span class="icon-search"></span>\r\n';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
 },{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RzXZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -3919,8 +3936,7 @@ class PageChat extends (0, _blockDefault.default) {
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
             action: "sdf",
-            method: "sdf"
-        }, {
+            method: "sdf",
             showMenu: false
         });
     }
@@ -3929,7 +3945,7 @@ class PageChat extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"c4XNp":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4XNp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4092,12 +4108,6 @@ var _formBlock = require("../../formBlocks/formBlock");
 var _funcions = require("../../../utils/funcions");
 var _form = require("../../form/form");
 class ChatFooter extends (0, _form.Form) {
-    constructor(props, showMenu){
-        super({
-            ...props,
-            ...showMenu
-        });
-    }
     init() {
         super.init();
         this.element?.classList.add("chat__footer");
@@ -4118,7 +4128,7 @@ class ChatFooter extends (0, _form.Form) {
     }
 }
 
-},{"./chatFooter.hbs":"75UPv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1"}],"75UPv":[function(require,module,exports) {
+},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4577,8 +4587,7 @@ class PageChatFunctions extends (0, _blockDefault.default) {
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
             action: "sdf",
-            method: "sdf"
-        }, {
+            method: "sdf",
             showMenu: true
         });
     }
@@ -4587,7 +4596,7 @@ class PageChatFunctions extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatFunctions.hbs":"Vy3j4","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"Vy3j4":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatFunctions.hbs":"Vy3j4","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Vy3j4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4710,8 +4719,7 @@ class PageChatSearch extends (0, _blockDefault.default) {
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
             action: "sdf",
-            method: "sdf"
-        }, {
+            method: "sdf",
             showMenu: false
         });
     }
@@ -4720,7 +4728,7 @@ class PageChatSearch extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"hwrCx":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatSearch.hbs":"hwrCx","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatListSearch":"lhnKp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hwrCx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5007,16 +5015,13 @@ class PageChatAddUser extends (0, _blockDefault.default) {
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
             action: "sdf",
-            method: "sdf"
-        }, {
+            method: "sdf",
             showMenu: false
         });
         this.children.chatModal = new (0, _modal.ChatModal)({
             buttonValue: "Добавить",
-            formProps: {
-                action: "sdf",
-                method: "sdf"
-            },
+            action: "sdf",
+            method: "sdf",
             title: "Добавить пользователя"
         });
     }
@@ -5025,7 +5030,7 @@ class PageChatAddUser extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"5ZQdk":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatAddUser.hbs":"5ZQdk","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5ZQdk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5158,17 +5163,16 @@ class Modal extends (0, _blockDefault.default) {
 }
 class ChatModal extends Modal {
     constructor(props){
+        console.log(props);
         super(props);
     }
     init() {
+        console.log(this.props);
         super.init();
         this.children.content = new (0, _chatModalContent.ChatModalContent)(this.props);
     }
 }
 class ProfileModal extends Modal {
-    constructor(props){
-        super(props);
-    }
     init() {
         super.init();
         this.children.content = new (0, _profileModalContent.ProfileModalContent)(this.props);
@@ -5225,14 +5229,14 @@ class ChatModalContent extends (0, _blockDefault.default) {
     }
     init() {
         super.init();
-        this.children.form = new (0, _formChat.FormChat)(this.props.formProps, this.props.title, this.props.buttonValue);
+        this.children.form = new (0, _formChat.FormChat)(this.props);
     }
     render() {
         return this.compile((0, _chatModalContentHbsDefault.default), this.props);
     }
 }
 
-},{"./chatModalContent.hbs":"ln52m","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../form/formChat/formChat":"3UUIP"}],"ln52m":[function(require,module,exports) {
+},{"./chatModalContent.hbs":"ln52m","../../form/formChat/formChat":"3UUIP","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ln52m":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5377,12 +5381,12 @@ class ProfileModalContent extends (0, _blockDefault.default) {
     }
     init() {
         super.init();
-        this.element?.setAttribute("action", this.props.formAction);
-        this.element?.setAttribute("method", this.props.formMethod);
+        this.element?.setAttribute("action", this.props.action);
+        this.element?.setAttribute("method", this.props.method);
         this.children.inputEl = new (0, _fileEl.FileFormEl)({
             fileLoaded: this.props.fileLoaded,
             inputType: new (0, _input.Input)({
-                type: (0, _input.inputType).file,
+                type: (0, _input.InputType).file,
                 name: "file",
                 required: true,
                 value: this.props.inputValue
@@ -5405,7 +5409,7 @@ class ProfileModalContent extends (0, _blockDefault.default) {
     }
 }
 
-},{"./profileModalContent.hbs":"dpEvH","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../button/buttonSimple":"aV1zM","../../input/input":"ie7CD","../../formBlocks/fileEl":"lrhcG"}],"dpEvH":[function(require,module,exports) {
+},{"./profileModalContent.hbs":"dpEvH","../../button/buttonSimple":"aV1zM","../../input/input":"ie7CD","../../../utils/Block":"915bj","../../formBlocks/fileEl":"lrhcG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dpEvH":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5647,16 +5651,13 @@ class PageChatRemoveUser extends (0, _blockDefault.default) {
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
             action: "sdf",
-            method: "sdf"
-        }, {
+            method: "sdf",
             showMenu: false
         });
         this.children.chatModal = new (0, _modal.ChatModal)({
             buttonValue: "Удалить",
-            formProps: {
-                action: "sdf",
-                method: "sdf"
-            },
+            action: "sdf",
+            method: "sdf",
             title: "Удалить пользователя"
         });
     }
@@ -5665,7 +5666,7 @@ class PageChatRemoveUser extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/search":"4Y7Rt"}],"gGqML":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gGqML":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5850,11 +5851,10 @@ class ProfileContent extends (0, _blockDefault.default) {
         this.children.form = new (0, _pageProfileForm.ProfileForm)({
             action: "sdf",
             method: "sdf",
-            class: "edit-settings"
-        }, {
+            class: "edit-settings",
             disabled: this.props.disabled
         });
-        if (this.props.modalShow) this.children.modal = new (0, _modal.ProfileModal)(this.props.modalProps);
+        if (this.props.modalShow && this.props.modalProps) this.children.modal = new (0, _modal.ProfileModal)(this.props.modalProps);
     }
     render() {
         return this.compile((0, _profileContentHbsDefault.default), this.props);
@@ -5944,12 +5944,6 @@ var _formBlock = require("../../formBlocks/formBlock");
 var _funcions = require("../../../utils/funcions");
 var _form = require("../../form/form");
 class ProfileForm extends (0, _form.Form) {
-    constructor(props, disabled){
-        super({
-            ...props,
-            ...disabled
-        });
-    }
     init() {
         super.init();
         this.element?.classList.add("edit-settings");
@@ -5989,7 +5983,7 @@ class ProfileForm extends (0, _form.Form) {
     }
 }
 
-},{"./pageProfileForm.hbs":"89e7h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../button/buttonSimple":"aV1zM","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1"}],"89e7h":[function(require,module,exports) {
+},{"./pageProfileForm.hbs":"89e7h","../../button/buttonSimple":"aV1zM","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"89e7h":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");

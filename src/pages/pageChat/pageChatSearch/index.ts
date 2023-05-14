@@ -1,4 +1,4 @@
-import Block from '../../../utils/Block';
+import Block, {IProperties} from '../../../utils/Block';
 import template from './pageChatSearch.hbs';
 import {FormSearchChat} from "../../../components/formBlocks/search";
 import {ChatHeader} from "../../../components/chat/chatHeader";
@@ -7,7 +7,7 @@ import {ChatFooter} from "../../../components/chat/chatFooter";
 import {ChatListSearchResult} from "../../../components/chat/chatListSearch";
 
 
-export class PageChatSearch extends Block {
+export class PageChatSearch extends Block<IProperties> {
     constructor() {
         super('div', {});
     }
@@ -27,8 +27,8 @@ export class PageChatSearch extends Block {
         this.children.chatContent = new ChatContent(messageList)
         this.children.chatFooter = new ChatFooter({
             action: "sdf",
-            method: "sdf"
-        },{showMenu: false})
+            method: "sdf",
+            showMenu: false})
     }
 
     render() {

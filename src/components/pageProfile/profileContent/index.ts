@@ -1,13 +1,12 @@
 import Block, {IProperties} from "../../../utils/Block";
 import template from "./profileContent.hbs";
-import {ProfileModal} from "../../modal/modal";
+import {IProfileModalProps, ProfileModal} from "../../modal/modal";
 import {ProfileForm} from "../pageProfileForm";
-import {profileModalProps} from "../../modal/profileModalContent";
 
 interface ProfileContentProps extends IProperties {
     modalShow: boolean,
     disabled: boolean,
-    modalProps?: profileModalProps
+    modalProps?: IProfileModalProps
 }
 
 export class ProfileContent extends Block<ProfileContentProps> {
@@ -20,10 +19,10 @@ export class ProfileContent extends Block<ProfileContentProps> {
         this.children.form = new ProfileForm({
             action: 'sdf',
             method: 'sdf',
-            class: 'edit-settings'
-        }, {disabled: this.props.disabled});
+            class: 'edit-settings',
+            disabled: this.props.disabled});
 
-        if(this.props.modalShow){
+        if(this.props.modalShow && this.props.modalProps){
             this.children.modal = new ProfileModal(this.props.modalProps)
         }
     }

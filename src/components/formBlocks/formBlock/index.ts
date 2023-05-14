@@ -1,53 +1,50 @@
 import Block, {IProperties} from "../../../utils/Block";
 import {
     Input,
-    inputProps,
-    inputType,
+    InputProps,
+    InputType,
     isCharEmail, isContainsCapitalLetter,
     isContainsCharLogin, isContainsCharName, isContainsCharPhone, isContainsNumber, isFirsLetterСapitalized,
     isLength,
     isLengthLogin, isLengthPassword, isLengthPhone, isPlusPositionCorrect,
-    iValidable
+    IValidable
 } from "../../input/input";
 import template from "./formBlock.hbs";
 
-export interface FormBlockProps extends IProperties {
-    label: string;
+export interface IFormBlockProps extends IProperties {
+    label?: string;
     hasError?: boolean;
     errorText?: string;
-    inputProps: inputProps;
+    inputProps?: InputProps;
 }
 
-export class FormBlock extends Block<FormBlockProps> implements iValidable{
-    constructor(props: FormBlockProps) {
+export class FormBlock<T extends IFormBlockProps> extends Block<T> implements IValidable {
+    constructor(props: T) {
         super('div', props);
     }
 
     protected init() {
         super.init();
         this.element?.classList.add('form__el');
-        if(this.props.hasError){
+        if (this.props.hasError) {
             this.element?.classList.add('error');
         }
-        this.children.input = new Input(this.props.inputProps,this.checkValidAndRerender.bind(this));
+        this.children.input = new Input(this.props.inputProps!, this.checkValidAndRerender.bind(this));
     }
 
-    checkValidAndRerender(){
-        if((this.children.input as Input).isValid()){
+    checkValidAndRerender() {
+        if ((this.children.input as Input).isValid()) {
             this.props.hasError = false;
-        }
-        else{
-            this.setProps({
-                hasError: true,
-                errorText: this.getErrorText(),
-            })
+        } else {
+            this.props.hasError = true;
+            this.props.errorText = this.getErrorText();
         }
     }
+
     protected render(): DocumentFragment {
-        if(this.props.hasError){
+        if (this.props.hasError) {
             this.element?.classList.add('error');
-        }
-        else{
+        } else {
             this.element?.classList.remove('error');
         }
         return this.compile(template, this.props)
@@ -79,186 +76,202 @@ export class FormBlock extends Block<FormBlockProps> implements iValidable{
     }
 }
 
-interface profileInputProps {
-    disabled?: true,
+export interface IProfileInputProps extends IFormBlockProps {
+    disabled?: boolean,
     value?: string,
 }
 
-export class FormBlockEmail extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockEmail extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'email',
                 placeholder: 'Почта',
-                type: inputType.email,
+                type: InputType.email,
                 validators: [isLength, isCharEmail],
             },
             label: 'Почта'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockLogin extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockLogin extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'login',
                 placeholder: 'Логин',
-                type: inputType.text,
+                type: InputType.text,
                 validators: [isLength, isLengthLogin, isContainsCharLogin]
             },
             label: 'Логин'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockName extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockName extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'first_name',
                 placeholder: 'Имя',
-                type: inputType.text,
+                type: InputType.text,
                 validators: [isLength, isFirsLetterСapitalized, isContainsCharName]
             },
             label: 'Имя'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockSurname extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockSurname extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'second_name',
                 placeholder: 'Фамилия',
-                type: inputType.text,
+                type: InputType.text,
                 validators: [isLength, isFirsLetterСapitalized, isContainsCharName]
             },
             label: 'Фамилия'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockChatname extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockChatname extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'second_name',
                 placeholder: 'Фамилия',
-                type: inputType.text,
+                type: InputType.text,
                 validators: [isLength,]
             },
             label: 'Фамилия'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockPhone extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockPhone extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'phone',
                 placeholder: 'Телефон',
-                type: inputType.text,
+                type: InputType.text,
                 validators: [isLength, isLengthPhone, isContainsCharPhone, isPlusPositionCorrect]
             },
             label: 'Телефон'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockPassword extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockPassword extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'password',
                 placeholder: 'Пароль',
-                type: inputType.password,
+                type: InputType.password,
                 validators: [isLength, isLengthPassword, isContainsCapitalLetter, isContainsNumber]
             },
             label: 'Пароль'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockPasswordDouble extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockPasswordDouble extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
+                disabled: false,
+                value: '',
                 name: 'password_double',
                 placeholder: 'Пароль (ещё раз)',
-                type: inputType.password,
+                type: InputType.password,
                 validators: [isLength, isLengthPassword, isContainsCapitalLetter, isContainsNumber]
             },
             label: 'Пароль (ещё раз)'
         }
-        if(props.disabled){
+        if (props.disabled) {
             data.inputProps.disabled = true
         }
-        if(props.value){
+        if (props.value) {
             data.inputProps.value = props.value
         }
         super(data);
     }
 }
 
-export class FormBlockMsssage extends FormBlock {
-    constructor(props: profileInputProps) {
+export class FormBlockMsssage extends FormBlock<IProfileInputProps> {
+    constructor(props: IProfileInputProps) {
         const data = {
             inputProps: {
                 name: 'message',
                 placeholder: 'Сообщение',
-                type: inputType.text,
+                type: InputType.text,
                 validators: [isLength]
             },
             label: 'Сообщение'

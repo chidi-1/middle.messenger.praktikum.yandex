@@ -1,4 +1,4 @@
-import Block from '../../../utils/Block';
+import Block, {IProperties} from '../../../utils/Block';
 import template from './pageChatAddUser.hbs';
 import {FormSearchChat} from '../../../components/formBlocks/search';
 import {ChatList} from '../../../components/chat/chatList';
@@ -7,7 +7,7 @@ import {ChatContent} from '../../../components/chat/chatContent';
 import {ChatFooter} from '../../../components/chat/chatFooter';
 import {ChatModal} from '../../../components/modal/modal';
 
-export class PageChatAddUser extends Block {
+export class PageChatAddUser extends Block<IProperties> {
     constructor() {
         super('div', {});
     }
@@ -27,15 +27,14 @@ export class PageChatAddUser extends Block {
         this.children.chatContent = new ChatContent(messageList)
         this.children.chatFooter = new ChatFooter({
             action: 'sdf',
-            method: 'sdf'
-        }, {showMenu: false})
+            method: 'sdf',
+            showMenu: false
+        })
 
         this.children.chatModal = new ChatModal({
             buttonValue: 'Добавить',
-            formProps: {
-                action: 'sdf',
-                method: 'sdf'
-            },
+            action: 'sdf',
+            method: 'sdf',
             title: 'Добавить пользователя'
         })
     }

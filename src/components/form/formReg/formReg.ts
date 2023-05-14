@@ -11,7 +11,7 @@ import {Form, IFormProps} from "../form";
 import template from "./formReg.hbs";
 
 export class FormReg extends Form<IFormProps> {
-    
+
     protected init() {
         super.init();
 

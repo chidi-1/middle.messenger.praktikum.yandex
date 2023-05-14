@@ -1,11 +1,11 @@
-import Block, {IProperties} from "../../../utils/Block";
+import Block from "../../../utils/Block";
 import template from "./modal.hbs";
 import {ChatModalContent} from "../chatModalContent";
-import {ProfileModalContent, profileModalProps} from "../profileModalContent";
+import {ProfileModalContent} from "../profileModalContent";
 import {IFormProps} from "../../form/form";
 
-export abstract class Modal extends Block<chatModalContentProps|profileModalProps> {
-    constructor(props: chatModalContentProps|profileModalProps) {
+export abstract class Modal<T extends IFormProps> extends Block<T> {
+    constructor(props: T) {
         super('div', props);
     }
 
@@ -24,29 +24,34 @@ export abstract class Modal extends Block<chatModalContentProps|profileModalProp
     }
 }
 
-export interface chatModalContentProps extends IProperties {
-    formProps: IFormProps,
+export interface IChatModalContentProps extends IFormProps {
     title: string,
     buttonValue: string
 }
 
-export class ChatModal extends Modal {
-    constructor(props: chatModalContentProps) {
+export class ChatModal extends Modal<IChatModalContentProps> {
+    constructor(props: IChatModalContentProps) {
+        console.log(props)
         super(props);
     }
-
     protected init() {
+        console.log(this.props)
         super.init();
-
         this.children.content = new ChatModalContent(this.props)
     }
 }
 
-export class ProfileModal extends Modal {
-    constructor(props: profileModalProps) {
-        super(props);
-    }
+export interface IProfileModalProps extends IFormProps {
+    title: string,
+    titleError?: boolean,
+    fileText: string,
+    hasError: boolean,
+    errortext?: string,
+    fileLoaded: boolean,
+    inputValue?: string,
+}
 
+export class ProfileModal extends Modal<IProfileModalProps> {
     protected init() {
         super.init();
 
