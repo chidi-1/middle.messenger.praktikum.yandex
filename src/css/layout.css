@@ -34,6 +34,13 @@
     text-decoration: none;
 }
 
+.site-navigation span {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 16px;
+    color: var(--blue);
+}
+
 .correspondence {
     height: 100vh;
     width: 100%;
@@ -79,3 +86,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.backhome {
+    position: fixed;
+    z-index: 1000;
+    right: 50px;
+    bottom: 50px;
+}
+

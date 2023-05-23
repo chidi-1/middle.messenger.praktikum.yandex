@@ -1,0 +1,58 @@
+.form {
+    display: block;
+    margin: 0 auto;
+    width: 340px;
+    background: #FFF;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    padding: 50px 30px 30px;
+}
+
+.form__content {
+    min-height: 315px;
+    padding-bottom: 40px;
+}
+
+.form__el {
+    position: relative;
+    padding-top: 7px;
+    margin-bottom: 10px;
+}
+
+.form__el input {
+    border-bottom: 1px solid var(--blue);
+}
+
+.form__el label {
+    position: absolute;
+    left: 0;
+    top: 15px;
+    color: var(--text-gray);
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.form__el .input:not(:placeholder-shown) + .label,
+.form__el .input:focus + .label {
+    top: 0;
+    font-size: 9px;
+}
+
+.form__el.error input {
+    color: var(--red)
+}
+.form__el.error input:focus {
+    color: var(--black);
+}
+
+.form__el .text-error {
+    display: block;
+    color: var(--red);
+    font-size: 12px;
+    padding-top: 7px;
+    opacity: 0;
+}
+
+.form__el.error .text-error {
+    opacity: 1;
+}

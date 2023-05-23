@@ -1,3 +1,4 @@
+
 .chat {
     padding: 0 20px;
     overflow: hidden;
@@ -12,13 +13,14 @@
 
 .chat .menu-wrap .menu {
     position: absolute;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    background: #FFF;
+    box-shadow: 0 0 6px rgba(0 0 0 / 14%);
     border-radius: 12px;
     padding: 15px;
     opacity: 0;
     pointer-events: none;
 }
+
 .chat .menu-wrap.show .menu {
     opacity: 1;
     pointer-events: auto;
@@ -80,14 +82,14 @@
     top: 50px;
 }
 
-.chat__settings .menu:before {
+.chat__settings .menu::before {
     position: absolute;
     content: "";
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 0 210px 210px;
-    border-color: transparent transparent transparent transparent;
+    border-color: transparent;
     transform:scaleY(.3) translateY(-440px);
     right: 0;
     top: -100%;
@@ -125,14 +127,14 @@
     top: -153px;
 }
 
-.chat__attachment .menu:before {
+.chat__attachment .menu::before {
     position: absolute;
     content: "";
     width: 0;
     height: 0;
     border-style: solid;
     border-width:  165px 165px 0 0;
-    border-color: transparent transparent transparent transparent;
+    border-color: transparent;
     transform: scaleY(.4)translateY(280px);
     left: 0;
     bottom: 0;
@@ -143,8 +145,11 @@
     color: var(--blue)
 }
 
-.chat__footer .input-message {
+.chat__footer .form__el {
     width: calc(100% - 80px);
+}
+
+.chat__footer .form__el .input {
     border-radius: 30px;
     background: var(--chat-gray);
     border: none;
@@ -152,6 +157,15 @@
     height: 32px;
     padding-left: 15px;
     color: var(--black)
+}
+
+.chat__footer .form__el .input::placeholder {
+    opacity: 1;
+}
+
+.chat__footer .form__el .label,
+.chat__footer .form__el .text-error {
+    display: none !important;
 }
 
 .chat__footer .send-message {
@@ -163,6 +177,7 @@
     background: var(--blue);
     border-radius: 30px;
 }
+
 .chat__footer .send-message .icon-arrow-right {
     color: var(--white);
 }
@@ -240,6 +255,7 @@
     background: var(--bg-message);
     position: relative;
 }
+
 .own .text .message__el {
     background: var(--blue-l);
 }
@@ -252,7 +268,7 @@
 }
 
 .image .message__el span.time {
-    background: rgba(82, 82, 82, 0.5);
+    background: rgb(82 82 82 / 50%);
     border-radius: 30px;
     color: var(--white);
     padding: 2px 7px;
@@ -262,20 +278,20 @@
     color: var(--blue);
 }
 
-.own .text .message__el span.time:before {
+.own .text .message__el span.time::before {
     opacity: 0;
-    font-family: 'icomoon';
+    font-family: icomoon, sans-serif;
     content: "\e900";
     font-size: 6px;
     padding-right: 3px;
 }
 
-.own .text .message__el span.time.sended:before {
+.own .text .message__el span.time.sended::before {
     color: var(--text-gray);
     opacity: 1;
 }
 
-.own .text .message__el span.time.readed:before {
+.own .text .message__el span.time.readed::before {
     color: var(--blue);
     opacity: 1;
 }

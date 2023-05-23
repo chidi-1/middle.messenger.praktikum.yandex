@@ -1,5 +1,5 @@
 span, p, a, li, button, input, label {
-    font-family: "Inter";
+    font-family: Inter, sans-serif;
     font-weight: 500;
     font-size: 13px;
     line-height: 1;
@@ -51,19 +51,20 @@ button {
 .c-blue {
     color: var(--blue);
 }
+
 .c-red {
     color: var(--red);
 }
 
 h1 {
-    font-family: "Inter";
+    font-family: Inter, sans-serif;
     font-size: 20px;
     text-align: center;
     margin-bottom: 40px;
 }
 
 h2 {
-    font-family: "Inter";
+    font-family: Inter, sans-serif;
     display: block;
     font-size: 15px;
     line-height: 20px;

@@ -1,9 +1,6 @@
 .settings-modal {
     position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: var(--white);
     z-index: 10;
     transform: translateY(-100%);
@@ -82,26 +79,24 @@
     position: relative;
 }
 
-.settings__userpick .no-userpick:before,
-.settings__userpick .no-userpick:after {
+.settings__userpick .no-userpick::before ,
+.settings__userpick .no-userpick::after  {
     position: absolute;
     transition: all 0.2s ease-in-out;
     opacity: 0;
 }
 
-.settings__userpick .no-userpick:before {
+.settings__userpick .no-userpick::before  {
     content: "";
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     display: block;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.5);
+    background: rgb(0 0 0 / 50%);
     z-index: 5;
 }
-.settings__userpick .no-userpick:after {
+
+.settings__userpick .no-userpick::after  {
     content: "Поменять аватар";
     max-width: 65px;
     left: 50%;
@@ -111,8 +106,8 @@
     color: var(--white);
 }
 
-.settings__userpick .no-userpick:hover:before,
-.settings__userpick .no-userpick:hover:after {
+.settings__userpick .no-userpick:hover::before ,
+.settings__userpick .no-userpick:hover::after  {
     opacity: 1;
 }
 
@@ -131,11 +126,45 @@
     color: var(--black);
 }
 
-ul.settings__data {
+.settings__data {
     margin-bottom: 60px;
 }
-ul.settings__data:last-child {
+
+.settings__data:last-child {
     margin-bottom: 0;
+}
+
+.settings__data .form__el {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    margin-bottom: 0;
+}
+
+.settings__data .form__el label.label {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    border-bottom: 1px solid var(--chat-gray);
+    grid-area: 1 / 1 / 2 / 2;
+    font-size: 13px !important;
+    line-height: 28px !important;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.settings__data .form__el input {
+    background: transparent;
+    border-bottom: 1px solid var(--chat-gray);
+    text-align: right;
+    grid-column: 2 / 3;
+}
+
+.settings__data .form__el input[disabled="true"] {
+    color: var(--text-gray);
+}
+
+.settings__data .form__el .text-error{
+    grid-area: 2 / 3 / 3 / 1;
 }
 
 .settings__data li {
@@ -163,5 +192,6 @@ ul.settings__data:last-child {
     border: none;
     outline: none;
     text-align: right;
+    background: transparent !important;
+    color: var(--text-gray);
 }
-

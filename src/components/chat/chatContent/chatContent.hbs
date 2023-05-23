@@ -1,0 +1,29 @@
+<div class="scroll-wrap">
+    {{#each messages}}
+        {{#if separator}}
+            <span class="chat__date">{{date}}</span>
+        {{/if}}
+        {{#unless separator}}
+            <div class="message {{#if own}} own {{/if}}">
+                {{#if text}}
+                    <div class="text">
+                        <div class="message__el">
+                            {{#each text}}
+                                <p>{{this}}</p>
+                            {{/each}}
+                            <span class="time {{#if own}} readed {{/if}}">{{time}}</span>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#if img}}
+                    <div class="image">
+                        <div class="message__el ">
+                            <img src="{{img}}" alt="">
+                            <span class="time {{#if own}} readed {{/if}}">{{time}}</span>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+        {{/unless}}
+    {{/each}}
+</div>

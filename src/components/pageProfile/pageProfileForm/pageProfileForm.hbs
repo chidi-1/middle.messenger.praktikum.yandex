@@ -1,0 +1,20 @@
+<div class="settings__data">
+    {{{blockEmail}}}
+    {{{blockLogin}}}
+    {{{blockName}}}
+    {{{blockSurname}}}
+    {{{blockChatname}}}
+    {{{blockPhone}}}
+</div>
+
+{{#if disabled}}
+    <ul class="settings__data">
+        <li><a href="" class="c-blue">Изменить данные</a></li>
+        <li><a href="" class="c-blue">Изменить пароль</a></li>
+        <li><a href="" class="c-red">Выйти</a></li>
+    </ul>
+{{/if}}
+
+{{#unless disabled}}
+    {{{button}}}
+{{/unless}}
