@@ -13,12 +13,11 @@ export abstract class Form<T extends IFormProps> extends Block<T> {
         const defaultProps = {
             'events': {
                 'submit': () => {
-                    submitForm(this);
-                    event?.preventDefault()
+                    this.submit();
                 },
             }
         }
-        super('form', {...props, ...defaultProps});
+        super('form', {...defaultProps, ...props});
     }
 
     protected init() {
@@ -30,6 +29,8 @@ export abstract class Form<T extends IFormProps> extends Block<T> {
             }
         }
     }
+
+    abstract submit():void;
 
     isValid(): boolean|undefined{
         return this.props.iValid;
