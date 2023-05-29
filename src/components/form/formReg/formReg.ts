@@ -11,7 +11,6 @@ import {Form, IFormProps} from "../form";
 import template from "./formReg.hbs";
 
 export class FormReg extends Form<IFormProps> {
-
     protected init() {
         super.init();
 
@@ -33,6 +32,10 @@ export class FormReg extends Form<IFormProps> {
             class: "button mb-15",
             type: "submit",
         })
+    }
+
+    submit() {
+        
     }
 
     protected render(): DocumentFragment {

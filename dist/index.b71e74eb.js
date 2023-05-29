@@ -3369,20 +3369,18 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Form", ()=>Form);
 var _block = require("../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _funcions = require("../../utils/funcions");
 class Form extends (0, _blockDefault.default) {
     constructor(props){
         const defaultProps = {
             "events": {
                 "submit": ()=>{
-                    (0, _funcions.submitForm)(this);
-                    event?.preventDefault();
+                    this.submit();
                 }
             }
         };
         super("form", {
-            ...props,
-            ...defaultProps
+            ...defaultProps,
+            ...props
         });
     }
     init() {
@@ -3397,7 +3395,7 @@ class Form extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","../../utils/funcions":"2hNw3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lfBh0":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lfBh0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3552,6 +3550,7 @@ class FormReg extends (0, _form.Form) {
             type: "submit"
         });
     }
+    submit() {}
     render() {
         return this.compile((0, _formRegHbsDefault.default), this.props);
     }
