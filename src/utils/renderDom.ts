@@ -14,6 +14,7 @@ import {pageProfilModal} from "../pages/pageProfil/pageProfileModal";
 import {PageProfileModalLoaded} from "../pages/pageProfil/pageProfileModalLoad";
 import {PageProfileModalErrorFile} from "../pages/pageProfil/pageProfileModalErrorFile";
 import {PageProfileModalErrorLoad} from "../pages/pageProfil/pageProfileModalErrorLoad";
+import {Router} from "./router";
 
 const ROUTES = {
     home: HomePage,
@@ -40,7 +41,6 @@ const ROUTES = {
 
 export function renderDom(route: keyof typeof ROUTES) {
     const root = document.getElementById('root')!;
-
     root.innerHTML = '';
 
     const PageComponent = ROUTES[route];
@@ -48,4 +48,12 @@ export function renderDom(route: keyof typeof ROUTES) {
 
     root.append(page.getContent()!);
     page.dispatchComponentDidMount();
+}
+
+export function navigation () {
+    const router = new Router();
+    router.setup('root')
+    router.use('/', HomePage);
+    router.use('/login', PageLogin);
+    router.start();
 }

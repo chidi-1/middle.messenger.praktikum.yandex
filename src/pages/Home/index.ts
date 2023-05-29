@@ -2,6 +2,7 @@ import Block, {IProperties} from '../../utils/Block';
 import template from './home.hbs';
 import {Button} from '../../components/button/buttonSimple';
 import {renderDom} from "../../utils/renderDom";
+import {Router} from "../../utils/router";
 
 interface HomePageProps extends IProperties {
     title: string;
@@ -28,7 +29,7 @@ export class HomePage extends Block<HomePageProps> {
         this.children.buttonLogin = new Button({
             label: "Перейти",
             events: {
-                click: () => renderDom('pageLogin')
+                click: () => new Router().go('/login')
             }
         })
         this.children.buttonReg = new Button({

@@ -193,6 +193,7 @@ class Block<T extends IProperties> {
                 return typeof value === "function" ? value.bind(target) : value;
             },
             set(target, prop, value) {
+                // = {...target} - копирование в oldTarget
                 const oldTarget = {...target}
 
                 target[prop] = value;

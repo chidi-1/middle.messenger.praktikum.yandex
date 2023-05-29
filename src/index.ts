@@ -1,5 +1,6 @@
-import {renderDom} from "./utils/renderDom";
+import {navigation, renderDom} from "./utils/renderDom";
 
 window.addEventListener('DOMContentLoaded', () => {
-    renderDom('home')
+    //renderDom('home')
+    navigation()
 })

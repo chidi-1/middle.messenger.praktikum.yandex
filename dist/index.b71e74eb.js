@@ -559,13 +559,15 @@ function hmrAccept(bundle, id) {
 },{}],"h7u1C":[function(require,module,exports) {
 var _renderDom = require("./utils/renderDom");
 window.addEventListener("DOMContentLoaded", ()=>{
-    (0, _renderDom.renderDom)("home");
+    //renderDom('home')
+    (0, _renderDom.navigation)();
 });
 
 },{"./utils/renderDom":"bcslR"}],"bcslR":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "renderDom", ()=>renderDom);
+parcelHelpers.export(exports, "navigation", ()=>navigation);
 var _home = require("../pages/Home");
 var _pageErrors = require("../pages/pageErrors");
 var _pageFormLogin = require("../pages/pageForms/pageFormLogin");
@@ -582,6 +584,7 @@ var _pageProfileModal = require("../pages/pageProfil/pageProfileModal");
 var _pageProfileModalLoad = require("../pages/pageProfil/pageProfileModalLoad");
 var _pageProfileModalErrorFile = require("../pages/pageProfil/pageProfileModalErrorFile");
 var _pageProfileModalErrorLoad = require("../pages/pageProfil/pageProfileModalErrorLoad");
+var _router = require("./router");
 const ROUTES = {
     home: (0, _home.HomePage),
     page404: (0, _pageErrors.PageError404),
@@ -609,8 +612,15 @@ function renderDom(route) {
     root.append(page.getContent());
     page.dispatchComponentDidMount();
 }
+function navigation() {
+    const router = new (0, _router.Router)();
+    router.setup("root");
+    router.use("/", (0, _home.HomePage));
+    router.use("/login", (0, _pageFormLogin.PageLogin));
+    router.start();
+}
 
-},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"96xOV":[function(require,module,exports) {
+},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./router":"eQMoo"}],"96xOV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "HomePage", ()=>HomePage);
@@ -620,6 +630,7 @@ var _homeHbs = require("./home.hbs");
 var _homeHbsDefault = parcelHelpers.interopDefault(_homeHbs);
 var _buttonSimple = require("../../components/button/buttonSimple");
 var _renderDom = require("../../utils/renderDom");
+var _router = require("../../utils/router");
 class HomePage extends (0, _blockDefault.default) {
     constructor(props){
         super("div", props);
@@ -640,7 +651,7 @@ class HomePage extends (0, _blockDefault.default) {
         this.children.buttonLogin = new (0, _buttonSimple.Button)({
             label: "Перейти",
             events: {
-                click: ()=>(0, _renderDom.renderDom)("pageLogin")
+                click: ()=>new (0, _router.Router)().go("/login")
             }
         });
         this.children.buttonReg = new (0, _buttonSimple.Button)({
@@ -727,7 +738,7 @@ class HomePage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/buttonSimple":"aV1zM","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"915bj":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/buttonSimple":"aV1zM","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/router":"eQMoo"}],"915bj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _eventBus = require("./EventBus");
@@ -2493,7 +2504,102 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c9osW":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eQMoo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Router", ()=>Router);
+var _route = require("./route");
+class Router {
+    routes = [];
+    constructor(){
+        if (Router.__instance) return Router.__instance;
+        this.history = window.history;
+        this._currentRoute = undefined;
+        Router.__instance = this;
+    }
+    use(pathname, block) {
+        const route = new (0, _route.Route)(pathname, block, {
+            rootQuery: this._rootQuery
+        });
+        this.routes.push(route);
+        return this;
+    }
+    setup(rootQuery) {
+        this._rootQuery = rootQuery;
+    }
+    start() {
+        this.go(window.location.pathname);
+        window.addEventListener("popstate", (event)=>{
+            this._onRoute(window.location.pathname);
+        });
+    }
+    _onRoute(pathname) {
+        const route = this.getRoute(pathname);
+        if (this._currentRoute) this._currentRoute.leave();
+        this._currentRoute = route;
+        route.render();
+    }
+    go(pathname) {
+        this.history.pushState({}, "", pathname);
+        this._onRoute(pathname);
+    }
+    back() {
+        this.history.back();
+    }
+    forward() {
+        this.history.forward();
+    }
+    getRoute(pathname) {
+        return this.routes.find((route)=>route.match(pathname));
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./route":"igkfJ"}],"igkfJ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Route", ()=>Route);
+function isEqual(lhs, rhs) {
+    return lhs === rhs;
+}
+class Route {
+    constructor(pathname, view, props){
+        this._pathname = pathname;
+        this._blockClass = view;
+        this._block = undefined;
+        this._props = props;
+    }
+    tryToNavigate(pathname) {
+        if (this.match(pathname)) {
+            this._pathname = pathname;
+            this.render();
+            return true;
+        }
+        return false;
+    }
+    leave() {
+        if (this._block) this._block.hide();
+    }
+    match(pathname) {
+        return isEqual(pathname, this._pathname);
+    }
+    render() {
+        if (!this._block) {
+            this._block = new this._blockClass({});
+            inject(this._props.rootQuery, this._block);
+            return;
+        }
+        this._block.show();
+    }
+}
+function inject(query, block) {
+    const root = document.getElementById(query);
+    //root.innerHTML = '';
+    root.append(block.getContent());
+    block.dispatchComponentDidMount();
+    return root;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c9osW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageError404", ()=>PageError404);
