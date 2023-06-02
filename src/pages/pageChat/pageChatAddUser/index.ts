@@ -32,6 +32,7 @@ export class PageChatAddUser extends Block<IProperties> {
         })
 
         this.children.chatModal = new ChatModal({
+            inputType: FormBlockLogin,
             buttonValue: 'Добавить',
             action: 'sdf',
             method: 'sdf',

@@ -1,6 +1,5 @@
 import {EventBus} from "./EventBus";
 import {nanoid} from 'nanoid';
-import {IFormBlockProps} from "../components/formBlocks/formBlock";
 
 export interface IProperties {
     events?: Record<string, () => void>;

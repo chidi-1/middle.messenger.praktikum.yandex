@@ -1,6 +1,6 @@
 import {EventBus} from "./EventBus";
 
-type Indexed<T = unknown> = {
+export type Indexed<T = unknown> = {
     [key in string]: T;
 };
 

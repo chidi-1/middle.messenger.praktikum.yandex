@@ -1,7 +1,10 @@
 import Block, {IProperties} from "../../../utils/Block";
 import template from "./chatList.hbs";
+import {GetChatListResponse} from "../../../base/chat/ChatAPI";
+import {storeFilter} from "../../../utils/HOCFilter";
+import store, {StoreEvents} from "../../../utils/store";
 
-interface contactProps extends IProperties {
+interface ChatProps extends IProperties {
     name: string;
     time: string;
     message: string;
@@ -9,13 +12,18 @@ interface contactProps extends IProperties {
     unread?: number
 }
 
-interface chatListProps extends IProperties {
-    contacts: contactProps[];
+interface ChatListProps extends IProperties {
+    chats: GetChatListResponse[];
 }
 
-export class ChatList extends Block<chatListProps> {
-    constructor(props: chatListProps) {
+export class ChatList extends Block<ChatListProps> {
+    constructor(props: ChatListProps) {
         super('ul', props);
+        store.on(StoreEvents.Updated, () => {
+            this.setProps({
+                chats: store.getState().badUglyCoyote
+            })
+        })
     }
 
     protected init() {
@@ -27,3 +35,5 @@ export class ChatList extends Block<chatListProps> {
         return this.compile(template, this.props)
     }
 }
+
+//export default storeFilter<ChatListProps>(ChatList, (storeData) => {chats: storeData.badUglyCoyote})

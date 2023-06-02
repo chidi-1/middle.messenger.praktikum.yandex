@@ -6,6 +6,7 @@ import {ChatHeader} from "../../../components/chat/chatHeader";
 import {ChatContent} from "../../../components/chat/chatContent";
 import {ChatFooter} from "../../../components/chat/chatFooter";
 import {ChatModal} from "../../../components/modal/modal";
+import {FormBlockLogin} from "../../../components/formBlocks/formBlock";
 
 export class PageChatRemoveUser extends Block<IProperties> {
     constructor() {
@@ -32,6 +33,7 @@ export class PageChatRemoveUser extends Block<IProperties> {
         })
 
         this.children.chatModal = new ChatModal({
+            inputType: FormBlockLogin,
             buttonValue: 'Удалить',
             action: 'sdf',
             method: 'sdf',

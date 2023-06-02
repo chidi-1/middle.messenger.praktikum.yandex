@@ -2,7 +2,6 @@ import Block from "../../../utils/Block";
 import template from './pageFormReg.hbs';
 import {FormReg} from "../../../components/form/formReg/formReg";
 
-
 export class PageReg extends Block {
     constructor() {
         super('div', {});

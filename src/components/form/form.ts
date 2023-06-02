@@ -2,8 +2,6 @@ import Block, {IProperties} from "../../utils/Block";
 import {submitForm} from "../../utils/funcions";
 
 export interface IFormProps extends IProperties {
-    action: string;
-    method: string;
     class?: string;
     iValid?: boolean;
 }
@@ -12,7 +10,8 @@ export abstract class Form<T extends IFormProps> extends Block<T> {
     constructor(props: T) {
         const defaultProps = {
             'events': {
-                'submit': () => {
+                'submit': (event) => {
+                    event.preventDefault()
                     this.submit();
                 },
             }

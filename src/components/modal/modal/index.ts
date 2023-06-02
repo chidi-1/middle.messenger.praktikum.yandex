@@ -3,6 +3,7 @@ import template from "./modal.hbs";
 import {ChatModalContent} from "../chatModalContent";
 import {ProfileModalContent} from "../profileModalContent";
 import {IFormProps} from "../../form/form";
+import {FormBlock, FormBlockCreateChat} from "../../formBlocks/formBlock";
 
 export abstract class Modal<T extends IFormProps> extends Block<T> {
     constructor(props: T) {
@@ -17,11 +18,12 @@ export abstract class Modal<T extends IFormProps> extends Block<T> {
     protected render(): DocumentFragment {
         return this.compile(template, this.props)
     }
+}
 
-    show():void {//sdf
-    }
-    hide():void {//sd
-    }
+export interface IModalMessenger extends IFormProps {
+    inputType: typeof FormBlock,
+    buttonValue: string,
+    title: string
 }
 
 export interface IChatModalContentProps extends IFormProps {
@@ -31,11 +33,9 @@ export interface IChatModalContentProps extends IFormProps {
 
 export class ChatModal extends Modal<IChatModalContentProps> {
     constructor(props: IChatModalContentProps) {
-        console.log(props)
         super(props);
     }
     protected init() {
-        console.log(this.props)
         super.init();
         this.children.content = new ChatModalContent(this.props)
     }

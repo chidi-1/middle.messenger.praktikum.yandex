@@ -35,7 +35,7 @@ export class HomePage extends Block<HomePageProps> {
         this.children.buttonReg = new Button({
             label: "Перейти",
             events: {
-                click: () => renderDom('pageReg')
+                click: () => new Router().go('/sign-up')
             }
         })
         this.children.buttonChatEmpty = new Button({

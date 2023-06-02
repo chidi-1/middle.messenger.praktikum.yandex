@@ -1,16 +1,15 @@
-const METHODS = {
-    GET: 'GET',
-    PUT: 'PUT',
-    POST: 'POST',
-    DELETE: 'DELETE',
-};
+export type BaseData = {
+    [key in string]: string | number
+}
 
-/**
- * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
- * На входе: объект. Пример: {a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]}
- * На выходе: строка. Пример: ?a=1&b=2&c=[object Object]&k=1,2,3
- */
-function queryStringify(data = {}) {
+enum METHODS {
+    GET = 'GET',
+    PUT = 'PUT',
+    POST = 'POST',
+    DELETE = 'DELETE',
+}
+
+function queryStringify(data: BaseData = {}) {
     if (typeof data !== 'object') {
         throw new Error('Data must be object');
     }
@@ -22,88 +21,92 @@ function queryStringify(data = {}) {
     }, '?');
 }
 
+interface RequestOptions {
+    notNeedJsonTransform?: boolean;
+    headers?: Record<string, string>;
+    method: METHODS,
+    timeout?: number
+}
 
 class HTTPTransport {
-    get = (url, options = {}) => {
-        return this.request(url, {...options, method: METHODS.GET}, options.timeout);
+    get<T extends BaseData, TY>(url: string, data: T, options?: RequestOptions) {
+        return this.request<T, TY>(url, {...options, method: METHODS.GET}, data);
+    }
 
-    };
-    put = (url, options = {}) => {
-        console.log(url, 'out')
-        return this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+    put<T extends BaseData, TY>(url: string, data: T, options?: RequestOptions) {
+        return this.request<T, TY>(url, {...options, method: METHODS.PUT}, data);
     }
-    post = (url, options = {}) => {
-        console.log(url, 'post')
-        return this.request(url, {...options, method: METHODS.POST}, options.timeout);
+
+    post<T extends BaseData, TY>(url: string, data: T, options?: RequestOptions) {
+        return this.request<T, TY>(url, {...options, method: METHODS.POST}, data);
     }
-    delete = (url, options = {}) => {
-        console.log(url, 'dle')
-        return this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+
+    delete<T extends BaseData, TY>(url: string, data: T, options?: RequestOptions) {
+        return this.request<T, TY>(url, {...options, method: METHODS.DELETE}, data);
     }
+
     // PUT, POST, DELETE
 
     // options:
     // headers — obj
     // data — obj
-    request = (url, options, timeout = 5000) => {
-        const {headers = {}, method, data} = options;
-        return new Promise(function (resolve, reject) {
-            if (!method) {
+
+    public async request<T extends BaseData, TY>(url: string, options: RequestOptions, data: T) {
+        return new Promise<TY>((resolve, reject) => {
+            if (!options.method) {
                 reject('No method');
                 return;
             }
 
             const xhr = new XMLHttpRequest();
-            const isGet = method === METHODS.GET;
+            const isGet = options.method === METHODS.GET;
 
-            xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+            // queryStringify превращает data в ?name=dsfd&pass=sdf
+            xhr.open(options.method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 
-            Object.keys(headers).forEach((key) => {
-                xhr.setRequestHeader(key, headers[key]);
-            });
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+            xhr.withCredentials = true;
+
+            if (options.headers) {
+                Object.keys(options.headers).forEach((key) => {
+                    xhr.setRequestHeader(key, options.headers![key]);
+                });
+            }
 
             xhr.onload = function () {
-                resolve(xhr);
+                if (xhr.status === 200) {
+                    let responseText;
+
+                    if (!options.notNeedJsonTransform) {
+                        responseText = JSON.parse(xhr.responseText);
+                    } else {
+                        responseText = {}
+                    }
+
+                    resolve(responseText);
+                }
+                else {
+                    reject();
+                }
             };
 
             xhr.onabort = reject;
             xhr.onerror = reject;
 
-            xhr.timeout = timeout;
+            if (options.timeout) {
+                xhr.timeout = options.timeout;
+            }
             xhr.ontimeout = reject;
 
             if (isGet || !data) {
                 xhr.send();
             } else {
                 // @ts-ignore
-                xhr.send(data);
+                xhr.send(JSON.stringify(data));
             }
         });
     };
 }
 
-
-function fetchWithRetry(url, options) {
-
-    let left = options.retries || 1;
-    delete options.retries;
-    if (left < 1) {
-        left = 1
-    }
-
-    return new Promise((resolve, reject) => {
-        let send = () => {
-            return new HTTPTransport().get(url, options).then((xhr) => {
-                resolve(xhr)
-            }, (xhr) => {
-                if (left <= 0) {
-                    reject(xhr)
-                } else {
-                    left--;
-                    send()
-                }
-            })
-        }
-        send()
-    })
-}
+export default new HTTPTransport();

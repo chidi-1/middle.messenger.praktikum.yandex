@@ -127,6 +127,23 @@ export class FormBlockLogin extends FormBlock<IProfileInputProps> {
     }
 }
 
+export class FormBlockCreateChat extends FormBlock<IFormBlockProps> {
+    constructor(props: IFormBlockProps) {
+        const data = {
+                inputProps: {
+                disabled: false,
+                value: '',
+                name: 'title',
+                placeholder: 'Название чата',
+                type: InputType.text,
+                validators: [isLength]
+            },
+            label: 'Название чата'
+        }
+        super(data);
+    }
+}
+
 export class FormBlockName extends FormBlock<IProfileInputProps> {
     constructor(props: IProfileInputProps) {
         const data = {

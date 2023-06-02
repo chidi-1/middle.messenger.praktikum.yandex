@@ -1,7 +1,7 @@
 import Block, {IProperties} from '../../../utils/Block';
 import template from './pageChat.hbs';
 import {FormSearchChat} from "../../../components/formBlocks/search";
-import {ChatList} from "../../../components/chat/chatList";
+import ChatList from "../../../components/chat/chatList";
 import {ChatHeader} from "../../../components/chat/chatHeader";
 import {ChatFooter} from "../../../components/chat/chatFooter";
 import {ChatContent} from "../../../components/chat/chatContent";
@@ -35,3 +35,4 @@ export class PageChat extends Block<IProperties> {
         return this.compile(template, {});
     }
 }
+

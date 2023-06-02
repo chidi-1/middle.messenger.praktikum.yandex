@@ -53,7 +53,9 @@ export function renderDom(route: keyof typeof ROUTES) {
 export function navigation () {
     const router = new Router();
     router.setup('root')
-    router.use('/', HomePage);
-    router.use('/login', PageLogin);
+    router.use('/', PageLogin);
+    router.use('/list', HomePage);
+    router.use('/sign-up', PageReg);
+    router.use('/messenger', PageChatEmpty);
     router.start();
 }
