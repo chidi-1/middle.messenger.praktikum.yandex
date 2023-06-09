@@ -622,7 +622,7 @@ function navigation() {
     router.start();
 }
 
-},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./router":"eQMoo"}],"96xOV":[function(require,module,exports) {
+},{"../pages/Home":"96xOV","../pages/pageErrors":"c9osW","../pages/pageForms/pageFormLogin":"alSVq","../pages/pageForms/pageFormReg":"g9Cfi","../pages/pageChat/pageChatEmpty":"haf5U","../pages/pageChat/pageChat":"7RzXZ","../pages/pageChat/pageChatFunctions":"fPe55","../pages/pageChat/pageChatSearch":"2Pv5s","../pages/pageChat/pageChatAddUser":"7v8DI","../pages/pageChat/pageChatRemoveUser":"7ngKl","../pages/pageProfil/pageProfil":"fmFgV","../pages/pageProfil/pageProfilEdit":"kKojD","../pages/pageProfil/pageProfileModal":"gALlt","../pages/pageProfil/pageProfileModalLoad":"a62uK","../pages/pageProfil/pageProfileModalErrorFile":"8V8VU","../pages/pageProfil/pageProfileModalErrorLoad":"kxGXU","./router":"eQMoo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"96xOV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "HomePage", ()=>HomePage);
@@ -740,7 +740,7 @@ class HomePage extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/buttonSimple":"aV1zM","../../utils/renderDom":"bcslR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/router":"eQMoo"}],"915bj":[function(require,module,exports) {
+},{"../../utils/Block":"915bj","./home.hbs":"d96Rx","../../components/button/buttonSimple":"aV1zM","../../utils/renderDom":"bcslR","../../utils/router":"eQMoo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"915bj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _eventBus = require("./EventBus");
@@ -916,8 +916,7 @@ class EventBus {
         this.listeners[event] = this.listeners[event].filter((listener)=>listener !== callback);
     }
     emit(event, ...args) {
-        if (!this.listeners[event]) throw new Event(`Нет события: ${event}`);
-        this.listeners[event].forEach((listener)=>{
+        if (this.listeners[event]) this.listeners[event].forEach((listener)=>{
             listener(...args);
         });
     }
@@ -2512,6 +2511,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Router", ()=>Router);
 var _route = require("./route");
+var _userController = require("../base/user/UserController");
+var _userControllerDefault = parcelHelpers.interopDefault(_userController);
 class Router {
     routes = [];
     constructor(){
@@ -2531,7 +2532,11 @@ class Router {
         this._rootQuery = rootQuery;
     }
     start() {
-        this.go(window.location.pathname);
+        (0, _userControllerDefault.default).updateUserInfo().then(()=>{
+            this.go(window.location.pathname);
+        }).catch(()=>{
+            this.go("/");
+        });
         window.addEventListener("popstate", (event)=>{
             this._onRoute(window.location.pathname);
         });
@@ -2557,7 +2562,7 @@ class Router {
     }
 }
 
-},{"./route":"igkfJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"igkfJ":[function(require,module,exports) {
+},{"./route":"igkfJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../base/user/UserController":"1wRy7"}],"igkfJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Route", ()=>Route);
@@ -2602,7 +2607,218 @@ function inject(query, block) {
     return root;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c9osW":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1wRy7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _userAPI = require("./UserAPI");
+var _userAPIDefault = parcelHelpers.interopDefault(_userAPI);
+var _router = require("../../utils/router");
+var _store = require("../../utils/store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+class UserController {
+    async registration(data) {
+        return await (0, _userAPIDefault.default).create(data);
+    }
+    async login(data) {
+        await (0, _userAPIDefault.default).auth(data);
+        await this.updateUserInfo();
+    }
+    async updateUserInfo() {
+        return (0, _userAPIDefault.default).requestUserInfo().then((info)=>{
+            (0, _storeDefault.default).update("userInfo", info);
+        });
+    }
+    async registrationWithAuth() {
+        new (0, _router.Router)().go("/messenger");
+    }
+}
+exports.default = new UserController();
+
+},{"./UserAPI":"4aoz3","../../utils/router":"eQMoo","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4aoz3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _httptransport = require("../../utils/HTTPTransport");
+var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
+var _baseAPI = require("../../utils/baseAPI");
+class UserAPI extends (0, _baseAPI.BaseAPI) {
+    async create(data) {
+        let response = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signup", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        response.then((createUserResponse)=>{
+            console.log(createUserResponse);
+        });
+        response.catch((smth)=>{
+            console.log(smth);
+        });
+        return response;
+    }
+    async auth(data) {
+        return await (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signin", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            notNeedJsonTransform: true
+        });
+    }
+    async requestUserInfo() {
+        return await (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/auth/user", {}, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+    }
+}
+exports.default = new UserAPI();
+
+},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fipVH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let METHODS;
+(function(METHODS) {
+    METHODS["GET"] = "GET";
+    METHODS["PUT"] = "PUT";
+    METHODS["POST"] = "POST";
+    METHODS["DELETE"] = "DELETE";
+})(METHODS || (METHODS = {}));
+function queryStringify(data = {}) {
+    if (typeof data !== "object") throw new Error("Data must be object");
+    const keys = Object.keys(data);
+    return keys.reduce((result, key, index)=>{
+        return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
+    }, "?");
+}
+class HTTPTransport {
+    get(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.GET
+        }, data);
+    }
+    put(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.PUT
+        }, data);
+    }
+    post(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.POST
+        }, data);
+    }
+    delete(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.DELETE
+        }, data);
+    }
+    // PUT, POST, DELETE
+    // options:
+    // headers — obj
+    // data — obj
+    async request(url, options, data) {
+        return new Promise((resolve, reject)=>{
+            if (!options.method) {
+                reject("No method");
+                return;
+            }
+            const xhr = new XMLHttpRequest();
+            const isGet = options.method === METHODS.GET;
+            // queryStringify превращает data в ?name=dsfd&pass=sdf
+            xhr.open(options.method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+            xhr.withCredentials = true;
+            if (options.headers) Object.keys(options.headers).forEach((key)=>{
+                xhr.setRequestHeader(key, options.headers[key]);
+            });
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    let responseText;
+                    if (!options.notNeedJsonTransform) responseText = JSON.parse(xhr.responseText);
+                    else responseText = {};
+                    resolve(responseText);
+                } else reject();
+            };
+            xhr.onabort = reject;
+            xhr.onerror = reject;
+            if (options.timeout) xhr.timeout = options.timeout;
+            xhr.ontimeout = reject;
+            if (isGet || !data) xhr.send();
+            else // @ts-ignore
+            xhr.send(JSON.stringify(data));
+        });
+    }
+}
+exports.default = new HTTPTransport();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"klo12":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "BaseAPI", ()=>BaseAPI);
+class BaseAPI {
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1sOW7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "StoreEvents", ()=>StoreEvents);
+var _eventBus = require("./EventBus");
+let StoreEvents;
+(function(StoreEvents) {
+    StoreEvents["Updated"] = "updated";
+})(StoreEvents || (StoreEvents = {}));
+function isObject(item) {
+    // проверка что item объект и не массив
+    return item && typeof item === "object" && !Array.isArray(item);
+}
+function merge(lhs, rhs) {
+    // deep merge
+    // к первом объекту добавляется второй на всех уровнях вложенности
+    const source = rhs;
+    if (isObject(lhs) && isObject(source)) {
+        for(const key in source)if (isObject(source[key])) {
+            if (!lhs[key]) Object.assign(lhs, {
+                [key]: {}
+            });
+            merge(lhs[key], source[key]);
+        } else Object.assign(lhs, {
+            [key]: source[key]
+        });
+    }
+    return lhs;
+}
+function set(object, path, value) {
+    // deep работает со вложенными объектами
+    // передаем объект, путь и значение. в объекте по указанному пути устанавливаем/заменяем значение
+    if (!isObject(object)) return object;
+    let keys = path.split(".");
+    let initialValue = {};
+    initialValue[keys.pop()] = value;
+    let out = merge(object, keys.reduceRight((result, currentKey)=>{
+        return {
+            [currentKey]: result
+        };
+    }, initialValue));
+    return out;
+}
+class Store extends (0, _eventBus.EventBus) {
+    state = {};
+    getState() {
+        return this.state;
+    }
+    update(path, value) {
+        set(this.state, path, value);
+        this.emit(StoreEvents.Updated);
+    }
+}
+const store = new Store();
+exports.default = store;
+
+},{"./EventBus":"iVvKU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c9osW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageError404", ()=>PageError404);
@@ -2875,7 +3091,7 @@ class FormLogin extends (0, _form.Form) {
     }
 }
 
-},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formLogin.hbs":"lfBh0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../base/user/UserController":"1wRy7","../../../utils/router":"eQMoo"}],"5zOur":[function(require,module,exports) {
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formLogin.hbs":"lfBh0","../../../base/user/UserController":"1wRy7","../../../utils/router":"eQMoo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5zOur":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "FormBlock", ()=>FormBlock);
@@ -3514,153 +3730,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1wRy7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _userAPI = require("./UserAPI");
-var _userAPIDefault = parcelHelpers.interopDefault(_userAPI);
-var _router = require("../../utils/router");
-class UserController {
-    async registration(data) {
-        return await (0, _userAPIDefault.default).create(data);
-    }
-    async login(data) {
-        return await (0, _userAPIDefault.default).auth(data).then(()=>{
-            new (0, _router.Router)().go("/messenger");
-        });
-    }
-    async registrationWithAuth() {
-        new (0, _router.Router)().go("/messenger");
-    }
-}
-exports.default = new UserController();
-
-},{"./UserAPI":"4aoz3","../../utils/router":"eQMoo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4aoz3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _httptransport = require("../../utils/HTTPTransport");
-var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
-var _baseAPI = require("../../utils/baseAPI");
-class UserAPI extends (0, _baseAPI.BaseAPI) {
-    async create(data) {
-        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signup", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            }
-        });
-        sdf.then((createUserResponse)=>{
-            console.log(createUserResponse);
-        });
-        sdf.catch((smth)=>{
-            console.log(smth);
-        });
-        return sdf;
-    }
-    async auth(data) {
-        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signin", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            },
-            notNeedJsonTransform: true
-        });
-        sdf.catch((smth)=>{
-            console.log(smth);
-        });
-        return sdf;
-    }
-}
-exports.default = new UserAPI();
-
-},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fipVH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-let METHODS;
-(function(METHODS) {
-    METHODS["GET"] = "GET";
-    METHODS["PUT"] = "PUT";
-    METHODS["POST"] = "POST";
-    METHODS["DELETE"] = "DELETE";
-})(METHODS || (METHODS = {}));
-function queryStringify(data = {}) {
-    if (typeof data !== "object") throw new Error("Data must be object");
-    const keys = Object.keys(data);
-    return keys.reduce((result, key, index)=>{
-        return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
-    }, "?");
-}
-class HTTPTransport {
-    get(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.GET
-        }, data);
-    }
-    put(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.PUT
-        }, data);
-    }
-    post(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.POST
-        }, data);
-    }
-    delete(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.DELETE
-        }, data);
-    }
-    // PUT, POST, DELETE
-    // options:
-    // headers — obj
-    // data — obj
-    async request(url, options, data) {
-        return new Promise((resolve, reject)=>{
-            if (!options.method) {
-                reject("No method");
-                return;
-            }
-            const xhr = new XMLHttpRequest();
-            const isGet = options.method === METHODS.GET;
-            // queryStringify превращает data в ?name=dsfd&pass=sdf
-            xhr.open(options.method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
-            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-            xhr.withCredentials = true;
-            if (options.headers) Object.keys(options.headers).forEach((key)=>{
-                xhr.setRequestHeader(key, options.headers[key]);
-            });
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    let responseText;
-                    if (!options.notNeedJsonTransform) responseText = JSON.parse(xhr.responseText);
-                    else responseText = {};
-                    resolve(responseText);
-                } else reject();
-            };
-            xhr.onabort = reject;
-            xhr.onerror = reject;
-            if (options.timeout) xhr.timeout = options.timeout;
-            xhr.ontimeout = reject;
-            if (isGet || !data) xhr.send();
-            else // @ts-ignore
-            xhr.send(JSON.stringify(data));
-        });
-    }
-}
-exports.default = new HTTPTransport();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"klo12":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "BaseAPI", ()=>BaseAPI);
-class BaseAPI {
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageReg", ()=>PageReg);
@@ -3782,7 +3852,7 @@ class FormReg extends (0, _form.Form) {
     }
 }
 
-},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formReg.hbs":"6ZzAn","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../base/user/UserController":"1wRy7","../../../utils/router":"eQMoo"}],"6ZzAn":[function(require,module,exports) {
+},{"../../formBlocks/formBlock":"5zOur","../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formReg.hbs":"6ZzAn","../../../base/user/UserController":"1wRy7","../../../utils/router":"eQMoo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6ZzAn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -3989,7 +4059,7 @@ class PageChatEmpty extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE"}],"f3yaf":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3yaf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4142,6 +4212,8 @@ var _chatListHbs = require("./chatList.hbs");
 var _chatListHbsDefault = parcelHelpers.interopDefault(_chatListHbs);
 var _store = require("../../../utils/store");
 var _storeDefault = parcelHelpers.interopDefault(_store);
+var _chatController = require("../../../base/chat/ChatController");
+var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
 class ChatList extends (0, _blockDefault.default) {
     constructor(props){
         super("ul", props);
@@ -4154,13 +4226,18 @@ class ChatList extends (0, _blockDefault.default) {
     init() {
         super.init();
         this.element?.classList.add("contacts");
+        (0, _chatControllerDefault.default).updateChatsList({
+            offset: 0,
+            limit: 50,
+            title: ""
+        });
     }
     render() {
         return this.compile((0, _chatListHbsDefault.default), this.props);
     }
 }
 
-},{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../utils/store":"1sOW7"}],"jqB6V":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../base/chat/ChatController":"jaJvw"}],"jqB6V":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4288,63 +4365,160 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1sOW7":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jaJvw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "StoreEvents", ()=>StoreEvents);
-var _eventBus = require("./EventBus");
-let StoreEvents;
-(function(StoreEvents) {
-    StoreEvents["Updated"] = "updated";
-})(StoreEvents || (StoreEvents = {}));
-function isObject(item) {
-    // проверка что item объект и не массив
-    return item && typeof item === "object" && !Array.isArray(item);
-}
-function merge(lhs, rhs) {
-    // deep merge
-    // к первом объекту добавляется второй на всех уровнях вложенности
-    const source = rhs;
-    if (isObject(lhs) && isObject(source)) {
-        for(const key in source)if (isObject(source[key])) {
-            if (!lhs[key]) Object.assign(lhs, {
-                [key]: {}
-            });
-            merge(lhs[key], source[key]);
-        } else Object.assign(lhs, {
-            [key]: source[key]
+var _chatAPI = require("./ChatAPI");
+var _chatAPIDefault = parcelHelpers.interopDefault(_chatAPI);
+var _store = require("../../utils/store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+var _webSocketTransport = require("../../utils/WebSocketTransport");
+var _webSocketTransportDefault = parcelHelpers.interopDefault(_webSocketTransport);
+class ChatController {
+    async create(data) {
+        return await (0, _chatAPIDefault.default).create(data).then(()=>{});
+    }
+    async updateChatsList(data) {
+        return await (0, _chatAPIDefault.default).getList(data).then((response)=>{
+            for (const chat of response)(0, _webSocketTransportDefault.default).open(chat.id);
+            (0, _storeDefault.default).update("badUglyCoyote", response);
         });
     }
-    return lhs;
-}
-function set(object, path, value) {
-    // deep работает со вложенными объектами
-    // передаем объект, путь и значение. в объекте по указанному пути устанавливаем/заменяем значение
-    if (!isObject(object)) return object;
-    let keys = path.split(".");
-    let initialValue = {};
-    initialValue[keys.pop()] = value;
-    let out = merge(object, keys.reduceRight((result, currentKey)=>{
-        return {
-            [currentKey]: result
-        };
-    }, initialValue));
-    return out;
-}
-class Store extends (0, _eventBus.EventBus) {
-    state = {};
-    getState() {
-        return this.state;
-    }
-    update(path, value) {
-        set(this.state, path, value);
-        this.emit(StoreEvents.Updated);
+    async getToken(id) {
+        return (0, _chatAPIDefault.default).getToken(id);
     }
 }
-const store = new Store();
-exports.default = store;
+exports.default = new ChatController();
 
-},{"./EventBus":"iVvKU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1QdvE":[function(require,module,exports) {
+},{"./ChatAPI":"4lf1L","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/WebSocketTransport":"1L7Dx"}],"4lf1L":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _httptransport = require("../../utils/HTTPTransport");
+var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
+var _baseAPI = require("../../utils/baseAPI");
+class ChatAPI extends (0, _baseAPI.BaseAPI) {
+    async create(data) {
+        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/chats", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            notNeedJsonTransform: true
+        });
+        sdf.then(()=>{});
+        sdf.catch((smth)=>{});
+        return sdf;
+    }
+    async getList(data) {
+        let sdf = (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/chats", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        return sdf;
+    }
+    async getToken(id) {
+        let token = (0, _httptransportDefault.default).post(`https://ya-praktikum.tech/api/v2/chats/token/${id}`, {}, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        return token;
+    }
+}
+exports.default = new ChatAPI();
+
+},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1L7Dx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _chatController = require("../base/chat/ChatController");
+var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
+var _store = require("./store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+class WebSocketTransport {
+    constructor(userId, chatId){
+        this.chatId = chatId;
+        this.userId = userId;
+        (0, _chatControllerDefault.default).getToken(chatId).then((response)=>{
+            let token = response.token;
+            this.connect(token);
+        });
+    }
+    connect(token) {
+        this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${this.userId}/${this.chatId}/${token}`);
+        this.promise = new Promise((resolve)=>{
+            this.socket.addEventListener("open", ()=>{
+                resolve();
+            });
+        });
+        this.socket.addEventListener("message", (event)=>{
+            console.log("Получены данные", event.data);
+        });
+    }
+    send(msg) {
+        this.promise.then(()=>{
+            this.socket.send(JSON.stringify({
+                content: msg,
+                type: "message"
+            }));
+        });
+    }
+}
+class ChatConnectionManager {
+    chatList = {};
+    open(id) {
+        let userId = (0, _storeDefault.default).getState().userInfo.id;
+        if (!this.chatList[id]) this.chatList[id] = new WebSocketTransport(userId, id);
+    }
+    close(id) {}
+    send(id, message) {
+        if (!this.chatList[id]) this.open(id);
+        this.chatList[id].send(message);
+    }
+}
+const manager = new ChatConnectionManager();
+exports.default = manager; // manager.open(99)
+ // manager.close(99)
+ // manager.send(99, "kjbhjkj")
+ // function send(socket, arg) {
+ //     socket.send(JSON.stringify({
+ //         content: arg,
+ //         type: 'message',
+ //     }));
+ //
+ // }
+ //
+ // const sdf = new Promise<WebSocket>((resolve, reject) => {
+ //     const socket = new WebSocket('wss://ya-praktikum.tech/ws/chats/<USER_ID>/<CHAT_ID>/<TOKEN_VALUE>');
+ //     socket.addEventListener('open', () => {
+ //         resolve(socket)
+ //     });
+ // })
+ //
+ // sdf.then((socket) => {
+ //     send(socket, 88888)
+ // })
+ // sdf.then((socket) => {
+ //     send(socket, 88888)
+ // })
+ // sdf.catch(() => {console.log('22')})
+ // const sdf = new Promise((resolve, reject) => {
+ //     let random = Math.random()
+ //     if(random < 0.5) {
+ //         resolve(0)
+ //     }
+ //     else{
+ //         reject()
+ //     }
+ // })
+ //
+ // sdf.then(() => {console.log('11')})
+ // sdf.catch(() => {console.log('22')})
+ // const fghf = new Promise((resolve, reject) => {})
+ //
+ // fghf.then(() => {console.log('33')})
+ // fghf.catch(() => {console.log('44')})
+
+},{"../base/chat/ChatController":"jaJvw","./store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1QdvE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ModalChat", ()=>ModalChat);
@@ -4458,7 +4632,7 @@ class FormChat extends (0, _form.Form) {
     }
 }
 
-},{"../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../base/chat/ChatController":"jaJvw"}],"1uQbk":[function(require,module,exports) {
+},{"../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","../../../base/chat/ChatController":"jaJvw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1uQbk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4521,55 +4695,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jaJvw":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _chatAPI = require("./ChatAPI");
-var _chatAPIDefault = parcelHelpers.interopDefault(_chatAPI);
-var _store = require("../../utils/store");
-var _storeDefault = parcelHelpers.interopDefault(_store);
-class ChatController {
-    async create(data) {
-        return await (0, _chatAPIDefault.default).create(data).then(()=>{});
-    }
-    async updateChatsList(data) {
-        return await (0, _chatAPIDefault.default).getList(data).then((response)=>{
-            (0, _storeDefault.default).update("badUglyCoyote", response);
-        });
-    }
-}
-exports.default = new ChatController();
-
-},{"./ChatAPI":"4lf1L","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4lf1L":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _httptransport = require("../../utils/HTTPTransport");
-var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
-var _baseAPI = require("../../utils/baseAPI");
-class ChatAPI extends (0, _baseAPI.BaseAPI) {
-    async create(data) {
-        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/chats", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            },
-            notNeedJsonTransform: true
-        });
-        sdf.then(()=>{});
-        sdf.catch((smth)=>{});
-        return sdf;
-    }
-    async getList(data) {
-        let sdf = (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/chats", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            }
-        });
-        return sdf;
-    }
-}
-exports.default = new ChatAPI();
-
-},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RzXZ":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RzXZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageChat", ()=>PageChat);
@@ -6238,7 +6364,7 @@ class PageChatRemoveUser extends (0, _blockDefault.default) {
     }
 }
 
-},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/formBlocks/formBlock":"5zOur"}],"gGqML":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./pageChatRemoveUser.hbs":"gGqML","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../components/modal/modal":"dma1y","../../../components/formBlocks/formBlock":"5zOur","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gGqML":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");

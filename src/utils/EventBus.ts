@@ -20,12 +20,12 @@ export class EventBus {
   }
 
   emit(event, ...args) {
-    if (!this.listeners[event]) {
-      throw new Event(`Нет события: ${event}`);
-    }
+    if (this.listeners[event]) {
 
-    this.listeners[event].forEach(listener => {
-      listener(...args);
-    });
+
+      this.listeners[event].forEach(listener => {
+        listener(...args);
+      });
+    }
   }
 }

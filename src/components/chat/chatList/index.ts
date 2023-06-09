@@ -3,6 +3,7 @@ import template from "./chatList.hbs";
 import {GetChatListResponse} from "../../../base/chat/ChatAPI";
 import {storeFilter} from "../../../utils/HOCFilter";
 import store, {StoreEvents} from "../../../utils/store";
+import ChatController from "../../../base/chat/ChatController";
 
 interface ChatProps extends IProperties {
     name: string;
@@ -29,6 +30,7 @@ export class ChatList extends Block<ChatListProps> {
     protected init() {
         super.init();
         this.element?.classList.add('contacts');
+        ChatController.updateChatsList({offset: 0, limit: 50, title: ''})
     }
 
     protected render(): DocumentFragment {
