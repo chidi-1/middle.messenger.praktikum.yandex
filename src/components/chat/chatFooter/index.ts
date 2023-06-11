@@ -6,6 +6,7 @@ import {Form, IFormProps} from "../../form/form";
 
 export interface IChatFooterProps extends IFormProps {
     showMenu: boolean;
+    chatID?: number;
 }
 
 export class ChatFooter extends Form<IChatFooterProps> {
@@ -20,7 +21,8 @@ export class ChatFooter extends Form<IChatFooterProps> {
             class: "no-style send-message",
             events: {
                 click: () => {
-                    validateForm(this);
+                    console.log(this.props.chatID)
+                    //validateForm(this);
                 }
             },
             iconClass: "icon-arrow-right",
