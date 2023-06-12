@@ -20,6 +20,7 @@ interface ChatListProps extends IProperties {
 
 export class ChatList extends Block<ChatListProps> {
     callbackSwitchChat:(chatID:number) => void;
+    
     constructor(callbackSwitchChat:(chatID:number) => void) {
         super('ul', {chats:[]});
         this.callbackSwitchChat = callbackSwitchChat;
