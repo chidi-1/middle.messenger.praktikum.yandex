@@ -2,7 +2,7 @@ import {EventBus} from "./EventBus";
 import {nanoid} from 'nanoid';
 
 export interface IProperties {
-    events?: Record<string, () => void>;
+    events?: Record<string, (arg?:any) => void>;
 }
 
 // Нельзя создавать экземпляр данного класса

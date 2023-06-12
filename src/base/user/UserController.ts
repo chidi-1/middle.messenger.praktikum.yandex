@@ -1,5 +1,6 @@
 import UserAPI, {UserDataAuth, UserDataReg} from "./UserAPI";
 import {Router} from "../../utils/router";
+import store from "../../utils/store";
 
 class UserController {
 
@@ -8,7 +9,14 @@ class UserController {
     }
 
     async login(data: UserDataAuth) {
-        return await UserAPI.auth(data).then(() => {new Router().go('/messenger')})
+        await UserAPI.auth(data);
+        await this.updateUserInfo();
+    }
+
+    async updateUserInfo() {
+        return UserAPI.requestUserInfo().then((info) => {
+            store.update('userInfo', info);
+        })
     }
 
     async registrationWithAuth() {

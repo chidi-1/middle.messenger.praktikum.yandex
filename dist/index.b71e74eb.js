@@ -916,8 +916,7 @@ class EventBus {
         this.listeners[event] = this.listeners[event].filter((listener)=>listener !== callback);
     }
     emit(event, ...args) {
-        if (!this.listeners[event]) throw new Event(`Нет события: ${event}`);
-        this.listeners[event].forEach((listener)=>{
+        if (this.listeners[event]) this.listeners[event].forEach((listener)=>{
             listener(...args);
         });
     }
@@ -2512,6 +2511,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Router", ()=>Router);
 var _route = require("./route");
+var _userController = require("../base/user/UserController");
+var _userControllerDefault = parcelHelpers.interopDefault(_userController);
 class Router {
     routes = [];
     constructor(){
@@ -2531,7 +2532,11 @@ class Router {
         this._rootQuery = rootQuery;
     }
     start() {
-        this.go(window.location.pathname);
+        (0, _userControllerDefault.default).updateUserInfo().then(()=>{
+            this.go(window.location.pathname);
+        }).catch(()=>{
+            this.go("/");
+        });
         window.addEventListener("popstate", (event)=>{
             this._onRoute(window.location.pathname);
         });
@@ -2557,7 +2562,7 @@ class Router {
     }
 }
 
-},{"./route":"igkfJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"igkfJ":[function(require,module,exports) {
+},{"./route":"igkfJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../base/user/UserController":"1wRy7"}],"igkfJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Route", ()=>Route);
@@ -2602,7 +2607,218 @@ function inject(query, block) {
     return root;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c9osW":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1wRy7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _userAPI = require("./UserAPI");
+var _userAPIDefault = parcelHelpers.interopDefault(_userAPI);
+var _router = require("../../utils/router");
+var _store = require("../../utils/store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+class UserController {
+    async registration(data) {
+        return await (0, _userAPIDefault.default).create(data);
+    }
+    async login(data) {
+        await (0, _userAPIDefault.default).auth(data);
+        await this.updateUserInfo();
+    }
+    async updateUserInfo() {
+        return (0, _userAPIDefault.default).requestUserInfo().then((info)=>{
+            (0, _storeDefault.default).update("userInfo", info);
+        });
+    }
+    async registrationWithAuth() {
+        new (0, _router.Router)().go("/messenger");
+    }
+}
+exports.default = new UserController();
+
+},{"./UserAPI":"4aoz3","../../utils/router":"eQMoo","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4aoz3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _httptransport = require("../../utils/HTTPTransport");
+var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
+var _baseAPI = require("../../utils/baseAPI");
+class UserAPI extends (0, _baseAPI.BaseAPI) {
+    async create(data) {
+        let response = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signup", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        response.then((createUserResponse)=>{
+            console.log(createUserResponse);
+        });
+        response.catch((smth)=>{
+            console.log(smth);
+        });
+        return response;
+    }
+    async auth(data) {
+        return await (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signin", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            notNeedJsonTransform: true
+        });
+    }
+    async requestUserInfo() {
+        return await (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/auth/user", {}, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+    }
+}
+exports.default = new UserAPI();
+
+},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fipVH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let METHODS;
+(function(METHODS) {
+    METHODS["GET"] = "GET";
+    METHODS["PUT"] = "PUT";
+    METHODS["POST"] = "POST";
+    METHODS["DELETE"] = "DELETE";
+})(METHODS || (METHODS = {}));
+function queryStringify(data = {}) {
+    if (typeof data !== "object") throw new Error("Data must be object");
+    const keys = Object.keys(data);
+    return keys.reduce((result, key, index)=>{
+        return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
+    }, "?");
+}
+class HTTPTransport {
+    get(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.GET
+        }, data);
+    }
+    put(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.PUT
+        }, data);
+    }
+    post(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.POST
+        }, data);
+    }
+    delete(url, data, options) {
+        return this.request(url, {
+            ...options,
+            method: METHODS.DELETE
+        }, data);
+    }
+    // PUT, POST, DELETE
+    // options:
+    // headers — obj
+    // data — obj
+    async request(url, options, data) {
+        return new Promise((resolve, reject)=>{
+            if (!options.method) {
+                reject("No method");
+                return;
+            }
+            const xhr = new XMLHttpRequest();
+            const isGet = options.method === METHODS.GET;
+            // queryStringify превращает data в ?name=dsfd&pass=sdf
+            xhr.open(options.method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+            xhr.withCredentials = true;
+            if (options.headers) Object.keys(options.headers).forEach((key)=>{
+                xhr.setRequestHeader(key, options.headers[key]);
+            });
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    let responseText;
+                    if (!options.notNeedJsonTransform) responseText = JSON.parse(xhr.responseText);
+                    else responseText = {};
+                    resolve(responseText);
+                } else reject();
+            };
+            xhr.onabort = reject;
+            xhr.onerror = reject;
+            if (options.timeout) xhr.timeout = options.timeout;
+            xhr.ontimeout = reject;
+            if (isGet || !data) xhr.send();
+            else // @ts-ignore
+            xhr.send(JSON.stringify(data));
+        });
+    }
+}
+exports.default = new HTTPTransport();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"klo12":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "BaseAPI", ()=>BaseAPI);
+class BaseAPI {
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1sOW7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "StoreEvents", ()=>StoreEvents);
+var _eventBus = require("./EventBus");
+let StoreEvents;
+(function(StoreEvents) {
+    StoreEvents["Updated"] = "updated";
+})(StoreEvents || (StoreEvents = {}));
+function isObject(item) {
+    // проверка что item объект и не массив
+    return item && typeof item === "object" && !Array.isArray(item);
+}
+function merge(lhs, rhs) {
+    // deep merge
+    // к первом объекту добавляется второй на всех уровнях вложенности
+    const source = rhs;
+    if (isObject(lhs) && isObject(source)) {
+        for(const key in source)if (isObject(source[key])) {
+            if (!lhs[key]) Object.assign(lhs, {
+                [key]: {}
+            });
+            merge(lhs[key], source[key]);
+        } else Object.assign(lhs, {
+            [key]: source[key]
+        });
+    }
+    return lhs;
+}
+function set(object, path, value) {
+    // deep работает со вложенными объектами
+    // передаем объект, путь и значение. в объекте по указанному пути устанавливаем/заменяем значение
+    if (!isObject(object)) return object;
+    let keys = path.split(".");
+    let initialValue = {};
+    initialValue[keys.pop()] = value;
+    let out = merge(object, keys.reduceRight((result, currentKey)=>{
+        return {
+            [currentKey]: result
+        };
+    }, initialValue));
+    return out;
+}
+class Store extends (0, _eventBus.EventBus) {
+    state = {};
+    getState() {
+        return this.state;
+    }
+    update(path, value) {
+        set(this.state, path, value);
+        this.emit(StoreEvents.Updated);
+    }
+}
+const store = new Store();
+exports.default = store;
+
+},{"./EventBus":"iVvKU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c9osW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageError404", ()=>PageError404);
@@ -3514,153 +3730,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1wRy7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _userAPI = require("./UserAPI");
-var _userAPIDefault = parcelHelpers.interopDefault(_userAPI);
-var _router = require("../../utils/router");
-class UserController {
-    async registration(data) {
-        return await (0, _userAPIDefault.default).create(data);
-    }
-    async login(data) {
-        return await (0, _userAPIDefault.default).auth(data).then(()=>{
-            new (0, _router.Router)().go("/messenger");
-        });
-    }
-    async registrationWithAuth() {
-        new (0, _router.Router)().go("/messenger");
-    }
-}
-exports.default = new UserController();
-
-},{"./UserAPI":"4aoz3","../../utils/router":"eQMoo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4aoz3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _httptransport = require("../../utils/HTTPTransport");
-var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
-var _baseAPI = require("../../utils/baseAPI");
-class UserAPI extends (0, _baseAPI.BaseAPI) {
-    async create(data) {
-        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signup", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            }
-        });
-        sdf.then((createUserResponse)=>{
-            console.log(createUserResponse);
-        });
-        sdf.catch((smth)=>{
-            console.log(smth);
-        });
-        return sdf;
-    }
-    async auth(data) {
-        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/auth/signin", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            },
-            notNeedJsonTransform: true
-        });
-        sdf.catch((smth)=>{
-            console.log(smth);
-        });
-        return sdf;
-    }
-}
-exports.default = new UserAPI();
-
-},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fipVH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-let METHODS;
-(function(METHODS) {
-    METHODS["GET"] = "GET";
-    METHODS["PUT"] = "PUT";
-    METHODS["POST"] = "POST";
-    METHODS["DELETE"] = "DELETE";
-})(METHODS || (METHODS = {}));
-function queryStringify(data = {}) {
-    if (typeof data !== "object") throw new Error("Data must be object");
-    const keys = Object.keys(data);
-    return keys.reduce((result, key, index)=>{
-        return `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`;
-    }, "?");
-}
-class HTTPTransport {
-    get(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.GET
-        }, data);
-    }
-    put(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.PUT
-        }, data);
-    }
-    post(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.POST
-        }, data);
-    }
-    delete(url, data, options) {
-        return this.request(url, {
-            ...options,
-            method: METHODS.DELETE
-        }, data);
-    }
-    // PUT, POST, DELETE
-    // options:
-    // headers — obj
-    // data — obj
-    async request(url, options, data) {
-        return new Promise((resolve, reject)=>{
-            if (!options.method) {
-                reject("No method");
-                return;
-            }
-            const xhr = new XMLHttpRequest();
-            const isGet = options.method === METHODS.GET;
-            // queryStringify превращает data в ?name=dsfd&pass=sdf
-            xhr.open(options.method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
-            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-            xhr.withCredentials = true;
-            if (options.headers) Object.keys(options.headers).forEach((key)=>{
-                xhr.setRequestHeader(key, options.headers[key]);
-            });
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    let responseText;
-                    if (!options.notNeedJsonTransform) responseText = JSON.parse(xhr.responseText);
-                    else responseText = {};
-                    resolve(responseText);
-                } else reject();
-            };
-            xhr.onabort = reject;
-            xhr.onerror = reject;
-            if (options.timeout) xhr.timeout = options.timeout;
-            xhr.ontimeout = reject;
-            if (isGet || !data) xhr.send();
-            else // @ts-ignore
-            xhr.send(JSON.stringify(data));
-        });
-    }
-}
-exports.default = new HTTPTransport();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"klo12":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "BaseAPI", ()=>BaseAPI);
-class BaseAPI {
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g9Cfi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "PageReg", ()=>PageReg);
@@ -3956,6 +4026,9 @@ var _chatList = require("../../../components/chat/chatList");
 var _buttonSimple = require("../../../components/button/buttonSimple");
 var _formBlock = require("../../../components/formBlocks/formBlock");
 var _modalChat = require("../../../components/modal/modalChat/modalChat");
+var _chatHeader = require("../../../components/chat/chatHeader");
+var _chatContent = require("../../../components/chat/chatContent");
+var _chatFooter = require("../../../components/chat/chatFooter");
 class PageChatEmpty extends (0, _blockDefault.default) {
     constructor(){
         super("div", {});
@@ -3968,7 +4041,7 @@ class PageChatEmpty extends (0, _blockDefault.default) {
             placeholder: "Поиск",
             required: true
         });
-        this.children.chatList = new (0, _chatList.ChatList)(chatlist);
+        this.children.chatList = new (0, _chatList.ChatList)(this.consolka.bind(this));
         this.children.buttonAddChat = new (0, _buttonSimple.Button)({
             events: {
                 click: ()=>{
@@ -3983,13 +4056,32 @@ class PageChatEmpty extends (0, _blockDefault.default) {
             buttonValue: "Добавить",
             title: "Добавить чат"
         });
+        this.children.chatHeader = new (0, _chatHeader.ChatHeader)({
+            showMenu: false
+        });
+        this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
+        this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf",
+            showMenu: false
+        });
+    }
+    consolka(chatID) {
+        this.children.chatFooter.setProps({
+            "chatID": chatID
+        });
+        console.log("lklklklklk");
     }
     render() {
         return this.compile((0, _pageChatEmptyHbsDefault.default), {});
     }
 }
 
+<<<<<<< HEAD
 },{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3yaf":[function(require,module,exports) {
+=======
+},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa"}],"f3yaf":[function(require,module,exports) {
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4046,17 +4138,64 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
+<<<<<<< HEAD
         }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat empty">\n    <span class="fs-12">Выберите чат чтобы отправить сообщение</span>\n</div>\n\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatModal",
+=======
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<!--<div class="chat empty">-->\n<div class="chat">\n    <!--<span class="fs-12">Выберите чат чтобы отправить сообщение</span>-->\n\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatHeader",
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
                     "line": 19,
-                    "column": 0
+                    "column": 4
                 },
                 "end": {
                     "line": 19,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatContent",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 20,
+                    "column": 4
+                },
+                "end": {
+                    "line": 20,
+                    "column": 21
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatFooter",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 21,
+                    "column": 4
+                },
+                "end": {
+                    "line": 21,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatModal",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 24,
+                    "column": 0
+                },
+                "end": {
+                    "line": 24,
                     "column": 15
                 }
             }
@@ -4142,9 +4281,17 @@ var _chatListHbs = require("./chatList.hbs");
 var _chatListHbsDefault = parcelHelpers.interopDefault(_chatListHbs);
 var _store = require("../../../utils/store");
 var _storeDefault = parcelHelpers.interopDefault(_store);
+var _chatController = require("../../../base/chat/ChatController");
+var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
 class ChatList extends (0, _blockDefault.default) {
-    constructor(props){
-        super("ul", props);
+    constructor(callbackSwitchChat){
+        super("ul", {
+            chats: []
+        });
+        this.callbackSwitchChat = callbackSwitchChat;
+        this.props.events = {
+            "click": this.switchChat.bind(this)
+        };
         (0, _storeDefault.default).on((0, _store.StoreEvents).Updated, ()=>{
             this.setProps({
                 chats: (0, _storeDefault.default).getState().badUglyCoyote
@@ -4154,52 +4301,90 @@ class ChatList extends (0, _blockDefault.default) {
     init() {
         super.init();
         this.element?.classList.add("contacts");
+        (0, _chatControllerDefault.default).updateChatsList({
+            offset: 0,
+            limit: 50,
+            title: ""
+        });
+    }
+    switchChat(event) {
+        this.callbackSwitchChat(event.target.closest("li").dataset.id);
     }
     render() {
         return this.compile((0, _chatListHbsDefault.default), this.props);
     }
 }
 
+<<<<<<< HEAD
 },{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jqB6V":[function(require,module,exports) {
+=======
+},{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../base/chat/ChatController":"jaJvw"}],"jqB6V":[function(require,module,exports) {
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
 var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
 const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
     "1": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = container.lambda, alias2 = container.escapeExpression, alias3 = depth0 != null ? depth0 : container.nullContext || {}, alias4 = container.hooks.helperMissing, alias5 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
+<<<<<<< HEAD
         return "    " + alias2(alias1(depth0, depth0)) + '\n    <li class="contacts__el">\n        <div class="contacts__userpick"></div>\n        <div class="contacts__text">\n            <div class="space-between">\n                <span class="contacts__name">' + alias2((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+=======
+        return '    <li class="contacts__el" data-id="' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "id",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 38
+                },
+                "end": {
+                    "line": 2,
+                    "column": 44
+                }
+            }
+        }) : helper)) + '">\n        <div class="contacts__userpick"></div>\n        <div class="contacts__text">\n            <div class="space-between">\n                <span class="contacts__name">' + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
             "name": "title",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 7,
+                    "line": 6,
                     "column": 45
                 },
                 "end": {
-                    "line": 7,
+                    "line": 6,
                     "column": 54
                 }
             }
+<<<<<<< HEAD
         }) : helper)) + '</span>\n                <span class="contacts__date">' + alias2((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
+=======
+        }) : helper)) + '</span>\n                <span class="contacts__date">' + alias4((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
             "name": "time",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 8,
+                    "line": 7,
                     "column": 45
                 },
                 "end": {
-                    "line": 8,
+                    "line": 7,
                     "column": 53
                 }
             }
+<<<<<<< HEAD
         }) : helper)) + '</span>\n            </div>\n            <div class="space-between">\n                <!--<p class="contacts__message">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
+=======
+        }) : helper)) + '</span>\n            </div>\n            <div class="space-between">\n                <!--<p class="contacts__message">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
             "name": "if",
             "hash": {},
             "fn": container.program(2, data, 0),
@@ -4207,15 +4392,19 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 12,
+                    "line": 11,
                     "column": 20
                 },
                 "end": {
-                    "line": 14,
+                    "line": 13,
                     "column": 27
                 }
             }
+<<<<<<< HEAD
         })) != null ? stack1 : "") + "                    " + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "last_message") : depth0) != null ? lookupProperty(stack1, "content") : stack1, depth0)) + "\n                </p>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
+=======
+        })) != null ? stack1 : "") + "                    " + alias4(container.lambda((stack1 = depth0 != null ? lookupProperty(depth0, "last_message") : depth0) != null ? lookupProperty(stack1, "content") : stack1, depth0)) + "\n                </p>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
+>>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
             "name": "if",
             "hash": {},
             "fn": container.program(4, data, 0),
@@ -4223,11 +4412,11 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 17,
+                    "line": 16,
                     "column": 16
                 },
                 "end": {
-                    "line": 19,
+                    "line": 18,
                     "column": 23
                 }
             }
@@ -4247,11 +4436,11 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 18,
+                    "line": 17,
                     "column": 51
                 },
                 "end": {
-                    "line": 18,
+                    "line": 17,
                     "column": 61
                 }
             }
@@ -4278,7 +4467,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 0
                 },
                 "end": {
-                    "line": 23,
+                    "line": 22,
                     "column": 9
                 }
             }
@@ -4288,63 +4477,160 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1sOW7":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jaJvw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "StoreEvents", ()=>StoreEvents);
-var _eventBus = require("./EventBus");
-let StoreEvents;
-(function(StoreEvents) {
-    StoreEvents["Updated"] = "updated";
-})(StoreEvents || (StoreEvents = {}));
-function isObject(item) {
-    // проверка что item объект и не массив
-    return item && typeof item === "object" && !Array.isArray(item);
-}
-function merge(lhs, rhs) {
-    // deep merge
-    // к первом объекту добавляется второй на всех уровнях вложенности
-    const source = rhs;
-    if (isObject(lhs) && isObject(source)) {
-        for(const key in source)if (isObject(source[key])) {
-            if (!lhs[key]) Object.assign(lhs, {
-                [key]: {}
-            });
-            merge(lhs[key], source[key]);
-        } else Object.assign(lhs, {
-            [key]: source[key]
+var _chatAPI = require("./ChatAPI");
+var _chatAPIDefault = parcelHelpers.interopDefault(_chatAPI);
+var _store = require("../../utils/store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+var _webSocketTransport = require("../../utils/WebSocketTransport");
+var _webSocketTransportDefault = parcelHelpers.interopDefault(_webSocketTransport);
+class ChatController {
+    async create(data) {
+        return await (0, _chatAPIDefault.default).create(data).then(()=>{});
+    }
+    async updateChatsList(data) {
+        return await (0, _chatAPIDefault.default).getList(data).then((response)=>{
+            for (const chat of response)(0, _webSocketTransportDefault.default).open(chat.id);
+            (0, _storeDefault.default).update("badUglyCoyote", response);
         });
     }
-    return lhs;
-}
-function set(object, path, value) {
-    // deep работает со вложенными объектами
-    // передаем объект, путь и значение. в объекте по указанному пути устанавливаем/заменяем значение
-    if (!isObject(object)) return object;
-    let keys = path.split(".");
-    let initialValue = {};
-    initialValue[keys.pop()] = value;
-    let out = merge(object, keys.reduceRight((result, currentKey)=>{
-        return {
-            [currentKey]: result
-        };
-    }, initialValue));
-    return out;
-}
-class Store extends (0, _eventBus.EventBus) {
-    state = {};
-    getState() {
-        return this.state;
-    }
-    update(path, value) {
-        set(this.state, path, value);
-        this.emit(StoreEvents.Updated);
+    async getToken(id) {
+        return (0, _chatAPIDefault.default).getToken(id);
     }
 }
-const store = new Store();
-exports.default = store;
+exports.default = new ChatController();
 
-},{"./EventBus":"iVvKU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1QdvE":[function(require,module,exports) {
+},{"./ChatAPI":"4lf1L","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/WebSocketTransport":"1L7Dx"}],"4lf1L":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _httptransport = require("../../utils/HTTPTransport");
+var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
+var _baseAPI = require("../../utils/baseAPI");
+class ChatAPI extends (0, _baseAPI.BaseAPI) {
+    async create(data) {
+        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/chats", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            notNeedJsonTransform: true
+        });
+        sdf.then(()=>{});
+        sdf.catch((smth)=>{});
+        return sdf;
+    }
+    async getList(data) {
+        let sdf = (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/chats", data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        return sdf;
+    }
+    async getToken(id) {
+        let token = (0, _httptransportDefault.default).post(`https://ya-praktikum.tech/api/v2/chats/token/${id}`, {}, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        return token;
+    }
+}
+exports.default = new ChatAPI();
+
+},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1L7Dx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _chatController = require("../base/chat/ChatController");
+var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
+var _store = require("./store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+class WebSocketTransport {
+    constructor(userId, chatId){
+        this.chatId = chatId;
+        this.userId = userId;
+        (0, _chatControllerDefault.default).getToken(chatId).then((response)=>{
+            let token = response.token;
+            this.connect(token);
+        });
+    }
+    connect(token) {
+        this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${this.userId}/${this.chatId}/${token}`);
+        this.promise = new Promise((resolve)=>{
+            this.socket.addEventListener("open", ()=>{
+                resolve();
+            });
+        });
+        this.socket.addEventListener("message", (event)=>{
+            console.log("Получены данные", event.data);
+        });
+    }
+    send(msg) {
+        this.promise.then(()=>{
+            this.socket.send(JSON.stringify({
+                content: msg,
+                type: "message"
+            }));
+        });
+    }
+}
+class ChatConnectionManager {
+    chatList = {};
+    open(id) {
+        let userId = (0, _storeDefault.default).getState().userInfo.id;
+        if (!this.chatList[id]) this.chatList[id] = new WebSocketTransport(userId, id);
+    }
+    close(id) {}
+    send(id, message) {
+        if (!this.chatList[id]) this.open(id);
+        this.chatList[id].send(message);
+    }
+}
+const manager = new ChatConnectionManager();
+exports.default = manager; // manager.open(99)
+ // manager.close(99)
+ // manager.send(99, "kjbhjkj")
+ // function send(socket, arg) {
+ //     socket.send(JSON.stringify({
+ //         content: arg,
+ //         type: 'message',
+ //     }));
+ //
+ // }
+ //
+ // const sdf = new Promise<WebSocket>((resolve, reject) => {
+ //     const socket = new WebSocket('wss://ya-praktikum.tech/ws/chats/<USER_ID>/<CHAT_ID>/<TOKEN_VALUE>');
+ //     socket.addEventListener('open', () => {
+ //         resolve(socket)
+ //     });
+ // })
+ //
+ // sdf.then((socket) => {
+ //     send(socket, 88888)
+ // })
+ // sdf.then((socket) => {
+ //     send(socket, 88888)
+ // })
+ // sdf.catch(() => {console.log('22')})
+ // const sdf = new Promise((resolve, reject) => {
+ //     let random = Math.random()
+ //     if(random < 0.5) {
+ //         resolve(0)
+ //     }
+ //     else{
+ //         reject()
+ //     }
+ // })
+ //
+ // sdf.then(() => {console.log('11')})
+ // sdf.catch(() => {console.log('22')})
+ // const fghf = new Promise((resolve, reject) => {})
+ //
+ // fghf.then(() => {console.log('33')})
+ // fghf.catch(() => {console.log('44')})
+
+},{"../base/chat/ChatController":"jaJvw","./store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1QdvE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ModalChat", ()=>ModalChat);
@@ -4521,187 +4807,6 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
 });
 exports.default = templateFunction;
 
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jaJvw":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _chatAPI = require("./ChatAPI");
-var _chatAPIDefault = parcelHelpers.interopDefault(_chatAPI);
-var _store = require("../../utils/store");
-var _storeDefault = parcelHelpers.interopDefault(_store);
-class ChatController {
-    async create(data) {
-        return await (0, _chatAPIDefault.default).create(data).then(()=>{});
-    }
-    async updateChatsList(data) {
-        return await (0, _chatAPIDefault.default).getList(data).then((response)=>{
-            (0, _storeDefault.default).update("badUglyCoyote", response);
-        });
-    }
-}
-exports.default = new ChatController();
-
-},{"./ChatAPI":"4lf1L","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4lf1L":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _httptransport = require("../../utils/HTTPTransport");
-var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
-var _baseAPI = require("../../utils/baseAPI");
-class ChatAPI extends (0, _baseAPI.BaseAPI) {
-    async create(data) {
-        let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/chats", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            },
-            notNeedJsonTransform: true
-        });
-        sdf.then(()=>{});
-        sdf.catch((smth)=>{});
-        return sdf;
-    }
-    async getList(data) {
-        let sdf = (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/chats", data, {
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8"
-            }
-        });
-        return sdf;
-    }
-}
-exports.default = new ChatAPI();
-
-},{"../../utils/HTTPTransport":"fipVH","../../utils/baseAPI":"klo12","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RzXZ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "PageChat", ()=>PageChat);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _pageChatHbs = require("./pageChat.hbs");
-var _pageChatHbsDefault = parcelHelpers.interopDefault(_pageChatHbs);
-var _search = require("../../../components/formBlocks/search");
-var _chatList = require("../../../components/chat/chatList");
-var _chatListDefault = parcelHelpers.interopDefault(_chatList);
-var _chatHeader = require("../../../components/chat/chatHeader");
-var _chatFooter = require("../../../components/chat/chatFooter");
-var _chatContent = require("../../../components/chat/chatContent");
-class PageChat extends (0, _blockDefault.default) {
-    constructor(){
-        super("div", {});
-    }
-    init() {
-        super.init();
-        this.element?.classList.add("correspondence");
-        this.children.formSearchChat = new (0, _search.FormSearchChat)({
-            name: "",
-            placeholder: "Поиск",
-            required: true
-        });
-        this.children.chatList = new (0, _chatListDefault.default)(chatlist);
-        this.children.chatHeader = new (0, _chatHeader.ChatHeader)({
-            showMenu: false
-        });
-        this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
-        this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
-            action: "sdf",
-            method: "sdf",
-            showMenu: false
-        });
-    }
-    render() {
-        return this.compile((0, _pageChatHbsDefault.default), {});
-    }
-}
-
-},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4XNp":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "formSearchChat",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 9,
-                    "column": 8
-                },
-                "end": {
-                    "line": 9,
-                    "column": 28
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "chatList",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 10,
-                    "column": 8
-                },
-                "end": {
-                    "line": 10,
-                    "column": 22
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "chatHeader",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 15,
-                    "column": 4
-                },
-                "end": {
-                    "line": 15,
-                    "column": 20
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "chatContent",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 16,
-                    "column": 4
-                },
-                "end": {
-                    "line": 16,
-                    "column": 21
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "chatFooter",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 17,
-                    "column": 4
-                },
-                "end": {
-                    "line": 17,
-                    "column": 20
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n</div>\r\n";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
 },{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9bXRB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -4758,178 +4863,6 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 }
             }
         })) != null ? stack1 : "") + '">\r\n    <button class="no-style js--toggle-interlocutor-menu">\r\n        <span class="icon-ellipsis"></span>\r\n    </button>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-plus c-blue"></span>\r\n            <span>Добавить пользователя</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-remove c-blue "></span>\r\n            <span>Удалить пользователя</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3MFSa":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatFooter", ()=>ChatFooter);
-var _chatFooterHbs = require("./chatFooter.hbs");
-var _chatFooterHbsDefault = parcelHelpers.interopDefault(_chatFooterHbs);
-var _buttonWithIcon = require("../../button/buttonWithIcon");
-var _formBlock = require("../../formBlocks/formBlock");
-var _funcions = require("../../../utils/funcions");
-var _form = require("../../form/form");
-class ChatFooter extends (0, _form.Form) {
-    init() {
-        super.init();
-        this.element?.classList.add("chat__footer");
-        this.children.input = new (0, _formBlock.FormBlockMsssage)({});
-        this.children.button = new (0, _buttonWithIcon.ButtonWithIcon)({
-            class: "no-style send-message",
-            events: {
-                click: ()=>{
-                    (0, _funcions.validateForm)(this);
-                }
-            },
-            iconClass: "icon-arrow-right",
-            type: "submit"
-        });
-    }
-    render() {
-        return this.compile((0, _chatFooterHbsDefault.default), this.props);
-    }
-}
-
-},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "1": function(container, depth0, helpers, partials, data) {
-        return " show ";
-    },
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div class="chat__attachment menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 39
-                },
-                "end": {
-                    "line": 1,
-                    "column": 68
-                }
-            }
-        })) != null ? stack1 : "") + '">\r\n    <span class="icon-clip"></span>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-media c-blue"></span>\r\n            <span>Фото или Видео</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-file c-blue "></span>\r\n            <span>Файл</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-location c-blue "></span>\r\n            <span>Локация</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "input",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 19,
-                    "column": 0
-                },
-                "end": {
-                    "line": 19,
-                    "column": 11
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "button",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 21,
-                    "column": 0
-                },
-                "end": {
-                    "line": 21,
-                    "column": 12
-                }
-            }
-        }) : helper)) != null ? stack1 : "") + "\r\n";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dUu7n":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ButtonWithIcon", ()=>ButtonWithIcon);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _buttonWithIconHbs = require("./buttonWithIcon.hbs");
-var _buttonWithIconHbsDefault = parcelHelpers.interopDefault(_buttonWithIconHbs);
-class ButtonWithIcon extends (0, _blockDefault.default) {
-    constructor(props){
-        super("button", props);
-    }
-    init() {
-        if (this.props.class) {
-            const classes = this.props.class.split(" ");
-            for (const classEl of classes)this.element?.classList.add(classEl);
-        }
-        if (this.props.type) this.element?.setAttribute("type", this.props.type);
-    }
-    render() {
-        return this.compile((0, _buttonWithIconHbsDefault.default), this.props);
-    }
-}
-
-},{"../../../utils/Block":"915bj","./buttonWithIcon.hbs":"fgi40","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fgi40":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return alias4((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "label",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 1,
-                    "column": 0
-                },
-                "end": {
-                    "line": 1,
-                    "column": 11
-                }
-            }
-        }) : helper)) + '\r\n<span class="' + alias4((helper = (helper = lookupProperty(helpers, "iconClass") || (depth0 != null ? lookupProperty(depth0, "iconClass") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "iconClass",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 13
-                },
-                "end": {
-                    "line": 2,
-                    "column": 26
-                }
-            }
-        }) : helper)) + '"></span>\r\n';
     },
     "useData": true
 });
@@ -5216,6 +5149,320 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 }
             }
         })) != null ? stack1 : "") + "</div>\r\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3MFSa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatFooter", ()=>ChatFooter);
+var _chatFooterHbs = require("./chatFooter.hbs");
+var _chatFooterHbsDefault = parcelHelpers.interopDefault(_chatFooterHbs);
+var _buttonWithIcon = require("../../button/buttonWithIcon");
+var _formBlock = require("../../formBlocks/formBlock");
+var _form = require("../../form/form");
+class ChatFooter extends (0, _form.Form) {
+    init() {
+        super.init();
+        this.element?.classList.add("chat__footer");
+        this.children.input = new (0, _formBlock.FormBlockMsssage)({});
+        this.children.button = new (0, _buttonWithIcon.ButtonWithIcon)({
+            class: "no-style send-message",
+            events: {
+                click: ()=>{
+                    console.log(this.props.chatID);
+                //validateForm(this);
+                }
+            },
+            iconClass: "icon-arrow-right",
+            type: "submit"
+        });
+    }
+    render() {
+        return this.compile((0, _chatFooterHbsDefault.default), this.props);
+    }
+}
+
+},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        return " show ";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="chat__attachment menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 39
+                },
+                "end": {
+                    "line": 1,
+                    "column": 68
+                }
+            }
+        })) != null ? stack1 : "") + '">\r\n    <span class="icon-clip"></span>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-media c-blue"></span>\r\n            <span>Фото или Видео</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-file c-blue "></span>\r\n            <span>Файл</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-location c-blue "></span>\r\n            <span>Локация</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "input",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 19,
+                    "column": 0
+                },
+                "end": {
+                    "line": 19,
+                    "column": 11
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 21,
+                    "column": 0
+                },
+                "end": {
+                    "line": 21,
+                    "column": 12
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dUu7n":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ButtonWithIcon", ()=>ButtonWithIcon);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _buttonWithIconHbs = require("./buttonWithIcon.hbs");
+var _buttonWithIconHbsDefault = parcelHelpers.interopDefault(_buttonWithIconHbs);
+class ButtonWithIcon extends (0, _blockDefault.default) {
+    constructor(props){
+        super("button", props);
+    }
+    init() {
+        if (this.props.class) {
+            const classes = this.props.class.split(" ");
+            for (const classEl of classes)this.element?.classList.add(classEl);
+        }
+        if (this.props.type) this.element?.setAttribute("type", this.props.type);
+    }
+    render() {
+        return this.compile((0, _buttonWithIconHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./buttonWithIcon.hbs":"fgi40","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fgi40":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return alias4((helper = (helper = lookupProperty(helpers, "label") || (depth0 != null ? lookupProperty(depth0, "label") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "label",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 1,
+                    "column": 11
+                }
+            }
+        }) : helper)) + '\r\n<span class="' + alias4((helper = (helper = lookupProperty(helpers, "iconClass") || (depth0 != null ? lookupProperty(depth0, "iconClass") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "iconClass",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 13
+                },
+                "end": {
+                    "line": 2,
+                    "column": 26
+                }
+            }
+        }) : helper)) + '"></span>\r\n';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7RzXZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "PageChat", ()=>PageChat);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _pageChatHbs = require("./pageChat.hbs");
+var _pageChatHbsDefault = parcelHelpers.interopDefault(_pageChatHbs);
+var _search = require("../../../components/formBlocks/search");
+var _chatList = require("../../../components/chat/chatList");
+var _chatListDefault = parcelHelpers.interopDefault(_chatList);
+var _chatHeader = require("../../../components/chat/chatHeader");
+var _chatFooter = require("../../../components/chat/chatFooter");
+var _chatContent = require("../../../components/chat/chatContent");
+class PageChat extends (0, _blockDefault.default) {
+    constructor(){
+        super("div", {});
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("correspondence");
+        this.children.formSearchChat = new (0, _search.FormSearchChat)({
+            name: "",
+            placeholder: "Поиск",
+            required: true
+        });
+        this.children.chatList = new (0, _chatListDefault.default)({
+            events: {
+                click: this.switchChat.bind(this)
+            },
+            chats: []
+        });
+        this.children.chatHeader = new (0, _chatHeader.ChatHeader)({
+            showMenu: false
+        });
+        this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
+        this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
+            action: "sdf",
+            method: "sdf",
+            showMenu: false
+        });
+    }
+    switchChat(event) {
+        console.log(event.target);
+        console.log(event.target.dataset.id);
+    }
+    render() {
+        return this.compile((0, _pageChatHbsDefault.default), {});
+    }
+}
+
+},{"../../../utils/Block":"915bj","./pageChat.hbs":"c4XNp","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatFooter":"3MFSa","../../../components/chat/chatContent":"1xpKh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4XNp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="aside">\r\n    <div class="aside__header">\r\n        <div class="text-right">\r\n            <button class="js--toggle-data no-style">\r\n                Профиль\r\n                <span class="icon-angle-right"></span>\r\n            </button>\r\n        </div>\r\n        ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "formSearchChat") || (depth0 != null ? lookupProperty(depth0, "formSearchChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "formSearchChat",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 8
+                },
+                "end": {
+                    "line": 9,
+                    "column": 28
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n        " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatList") || (depth0 != null ? lookupProperty(depth0, "chatList") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatList",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 8
+                },
+                "end": {
+                    "line": 10,
+                    "column": 22
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\r\n    </div>\r\n</div>\r\n\r\n<div class="chat">\r\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatHeader",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 4
+                },
+                "end": {
+                    "line": 15,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatContent") || (depth0 != null ? lookupProperty(depth0, "chatContent") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatContent",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 16,
+                    "column": 4
+                },
+                "end": {
+                    "line": 16,
+                    "column": 21
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatFooter") || (depth0 != null ? lookupProperty(depth0, "chatFooter") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "chatFooter",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 17,
+                    "column": 4
+                },
+                "end": {
+                    "line": 17,
+                    "column": 20
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n</div>\r\n";
     },
     "useData": true
 });

@@ -1,11 +1,27 @@
-class WebSocketTransport {
-    socket: WebSocket;
-    promise: Promise<void>;
+import ChatController from "../base/chat/ChatController";
+import ChatAPI from "../base/chat/ChatAPI";
+import store from "./store";
+import {UserDataResponseInfo} from "../base/user/UserAPI";
 
-    constructor(userId: number, chatId: number, token: string) {
-        this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
+class WebSocketTransport {
+    socket?: WebSocket;
+    promise?: Promise<void>;
+    chatId: number;
+    private userId: number;
+
+    constructor(userId: number, chatId: number) {
+        this.chatId = chatId;
+        this.userId = userId;
+        ChatController.getToken(chatId).then((response) => {
+            let token = response.token;
+            this.connect(token);
+        })
+    }
+
+    private connect(token: string) {
+        this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${this.userId}/${this.chatId}/${token}`);
         this.promise = new Promise<void>((resolve) => {
-            this.socket.addEventListener('open', () => {
+            this.socket!.addEventListener('open', () => {
                 resolve()
             })
         })
@@ -15,8 +31,8 @@ class WebSocketTransport {
     }
 
     send(msg: string) {
-        this.promise.then(() => {
-            this.socket.send(JSON.stringify({
+        this.promise!.then(() => {
+            this.socket!.send(JSON.stringify({
                 content: msg,
                 type: 'message',
             }));
@@ -24,13 +40,31 @@ class WebSocketTransport {
     }
 }
 
-const manager = new ChatConnectionManager();
-manager.open(99)
-manager.close(99)
-manager.send(99,"kjbhjkj")
+class ChatConnectionManager {
+    chatList: Record<number, WebSocketTransport> = {};
 
-const webSocketTransport = new WebSocketTransport(1, 1, '2')
-webSocketTransport.send("kjkjk");
+    open(id: number) {
+        let userId = (store.getState().userInfo as UserDataResponseInfo).id;
+        if (!this.chatList[id]) {
+            this.chatList[id] = new WebSocketTransport(userId, id);
+        }
+    }
+
+    close(id: number) {
+    }
+
+    send(id: number, message: string) {
+        if (!this.chatList[id]) {
+            this.open(id);
+        }
+        this.chatList[id].send(message);
+    }
+}
+const manager=new ChatConnectionManager()
+export default manager;
+// manager.open(99)
+// manager.close(99)
+// manager.send(99, "kjbhjkj")
 
 // function send(socket, arg) {
 //     socket.send(JSON.stringify({

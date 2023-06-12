@@ -20,7 +20,8 @@ export class PageChat extends Block<IProperties> {
             placeholder: "Поиск",
             required: true
         });
-        this.children.chatList = new ChatList(chatlist)
+
+        this.children.chatList = new ChatList({events: {click: this.switchChat.bind(this)}, chats: []})
 
         this.children.chatHeader = new ChatHeader({showMenu: false})
         this.children.chatContent = new ChatContent(messageList)
@@ -29,6 +30,11 @@ export class PageChat extends Block<IProperties> {
             method: "sdf",
             showMenu: false
         })
+    }
+
+    switchChat(event:any) {
+        console.log(event.target)
+        console.log(event.target.dataset.id)
     }
 
     render() {

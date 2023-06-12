@@ -1,6 +1,5 @@
 import HTTPTransport, {BaseData} from "../../utils/HTTPTransport";
 import {BaseAPI} from "../../utils/baseAPI";
-import {Router} from "../../utils/router";
 
 export interface ChatDataCreate extends BaseData{
     title: string,
@@ -36,6 +35,10 @@ export interface GetChatListResponse {
     }
 }
 
+export interface GetChatTokenResponse {
+    token: string
+}
+
 class ChatAPI extends BaseAPI{
     public async create(data:ChatDataCreate) {
         let sdf = HTTPTransport.post<ChatDataCreate, undefined>('https://ya-praktikum.tech/api/v2/chats',data,{headers: {'Content-Type': 'application/json;charset=UTF-8'}, notNeedJsonTransform:true});
@@ -51,8 +54,12 @@ class ChatAPI extends BaseAPI{
     public async getList(data: ChatDataGetList) {
         let sdf = HTTPTransport.get<ChatDataGetList, GetChatListResponse[]>('https://ya-praktikum.tech/api/v2/chats',data,{headers: {'Content-Type': 'application/json;charset=UTF-8'}});
 
-
         return sdf;
+    }
+
+    public async getToken(id:number){
+        let token = HTTPTransport.post<BaseData, GetChatTokenResponse>(`https://ya-praktikum.tech/api/v2/chats/token/${id}`,{},{headers: {'Content-Type': 'application/json;charset=UTF-8'}})
+        return token;
     }
 }
 

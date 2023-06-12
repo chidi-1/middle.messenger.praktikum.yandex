@@ -1,8 +1,9 @@
 import {Route} from "./route";
 import Block, {IProperties} from "./Block";
+import UserController from "../base/user/UserController";
 
 export class Router {
-    _rootQuery?:string;
+    _rootQuery?: string;
     static __instance: Router;
     routes: Route[] = [];
     private history?: History;
@@ -19,24 +20,29 @@ export class Router {
         Router.__instance = this;
     }
 
-    use(pathname:string, block: typeof Block<IProperties>) {
+    use(pathname: string, block: typeof Block<IProperties>) {
         const route = new Route(pathname, block, {rootQuery: this._rootQuery!});
         this.routes.push(route);
         return this;
     }
 
-    setup(rootQuery:string) {
+    setup(rootQuery: string) {
         this._rootQuery = rootQuery;
     }
 
     start() {
-        this.go(window.location.pathname);
+        UserController.updateUserInfo().then(() => {
+            this.go(window.location.pathname);
+        }).catch(() => {
+            this.go("/");
+        })
+
         window.addEventListener("popstate", (event) => {
             this._onRoute(window.location.pathname)
         })
     }
 
-    _onRoute(pathname:string) {
+    _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
 
         if (this._currentRoute) {
@@ -47,7 +53,7 @@ export class Router {
         route!.render();
     }
 
-    go(pathname:string) {
+    go(pathname: string) {
         this.history!.pushState({}, "", pathname);
         this._onRoute(pathname);
     }
@@ -60,7 +66,7 @@ export class Router {
         this.history!.forward();
     }
 
-    getRoute(pathname:string):Route {
+    getRoute(pathname: string): Route {
         return this.routes.find(route => route.match(pathname));
     }
 }

@@ -5,6 +5,9 @@ import {ChatList} from "../../../components/chat/chatList";
 import {Button} from "../../../components/button/buttonSimple";
 import {FormBlockCreateChat, FormBlockLogin} from "../../../components/formBlocks/formBlock";
 import {ModalChat} from "../../../components/modal/modalChat/modalChat";
+import {ChatHeader} from "../../../components/chat/chatHeader";
+import {ChatContent} from "../../../components/chat/chatContent";
+import {ChatFooter} from "../../../components/chat/chatFooter";
 
 export class PageChatEmpty extends Block<IProperties> {
     constructor() {
@@ -21,7 +24,7 @@ export class PageChatEmpty extends Block<IProperties> {
             required: true
         })
 
-        this.children.chatList = new ChatList(chatlist)
+        this.children.chatList = new ChatList(this.consolka.bind(this))
 
         this.children.buttonAddChat = new Button({
             events: {
@@ -38,6 +41,19 @@ export class PageChatEmpty extends Block<IProperties> {
             buttonValue: 'Добавить',
             title: 'Добавить чат'
         })
+
+        this.children.chatHeader = new ChatHeader({showMenu: false})
+        this.children.chatContent = new ChatContent(messageList)
+        this.children.chatFooter = new ChatFooter({
+            action: "sdf",
+            method: "sdf",
+            showMenu: false
+        })
+    }
+
+    consolka(chatID: number){
+        this.children.chatFooter.setProps({'chatID': chatID})
+        console.log('lklklklklk')
     }
 
     render() {
