@@ -32,7 +32,12 @@ export class Router {
 
     start() {
         UserController.updateUserInfo().then(() => {
-            this.go(window.location.pathname);
+            if(window.location.pathname == '/'){
+                this.go('/messenger');
+            }
+            else{
+                this.go(window.location.pathname);
+            }
         }).catch(() => {
             this.go("/");
         })

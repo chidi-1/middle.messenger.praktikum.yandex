@@ -1,6 +1,17 @@
 import HTTPTransport, {BaseData} from "../../utils/HTTPTransport";
 import {BaseAPI} from "../../utils/baseAPI";
 
+export interface BaseUserData extends BaseData{
+    id: number,
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    email: string,
+    phone: string,
+    avatar: string
+}
+
 interface CreateUserResponse extends BaseData{
     id: number
 }
@@ -12,19 +23,13 @@ export interface UserDataReg extends BaseData{
     password: string,
     phone: string
 }
-export interface UserDataResponseInfo extends BaseData{
-    id: number,
-    first_name: string,
-    second_name: string,
-    display_name: string,
-    login: string,
-    email: string,
-    phone: string,
-    avatar: string
-}
+export interface UserDataResponseInfo extends BaseUserData{}
 export interface UserDataAuth extends BaseData{
     login: string,
     password: string,
+}
+export interface UserDataSearch extends BaseData{
+    login: string,
 }
 
 class UserAPI extends BaseAPI{
@@ -47,6 +52,10 @@ class UserAPI extends BaseAPI{
 
     public async requestUserInfo() {
         return await HTTPTransport.get<BaseData, UserDataResponseInfo>('https://ya-praktikum.tech/api/v2/auth/user',{},{headers: {'Content-Type': 'application/json;charset=UTF-8'}});
+    }
+
+    public async requestSearchUserInfo(data: UserDataSearch) {
+        return await HTTPTransport.post<UserDataSearch, UserDataResponseInfo[]>('https://ya-praktikum.tech/api/v2/user/search',data,{headers: {'Content-Type': 'application/json;charset=UTF-8'}});
     }
 }
 

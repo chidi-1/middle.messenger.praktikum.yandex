@@ -57,10 +57,41 @@ class Store extends EventBus {
         return this.state;
     }
 
+    public setValue(key: string, value: []){
+        this.state[key] = value;
+        this.emit(StoreEvents.Updated)
+    }
+
     public update(path: string, value: unknown) {
         set(this.state, path, value);
         this.emit(StoreEvents.Updated)
-    };
+    }
+
+    public push(key: string, value: {}){
+        if(!this.state[key]){
+            this.state[key] = []
+        }
+        (this.state[key] as Indexed[]).push(value)
+        this.emit(StoreEvents.Updated)
+    }
+
+    public pushArray(key: string, value: []){
+        if(!this.state[key]){
+            this.state[key] = []
+        }
+
+        (this.state[key] as Indexed[]).push(...value)
+        this.emit(StoreEvents.Updated)
+    }
+
+    public prependArray(key: string, value: []){
+        if(!this.state[key]){
+            this.state[key] = []
+        }
+
+        (this.state[key] as Indexed[]) = [...value, ...(this.state[key] as Indexed[])]
+        this.emit(StoreEvents.Updated)
+    }
 }
 
 const store = new Store();

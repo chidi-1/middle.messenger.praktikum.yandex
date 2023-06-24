@@ -1,15 +1,14 @@
 ul.contacts {
     display: block;
-    max-height: calc(100vh - 105px);
+    max-height: calc(100vh - 160px);
+    margin-top: 4px;
     overflow: auto;
 }
 
 .contacts__el {
     display: block;
-    margin-top: 3px;
-    margin-bottom: 5px;
     position: relative;
-    padding: 10px;
+    padding: 13px 10px 15px 10px;
     cursor: pointer;
 }
 .contacts__el.active {

@@ -39,7 +39,6 @@ export class ProfileModalContent extends Block<IProfileModalProps> {
         })
     }
 
-
     protected render(): DocumentFragment {
         return this.compile(template, this.props)
     }

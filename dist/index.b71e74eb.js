@@ -2533,7 +2533,8 @@ class Router {
     }
     start() {
         (0, _userControllerDefault.default).updateUserInfo().then(()=>{
-            this.go(window.location.pathname);
+            if (window.location.pathname == "/") this.go("/messenger");
+            else this.go(window.location.pathname);
         }).catch(()=>{
             this.go("/");
         });
@@ -2562,7 +2563,7 @@ class Router {
     }
 }
 
-},{"./route":"igkfJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../base/user/UserController":"1wRy7"}],"igkfJ":[function(require,module,exports) {
+},{"./route":"igkfJ","../base/user/UserController":"1wRy7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"igkfJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Route", ()=>Route);
@@ -2628,6 +2629,9 @@ class UserController {
             (0, _storeDefault.default).update("userInfo", info);
         });
     }
+    async searchUser(data) {
+        return (0, _userAPIDefault.default).requestSearchUserInfo(data);
+    }
     async registrationWithAuth() {
         new (0, _router.Router)().go("/messenger");
     }
@@ -2665,6 +2669,13 @@ class UserAPI extends (0, _baseAPI.BaseAPI) {
     }
     async requestUserInfo() {
         return await (0, _httptransportDefault.default).get("https://ya-praktikum.tech/api/v2/auth/user", {}, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+    }
+    async requestSearchUserInfo(data) {
+        return await (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/user/search", data, {
             headers: {
                 "Content-Type": "application/json;charset=UTF-8"
             }
@@ -2810,8 +2821,30 @@ class Store extends (0, _eventBus.EventBus) {
     getState() {
         return this.state;
     }
+    setValue(key, value) {
+        this.state[key] = value;
+        this.emit(StoreEvents.Updated);
+    }
     update(path, value) {
         set(this.state, path, value);
+        this.emit(StoreEvents.Updated);
+    }
+    push(key, value) {
+        if (!this.state[key]) this.state[key] = [];
+        this.state[key].push(value);
+        this.emit(StoreEvents.Updated);
+    }
+    pushArray(key, value) {
+        if (!this.state[key]) this.state[key] = [];
+        this.state[key].push(...value);
+        this.emit(StoreEvents.Updated);
+    }
+    prependArray(key, value) {
+        if (!this.state[key]) this.state[key] = [];
+        this.state[key] = [
+            ...value,
+            ...this.state[key]
+        ];
         this.emit(StoreEvents.Updated);
     }
 }
@@ -3616,7 +3649,6 @@ function submitForm(form) {
             const ivalidatble = children;
             if (ivalidatble.isValid !== undefined) submitData[ivalidatble.getName()] = ivalidatble.getValue();
         }
-        console.log(submitData);
     }
 }
 
@@ -4029,9 +4061,15 @@ var _modalChat = require("../../../components/modal/modalChat/modalChat");
 var _chatHeader = require("../../../components/chat/chatHeader");
 var _chatContent = require("../../../components/chat/chatContent");
 var _chatFooter = require("../../../components/chat/chatFooter");
+var _chatController = require("../../../base/chat/ChatController");
+var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
+var _webSocketTransport = require("../../../utils/WebSocketTransport");
+var _webSocketTransportDefault = parcelHelpers.interopDefault(_webSocketTransport);
 class PageChatEmpty extends (0, _blockDefault.default) {
     constructor(){
-        super("div", {});
+        super("div", {
+            isChatSelected: false
+        });
     }
     init() {
         super.init();
@@ -4045,48 +4083,70 @@ class PageChatEmpty extends (0, _blockDefault.default) {
         this.children.buttonAddChat = new (0, _buttonSimple.Button)({
             events: {
                 click: ()=>{
-                    this.children.chatModal.show();
+                    this.children.modalAddChat.show();
                 }
             },
             class: "button mb-15",
             label: "Добавить чат"
         });
-        this.children.chatModal = new (0, _modalChat.ModalChat)({
+        this.children.modalAddChat = new (0, _modalChat.ModalChat)({
             inputType: (0, _formBlock.FormBlockCreateChat),
             buttonValue: "Добавить",
-            title: "Добавить чат"
+            title: "Добавить чат",
+            callback: (data)=>{
+                let chatDataCreate = {
+                    title: data
+                };
+                (0, _chatControllerDefault.default).create(chatDataCreate).then(()=>{
+                    (0, _chatControllerDefault.default).updateChatsList({
+                        offset: 0,
+                        limit: 50,
+                        title: ""
+                    });
+                    this.children.modalAddChat.hide();
+                });
+            }
         });
         this.children.chatHeader = new (0, _chatHeader.ChatHeader)({
             showMenu: false
         });
         this.children.chatContent = new (0, _chatContent.ChatContent)(messageList);
         this.children.chatFooter = new (0, _chatFooter.ChatFooter)({
-            action: "sdf",
-            method: "sdf",
             showMenu: false
         });
     }
     consolka(chatID) {
+        (0, _chatControllerDefault.default).updateChatUsers(chatID);
+        (0, _webSocketTransportDefault.default).getOld(chatID, 0);
         this.children.chatFooter.setProps({
             "chatID": chatID
         });
-        console.log("lklklklklk");
+        this.children.chatContent.setProps({
+            "chatID": chatID,
+            messages: []
+        });
+        this.children.chatHeader.setProps({
+            "chatID": chatID
+        });
+        this.setProps({
+            isChatSelected: true,
+            test: "ssdfd"
+        });
     }
     render() {
-        return this.compile((0, _pageChatEmptyHbsDefault.default), {});
+        return this.compile((0, _pageChatEmptyHbsDefault.default), this.props);
     }
 }
 
-<<<<<<< HEAD
-},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3yaf":[function(require,module,exports) {
-=======
-},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa"}],"f3yaf":[function(require,module,exports) {
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
+},{"../../../utils/Block":"915bj","./pageChatEmpty.hbs":"f3yaf","../../../components/formBlocks/search":"4Y7Rt","../../../components/chat/chatList":"hoBsF","../../../components/button/buttonSimple":"aV1zM","../../../components/formBlocks/formBlock":"5zOur","../../../components/modal/modalChat/modalChat":"1QdvE","../../../components/chat/chatHeader":"9bXRB","../../../components/chat/chatContent":"1xpKh","../../../components/chat/chatFooter":"3MFSa","../../../base/chat/ChatController":"jaJvw","../../../utils/WebSocketTransport":"1L7Dx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f3yaf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
 var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
 const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        return "empty";
+    },
     "compiler": [
         8,
         ">= 4.3.0"
@@ -4138,22 +4198,33 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 22
                 }
             }
-<<<<<<< HEAD
-        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div class="chat empty">\n    <span class="fs-12">Выберите чат чтобы отправить сообщение</span>\n</div>\n\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "chatModal",
-=======
-        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<!--<div class="chat empty">-->\n<div class="chat">\n    <!--<span class="fs-12">Выберите чат чтобы отправить сообщение</span>-->\n\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+        }) : helper)) != null ? stack1 : "") + '\n    </div>\n</div>\n\n<div id="chat" class="chat ' + ((stack1 = lookupProperty(helpers, "unless").call(alias1, depth0 != null ? lookupProperty(depth0, "isChatSelected") : depth0, {
+            "name": "unless",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 27
+                },
+                "end": {
+                    "line": 15,
+                    "column": 69
+                }
+            }
+        })) != null ? stack1 : "") + '">\n    <span class="fs-12 empty_text">Выберите чат чтобы отправить сообщение</span>\n\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatHeader") || (depth0 != null ? lookupProperty(depth0, "chatHeader") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "chatHeader",
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 19,
+                    "line": 18,
                     "column": 4
                 },
                 "end": {
-                    "line": 19,
+                    "line": 18,
                     "column": 20
                 }
             }
@@ -4163,11 +4234,11 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 20,
+                    "line": 19,
                     "column": 4
                 },
                 "end": {
-                    "line": 20,
+                    "line": 19,
                     "column": 21
                 }
             }
@@ -4177,26 +4248,26 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 21,
+                    "line": 20,
                     "column": 4
                 },
                 "end": {
-                    "line": 21,
+                    "line": 20,
                     "column": 20
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\n</div>\n\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "chatModal") || (depth0 != null ? lookupProperty(depth0, "chatModal") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "chatModal",
+        }) : helper)) != null ? stack1 : "") + "\n</div>\n\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "modalAddChat") || (depth0 != null ? lookupProperty(depth0, "modalAddChat") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "modalAddChat",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 24,
+                    "line": 23,
                     "column": 0
                 },
                 "end": {
-                    "line": 24,
-                    "column": 15
+                    "line": 23,
+                    "column": 18
                 }
             }
         }) : helper)) != null ? stack1 : "") + "\n";
@@ -4315,11 +4386,7 @@ class ChatList extends (0, _blockDefault.default) {
     }
 }
 
-<<<<<<< HEAD
-},{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jqB6V":[function(require,module,exports) {
-=======
-},{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../base/chat/ChatController":"jaJvw"}],"jqB6V":[function(require,module,exports) {
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
+},{"../../../utils/Block":"915bj","./chatList.hbs":"jqB6V","../../../utils/store":"1sOW7","../../../base/chat/ChatController":"jaJvw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jqB6V":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4330,9 +4397,6 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-<<<<<<< HEAD
-        return "    " + alias2(alias1(depth0, depth0)) + '\n    <li class="contacts__el">\n        <div class="contacts__userpick"></div>\n        <div class="contacts__text">\n            <div class="space-between">\n                <span class="contacts__name">' + alias2((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
-=======
         return '    <li class="contacts__el" data-id="' + alias4((helper = (helper = lookupProperty(helpers, "id") || (depth0 != null ? lookupProperty(depth0, "id") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "id",
             "hash": {},
@@ -4347,8 +4411,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 44
                 }
             }
-        }) : helper)) + '">\n        <div class="contacts__userpick"></div>\n        <div class="contacts__text">\n            <div class="space-between">\n                <span class="contacts__name">' + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
+        }) : helper)) + '">\r\n        <div class="contacts__userpick"></div>\r\n        <div class="contacts__text">\r\n            <div class="space-between">\r\n                <span class="contacts__name">' + alias4((helper = (helper = lookupProperty(helpers, "title") || (depth0 != null ? lookupProperty(depth0, "title") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "title",
             "hash": {},
             "data": data,
@@ -4362,11 +4425,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 54
                 }
             }
-<<<<<<< HEAD
-        }) : helper)) + '</span>\n                <span class="contacts__date">' + alias2((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias4, typeof helper === alias5 ? helper.call(alias3, {
-=======
-        }) : helper)) + '</span>\n                <span class="contacts__date">' + alias4((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
+        }) : helper)) + '</span>\r\n                <span class="contacts__date">' + alias4((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
             "name": "time",
             "hash": {},
             "data": data,
@@ -4380,11 +4439,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 53
                 }
             }
-<<<<<<< HEAD
-        }) : helper)) + '</span>\n            </div>\n            <div class="space-between">\n                <!--<p class="contacts__message">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
-=======
-        }) : helper)) + '</span>\n            </div>\n            <div class="space-between">\n                <!--<p class="contacts__message">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
+        }) : helper)) + '</span>\r\n            </div>\r\n            <div class="space-between">\r\n                <!--<p class="contacts__message">\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "answer") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(2, data, 0),
@@ -4400,11 +4455,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 27
                 }
             }
-<<<<<<< HEAD
-        })) != null ? stack1 : "") + "                    " + alias2(alias1((stack1 = depth0 != null ? lookupProperty(depth0, "last_message") : depth0) != null ? lookupProperty(stack1, "content") : stack1, depth0)) + "\n                </p>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias3, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
-=======
-        })) != null ? stack1 : "") + "                    " + alias4(container.lambda((stack1 = depth0 != null ? lookupProperty(depth0, "last_message") : depth0) != null ? lookupProperty(stack1, "content") : stack1, depth0)) + "\n                </p>\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
->>>>>>> 8951b8354cc2d0af789275ac21f123d6b538e929
+        })) != null ? stack1 : "") + "                    " + alias4(container.lambda((stack1 = depth0 != null ? lookupProperty(depth0, "last_message") : depth0) != null ? lookupProperty(stack1, "content") : stack1, depth0)) + "\r\n                </p>\r\n" + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "unread") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(4, data, 0),
@@ -4420,10 +4471,10 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 23
                 }
             }
-        })) != null ? stack1 : "") + "-->\n            </div>\n        </div>\n    </li>\n";
+        })) != null ? stack1 : "") + "-->\r\n            </div>\r\n        </div>\r\n    </li>\r\n";
     },
     "2": function(container, depth0, helpers, partials, data) {
-        return '                        <span class="fw-600">Вы: </span>\n';
+        return '                        <span class="fw-600">Вы: </span>\r\n';
     },
     "4": function(container, depth0, helpers, partials, data) {
         var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -4444,7 +4495,7 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                     "column": 61
                 }
             }
-        }) : helper)) + "</span>\n                ";
+        }) : helper)) + "</span>\r\n                ";
     },
     "compiler": [
         8,
@@ -4499,15 +4550,28 @@ class ChatController {
     async getToken(id) {
         return (0, _chatAPIDefault.default).getToken(id);
     }
+    async updateChatUsers(id) {
+        return (0, _chatAPIDefault.default).getChatUsers(id).then((response)=>{
+            (0, _storeDefault.default).update("chatUsers", response);
+        });
+    }
+    async addUserToChat(data) {
+        return await (0, _chatAPIDefault.default).addUserToChat(data);
+    }
 }
 exports.default = new ChatController();
 
-},{"./ChatAPI":"4lf1L","../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../utils/WebSocketTransport":"1L7Dx"}],"4lf1L":[function(require,module,exports) {
+},{"./ChatAPI":"4lf1L","../../utils/store":"1sOW7","../../utils/WebSocketTransport":"1L7Dx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4lf1L":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MessageType", ()=>MessageType);
 var _httptransport = require("../../utils/HTTPTransport");
 var _httptransportDefault = parcelHelpers.interopDefault(_httptransport);
 var _baseAPI = require("../../utils/baseAPI");
+let MessageType;
+(function(MessageType) {
+    MessageType["message"] = "message";
+})(MessageType || (MessageType = {}));
 class ChatAPI extends (0, _baseAPI.BaseAPI) {
     async create(data) {
         let sdf = (0, _httptransportDefault.default).post("https://ya-praktikum.tech/api/v2/chats", data, {
@@ -4536,6 +4600,23 @@ class ChatAPI extends (0, _baseAPI.BaseAPI) {
         });
         return token;
     }
+    async getChatUsers(id) {
+        let chatUsers = (0, _httptransportDefault.default).get(`https://ya-praktikum.tech/api/v2/chats/${id}/users/`, {}, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            }
+        });
+        return chatUsers;
+    }
+    async addUserToChat(data) {
+        let response = (0, _httptransportDefault.default).put(`https://ya-praktikum.tech/api/v2/chats/users/`, data, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8"
+            },
+            notNeedJsonTransform: true
+        });
+        return response;
+    }
 }
 exports.default = new ChatAPI();
 
@@ -4544,9 +4625,11 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _chatController = require("../base/chat/ChatController");
 var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
+var _chatAPI = require("../base/chat/ChatAPI");
 var _store = require("./store");
 var _storeDefault = parcelHelpers.interopDefault(_store);
 class WebSocketTransport {
+    pingInterval = 0;
     constructor(userId, chatId){
         this.chatId = chatId;
         this.userId = userId;
@@ -4562,8 +4645,29 @@ class WebSocketTransport {
                 resolve();
             });
         });
+        this.promise.then(()=>{
+            this.socket.addEventListener("close", ()=>{
+                clearTimeout(this.pingInterval);
+            });
+            this.pingInterval = setInterval(()=>{
+                this.ping();
+            }, 30000);
+        });
         this.socket.addEventListener("message", (event)=>{
-            console.log("Получены данные", event.data);
+            let response = JSON.parse(event.data);
+            if (Object.prototype.toString.call(response) === "[object Array]") {
+                let responseArray = response;
+                if (responseArray.length) {
+                    responseArray.reverse();
+                    if (responseArray[responseArray.length - 1]["id"] == 1) (0, _storeDefault.default).setValue(`${this.chatId}messages`, responseArray);
+                    else (0, _storeDefault.default).prependArray(`${this.chatId}messages`, responseArray);
+                    manager.getOld(this.chatId, responseArray[0]["id"]);
+                }
+            } else {
+                let responseObject = response;
+                if (responseObject.hasOwnProperty("type") && responseObject.type == (0, _chatAPI.MessageType).message) (0, _storeDefault.default).push(`${this.chatId}messages`, response);
+                else console.log("что-то другое");
+            }
         });
     }
     send(msg) {
@@ -4574,17 +4678,36 @@ class WebSocketTransport {
             }));
         });
     }
+    ping() {
+        this.promise.then(()=>{
+            this.socket.send(JSON.stringify({
+                type: "ping"
+            }));
+        });
+    }
+    getOld(offset) {
+        this.promise.then(()=>{
+            this.socket.send(JSON.stringify({
+                content: offset.toString(),
+                type: "get old"
+            }));
+        });
+    }
 }
 class ChatConnectionManager {
     chatList = {};
-    open(id) {
+    open(chatId) {
         let userId = (0, _storeDefault.default).getState().userInfo.id;
-        if (!this.chatList[id]) this.chatList[id] = new WebSocketTransport(userId, id);
+        if (!this.chatList[chatId]) this.chatList[chatId] = new WebSocketTransport(userId, chatId);
     }
-    close(id) {}
-    send(id, message) {
-        if (!this.chatList[id]) this.open(id);
-        this.chatList[id].send(message);
+    close(chatId) {}
+    send(chatId, message) {
+        if (!this.chatList[chatId]) this.open(chatId);
+        this.chatList[chatId].send(message);
+    }
+    getOld(chatId, offset) {
+        if (!this.chatList[chatId]) this.open(chatId);
+        this.chatList[chatId].getOld(offset);
     }
 }
 const manager = new ChatConnectionManager();
@@ -4630,7 +4753,7 @@ exports.default = manager; // manager.open(99)
  // fghf.then(() => {console.log('33')})
  // fghf.catch(() => {console.log('44')})
 
-},{"../base/chat/ChatController":"jaJvw","./store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1QdvE":[function(require,module,exports) {
+},{"../base/chat/ChatController":"jaJvw","../base/chat/ChatAPI":"4lf1L","./store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1QdvE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ModalChat", ()=>ModalChat);
@@ -4639,8 +4762,6 @@ var _modalChatHbsDefault = parcelHelpers.interopDefault(_modalChatHbs);
 var _formChat = require("../../form/formChat/formChat");
 var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
-var _chatController = require("../../../base/chat/ChatController");
-var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
 class ModalChat extends (0, _blockDefault.default) {
     constructor(props){
         super("div", props);
@@ -4652,21 +4773,14 @@ class ModalChat extends (0, _blockDefault.default) {
             inputType: this.props.inputType,
             title: this.props.title,
             buttonValue: this.props.buttonValue
-        }, ()=>{
-            (0, _chatControllerDefault.default).updateChatsList({
-                offset: 0,
-                limit: 50,
-                title: ""
-            });
-            this.hide();
-        });
+        }, this.props.callback);
     }
     render() {
         return this.compile((0, _modalChatHbsDefault.default), this.props);
     }
 }
 
-},{"./modalChat.hbs":"fmUH2","../../form/formChat/formChat":"3UUIP","../../../utils/Block":"915bj","../../../base/chat/ChatController":"jaJvw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fmUH2":[function(require,module,exports) {
+},{"./modalChat.hbs":"fmUH2","../../form/formChat/formChat":"3UUIP","../../../utils/Block":"915bj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fmUH2":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4710,8 +4824,6 @@ var _funcions = require("../../../utils/funcions");
 var _form = require("../form");
 var _formChatHbs = require("./formChat.hbs");
 var _formChatHbsDefault = parcelHelpers.interopDefault(_formChatHbs);
-var _chatController = require("../../../base/chat/ChatController");
-var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
 class FormChat extends (0, _form.Form) {
     constructor(props, callback){
         super(props);
@@ -4732,19 +4844,14 @@ class FormChat extends (0, _form.Form) {
         });
     }
     submit() {
-        let data = {
-            title: this.children.formBlock.getValue()
-        };
-        (0, _chatControllerDefault.default).create(data).then(()=>{
-            this.callback();
-        });
+        this.callback(this.children.formBlock.getValue());
     }
     render() {
         return this.compile((0, _formChatHbsDefault.default), this.props);
     }
 }
 
-},{"../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","../../../base/chat/ChatController":"jaJvw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1uQbk":[function(require,module,exports) {
+},{"../../button/buttonSimple":"aV1zM","../../../utils/funcions":"2hNw3","../form":"1enI1","./formChat.hbs":"1uQbk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1uQbk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -4815,377 +4922,84 @@ var _block = require("../../../utils/Block");
 var _blockDefault = parcelHelpers.interopDefault(_block);
 var _chatHeaderHbs = require("./chatHeader.hbs");
 var _chatHeaderHbsDefault = parcelHelpers.interopDefault(_chatHeaderHbs);
+var _buttonSimple = require("../../button/buttonSimple");
+var _modalChat = require("../../modal/modalChat/modalChat");
+var _formBlock = require("../../formBlocks/formBlock");
+var _chatController = require("../../../base/chat/ChatController");
+var _chatControllerDefault = parcelHelpers.interopDefault(_chatController);
+var _userController = require("../../../base/user/UserController");
+var _userControllerDefault = parcelHelpers.interopDefault(_userController);
+var _store = require("../../../utils/store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+var _buttonWithIcon = require("../../button/buttonWithIcon");
 class ChatHeader extends (0, _blockDefault.default) {
     constructor(props){
         super("div", props);
+        (0, _storeDefault.default).on((0, _store.StoreEvents).Updated, ()=>{
+            if ((0, _storeDefault.default).getState().chatUsers) {
+                let chatUsers = (0, _storeDefault.default).getState().chatUsers;
+                this.props.first_name = chatUsers[0].first_name;
+            }
+        });
     }
     init() {
         super.init();
         this.element?.classList.add("chat__header");
+        this.children.buttonAddUser = new (0, _buttonSimple.Button)({
+            events: {
+                click: ()=>{
+                    console.log(this);
+                    this.children.modalAddUser.show();
+                }
+            },
+            class: "button mb-15",
+            label: "Добавить пользователя"
+        });
+        this.children.buttonToggleMenu = new (0, _buttonWithIcon.ButtonWithIcon)({
+            events: {
+                click: ()=>{
+                    this.props.showMenu = true;
+                }
+            },
+            class: "no-style",
+            iconClass: "icon-ellipsis"
+        });
+        this.children.modalAddUser = new (0, _modalChat.ModalChat)({
+            inputType: (0, _formBlock.FormBlockCreateChat),
+            buttonValue: "Добавить",
+            title: "Добавить пользователя",
+            callback: (data)=>{
+                (0, _userControllerDefault.default).searchUser({
+                    login: data
+                }).then((response)=>{
+                    let user = response[0];
+                    let id = user.id;
+                    (0, _chatControllerDefault.default).addUserToChat({
+                        users: [
+                            id
+                        ],
+                        chatId: this.props.chatID
+                    }).then(()=>{
+                        console.log("Что-то куда-то добавилось");
+                        this.children.modalAddUser.hide();
+                    });
+                });
+            /*let chatDataCreate:ChatDataCreate = {
+                    title: data,
+                }
+
+                ChatController.create(chatDataCreate).then(() => {
+                    ChatController.updateChatsList({offset: 0, limit: 50, title: ''})
+                    this.children.modalAddUser.hide();
+                });*/ }
+        });
     }
     render() {
         return this.compile((0, _chatHeaderHbsDefault.default), this.props);
     }
 }
 
-},{"../../../utils/Block":"915bj","./chatHeader.hbs":"8qXKs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8qXKs":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "1": function(container, depth0, helpers, partials, data) {
-        return " show ";
-    },
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div class="chat__interlocutor">\r\n    <div class="contacts__userpick"></div>\r\n    <span class="contacts__name fw-600">Вадим</span>\r\n</div>\r\n<div class="chat__settings menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 5,
-                    "column": 37
-                },
-                "end": {
-                    "line": 5,
-                    "column": 66
-                }
-            }
-        })) != null ? stack1 : "") + '">\r\n    <button class="no-style js--toggle-interlocutor-menu">\r\n        <span class="icon-ellipsis"></span>\r\n    </button>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-plus c-blue"></span>\r\n            <span>Добавить пользователя</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-remove c-blue "></span>\r\n            <span>Удалить пользователя</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n';
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1xpKh":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatContent", ()=>ChatContent);
-var _block = require("../../../utils/Block");
-var _blockDefault = parcelHelpers.interopDefault(_block);
-var _chatContentHbs = require("./chatContent.hbs");
-var _chatContentHbsDefault = parcelHelpers.interopDefault(_chatContentHbs);
-class ChatContent extends (0, _blockDefault.default) {
-    constructor(props){
-        super("div", props);
-    }
-    init() {
-        super.init();
-        this.element?.classList.add("chat__content");
-    }
-    render() {
-        return this.compile((0, _chatContentHbsDefault.default), this.props);
-    }
-}
-
-},{"../../../utils/Block":"915bj","./chatContent.hbs":"d5ZUC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d5ZUC":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
-var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
-const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
-    "1": function(container, depth0, helpers, partials, data) {
-        var stack1, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "separator") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(2, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 3,
-                    "column": 8
-                },
-                "end": {
-                    "line": 5,
-                    "column": 15
-                }
-            }
-        })) != null ? stack1 : "") + ((stack1 = lookupProperty(helpers, "unless").call(alias1, depth0 != null ? lookupProperty(depth0, "separator") : depth0, {
-            "name": "unless",
-            "hash": {},
-            "fn": container.program(4, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 6,
-                    "column": 8
-                },
-                "end": {
-                    "line": 27,
-                    "column": 19
-                }
-            }
-        })) != null ? stack1 : "");
-    },
-    "2": function(container, depth0, helpers, partials, data) {
-        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '            <span class="chat__date">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "date") || (depth0 != null ? lookupProperty(depth0, "date") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
-            "name": "date",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 4,
-                    "column": 37
-                },
-                "end": {
-                    "line": 4,
-                    "column": 45
-                }
-            }
-        }) : helper)) + "</span>\r\n";
-    },
-    "4": function(container, depth0, helpers, partials, data) {
-        var stack1, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '            <div class="message ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(5, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 7,
-                    "column": 32
-                },
-                "end": {
-                    "line": 7,
-                    "column": 55
-                }
-            }
-        })) != null ? stack1 : "") + '">\r\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "text") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(7, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 8,
-                    "column": 16
-                },
-                "end": {
-                    "line": 17,
-                    "column": 23
-                }
-            }
-        })) != null ? stack1 : "") + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "img") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(12, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 18,
-                    "column": 16
-                },
-                "end": {
-                    "line": 25,
-                    "column": 23
-                }
-            }
-        })) != null ? stack1 : "") + "            </div>\r\n";
-    },
-    "5": function(container, depth0, helpers, partials, data) {
-        return " own ";
-    },
-    "7": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '                    <div class="text">\r\n                        <div class="message__el">\r\n' + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "text") : depth0, {
-            "name": "each",
-            "hash": {},
-            "fn": container.program(8, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 11,
-                    "column": 28
-                },
-                "end": {
-                    "line": 13,
-                    "column": 37
-                }
-            }
-        })) != null ? stack1 : "") + '                            <span class="time ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(10, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 14,
-                    "column": 46
-                },
-                "end": {
-                    "line": 14,
-                    "column": 72
-                }
-            }
-        })) != null ? stack1 : "") + '">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
-            "name": "time",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 14,
-                    "column": 74
-                },
-                "end": {
-                    "line": 14,
-                    "column": 82
-                }
-            }
-        }) : helper)) + "</span>\r\n                        </div>\r\n                    </div>\r\n";
-    },
-    "8": function(container, depth0, helpers, partials, data) {
-        return "                                <p>" + container.escapeExpression(container.lambda(depth0, depth0)) + "</p>\r\n";
-    },
-    "10": function(container, depth0, helpers, partials, data) {
-        return " readed ";
-    },
-    "12": function(container, depth0, helpers, partials, data) {
-        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '                    <div class="image">\r\n                        <div class="message__el ">\r\n                            <img src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "img",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 21,
-                    "column": 38
-                },
-                "end": {
-                    "line": 21,
-                    "column": 45
-                }
-            }
-        }) : helper)) + '" alt="">\r\n                            <span class="time ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
-            "name": "if",
-            "hash": {},
-            "fn": container.program(10, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 22,
-                    "column": 46
-                },
-                "end": {
-                    "line": 22,
-                    "column": 72
-                }
-            }
-        })) != null ? stack1 : "") + '">' + alias4((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "time",
-            "hash": {},
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 22,
-                    "column": 74
-                },
-                "end": {
-                    "line": 22,
-                    "column": 82
-                }
-            }
-        }) : helper)) + "</span>\r\n                        </div>\r\n                    </div>\r\n";
-    },
-    "compiler": [
-        8,
-        ">= 4.3.0"
-    ],
-    "main": function(container, depth0, helpers, partials, data) {
-        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
-            return undefined;
-        };
-        return '<div class="scroll-wrap">\r\n' + ((stack1 = lookupProperty(helpers, "each").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "messages") : depth0, {
-            "name": "each",
-            "hash": {},
-            "fn": container.program(1, data, 0),
-            "inverse": container.noop,
-            "data": data,
-            "loc": {
-                "start": {
-                    "line": 2,
-                    "column": 4
-                },
-                "end": {
-                    "line": 28,
-                    "column": 13
-                }
-            }
-        })) != null ? stack1 : "") + "</div>\r\n";
-    },
-    "useData": true
-});
-exports.default = templateFunction;
-
-},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3MFSa":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "ChatFooter", ()=>ChatFooter);
-var _chatFooterHbs = require("./chatFooter.hbs");
-var _chatFooterHbsDefault = parcelHelpers.interopDefault(_chatFooterHbs);
-var _buttonWithIcon = require("../../button/buttonWithIcon");
-var _formBlock = require("../../formBlocks/formBlock");
-var _form = require("../../form/form");
-class ChatFooter extends (0, _form.Form) {
-    init() {
-        super.init();
-        this.element?.classList.add("chat__footer");
-        this.children.input = new (0, _formBlock.FormBlockMsssage)({});
-        this.children.button = new (0, _buttonWithIcon.ButtonWithIcon)({
-            class: "no-style send-message",
-            events: {
-                click: ()=>{
-                    console.log(this.props.chatID);
-                //validateForm(this);
-                }
-            },
-            iconClass: "icon-arrow-right",
-            type: "submit"
-        });
-    }
-    render() {
-        return this.compile((0, _chatFooterHbsDefault.default), this.props);
-    }
-}
-
-},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../form/form":"1enI1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
+},{"../../../utils/Block":"915bj","./chatHeader.hbs":"8qXKs","../../button/buttonSimple":"aV1zM","../../modal/modalChat/modalChat":"1QdvE","../../formBlocks/formBlock":"5zOur","../../../base/chat/ChatController":"jaJvw","../../../base/user/UserController":"1wRy7","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../button/buttonWithIcon":"dUu7n"}],"8qXKs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
@@ -5203,7 +5017,21 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
             return undefined;
         };
-        return '<div class="chat__attachment menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
+        return '<div class="chat__interlocutor">\n    <div class="contacts__userpick"></div>\n    <span class="contacts__name fw-600">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "first_name") || (depth0 != null ? lookupProperty(depth0, "first_name") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "first_name",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 40
+                },
+                "end": {
+                    "line": 3,
+                    "column": 54
+                }
+            }
+        }) : helper)) + '</span>\n</div>\n<div class="chat__settings menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
             "name": "if",
             "hash": {},
             "fn": container.program(1, data, 0),
@@ -5211,43 +5039,57 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
             "data": data,
             "loc": {
                 "start": {
-                    "line": 1,
-                    "column": 39
+                    "line": 5,
+                    "column": 37
                 },
                 "end": {
-                    "line": 1,
-                    "column": 68
+                    "line": 5,
+                    "column": 66
                 }
             }
-        })) != null ? stack1 : "") + '">\r\n    <span class="icon-clip"></span>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-media c-blue"></span>\r\n            <span>Фото или Видео</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-file c-blue "></span>\r\n            <span>Файл</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-location c-blue "></span>\r\n            <span>Локация</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "input",
+        })) != null ? stack1 : "") + '">\n    ' + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonAddUser") || (depth0 != null ? lookupProperty(depth0, "buttonAddUser") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "buttonAddUser",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 19,
-                    "column": 0
+                    "line": 6,
+                    "column": 4
                 },
                 "end": {
-                    "line": 19,
-                    "column": 11
+                    "line": 6,
+                    "column": 23
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
-            "name": "button",
+        }) : helper)) != null ? stack1 : "") + "\n    " + ((stack1 = (helper = (helper = lookupProperty(helpers, "buttonToggleMenu") || (depth0 != null ? lookupProperty(depth0, "buttonToggleMenu") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "buttonToggleMenu",
             "hash": {},
             "data": data,
             "loc": {
                 "start": {
-                    "line": 21,
+                    "line": 7,
+                    "column": 4
+                },
+                "end": {
+                    "line": 7,
+                    "column": 26
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + '\n    <div class="menu">\n        <button class="no-style js--add-interlocutor">\n            <span class="icon-plus c-blue"></span>\n            <span>Добавить пользователя</span>\n        </button>\n        <button class="no-style js--remove-interlocutor">\n            <span class="icon-remove c-blue "></span>\n            <span>Удалить пользователя</span>\n        </button>\n    </div>\n</div>\n\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "modalAddUser") || (depth0 != null ? lookupProperty(depth0, "modalAddUser") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "modalAddUser",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 20,
                     "column": 0
                 },
                 "end": {
-                    "line": 21,
-                    "column": 12
+                    "line": 20,
+                    "column": 18
                 }
             }
-        }) : helper)) != null ? stack1 : "") + "\r\n";
+        }) : helper)) != null ? stack1 : "") + "\n";
     },
     "useData": true
 });
@@ -5321,6 +5163,449 @@ const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
                 }
             }
         }) : helper)) + '"></span>\r\n';
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1xpKh":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatContent", ()=>ChatContent);
+var _block = require("../../../utils/Block");
+var _blockDefault = parcelHelpers.interopDefault(_block);
+var _chatContentHbs = require("./chatContent.hbs");
+var _chatContentHbsDefault = parcelHelpers.interopDefault(_chatContentHbs);
+var _store = require("../../../utils/store");
+var _storeDefault = parcelHelpers.interopDefault(_store);
+class ChatContent extends (0, _blockDefault.default) {
+    constructor(props){
+        super("div", props);
+        (0, _storeDefault.default).on((0, _store.StoreEvents).Updated, ()=>{
+            let chatMessages = (0, _storeDefault.default).getState()[`${this.props.chatID}messages`];
+            let ChatMessageUsedFormat = [];
+            if (this.props.chatID && chatMessages) {
+                let prevDate = new Date(Date.parse(chatMessages[0].time));
+                let messagesPerMinite = [];
+                ChatMessageUsedFormat.push({
+                    separator: true,
+                    date: `${prevDate.toLocaleString("ru-Ru", {
+                        month: "long"
+                    })} ${prevDate.getDate()}`
+                });
+                for (let message of chatMessages){
+                    let currentDate = new Date(Date.parse(message.time));
+                    if (currentDate.toLocaleString("ru-Ru", {
+                        month: "long"
+                    }) != prevDate.toLocaleString("ru-Ru", {
+                        month: "long"
+                    }) && currentDate.getDate() !== prevDate.getDate()) ChatMessageUsedFormat.push({
+                        separator: true,
+                        date: `${currentDate.toLocaleString("ru-Ru", {
+                            month: "long"
+                        })} ${currentDate.getDate()}`
+                    });
+                    else if (prevDate.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }) == currentDate.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    })) messagesPerMinite.push(message.content);
+                    else {
+                        if (!messagesPerMinite.length) messagesPerMinite.push(message.content);
+                        ChatMessageUsedFormat.push({
+                            separator: false,
+                            time: currentDate.toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            }),
+                            content: messagesPerMinite
+                        });
+                        messagesPerMinite = [];
+                    }
+                    prevDate = currentDate;
+                }
+                console.log(ChatMessageUsedFormat);
+                this.setProps({
+                    messages: ChatMessageUsedFormat
+                });
+            }
+        });
+    }
+    init() {
+        super.init();
+        this.element?.classList.add("chat__content");
+    }
+    render() {
+        return this.compile((0, _chatContentHbsDefault.default), this.props);
+    }
+}
+
+},{"../../../utils/Block":"915bj","./chatContent.hbs":"d5ZUC","../../../utils/store":"1sOW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d5ZUC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        var stack1, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "separator") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(2, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 3,
+                    "column": 8
+                },
+                "end": {
+                    "line": 5,
+                    "column": 15
+                }
+            }
+        })) != null ? stack1 : "") + "\n" + ((stack1 = lookupProperty(helpers, "unless").call(alias1, depth0 != null ? lookupProperty(depth0, "separator") : depth0, {
+            "name": "unless",
+            "hash": {},
+            "fn": container.program(4, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 8
+                },
+                "end": {
+                    "line": 28,
+                    "column": 19
+                }
+            }
+        })) != null ? stack1 : "");
+    },
+    "2": function(container, depth0, helpers, partials, data) {
+        var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '            <span class="chat__date">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "date") || (depth0 != null ? lookupProperty(depth0, "date") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(depth0 != null ? depth0 : container.nullContext || {}, {
+            "name": "date",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 4,
+                    "column": 37
+                },
+                "end": {
+                    "line": 4,
+                    "column": 45
+                }
+            }
+        }) : helper)) + "</span>\n";
+    },
+    "4": function(container, depth0, helpers, partials, data) {
+        var stack1, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '            <div class="message ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(5, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 32
+                },
+                "end": {
+                    "line": 8,
+                    "column": 55
+                }
+            }
+        })) != null ? stack1 : "") + '">\n' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "content") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(7, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 16
+                },
+                "end": {
+                    "line": 18,
+                    "column": 23
+                }
+            }
+        })) != null ? stack1 : "") + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "img") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(12, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 19,
+                    "column": 16
+                },
+                "end": {
+                    "line": 26,
+                    "column": 23
+                }
+            }
+        })) != null ? stack1 : "") + "            </div>\n";
+    },
+    "5": function(container, depth0, helpers, partials, data) {
+        return " own ";
+    },
+    "7": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '                    <div class="text">\n                        <div class="message__el">\n' + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "content") : depth0, {
+            "name": "each",
+            "hash": {},
+            "fn": container.program(8, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 12,
+                    "column": 28
+                },
+                "end": {
+                    "line": 14,
+                    "column": 37
+                }
+            }
+        })) != null ? stack1 : "") + '                            <span class="time ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(10, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 46
+                },
+                "end": {
+                    "line": 15,
+                    "column": 72
+                }
+            }
+        })) != null ? stack1 : "") + '">' + container.escapeExpression((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : container.hooks.helperMissing, typeof helper === "function" ? helper.call(alias1, {
+            "name": "time",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 74
+                },
+                "end": {
+                    "line": 15,
+                    "column": 82
+                }
+            }
+        }) : helper)) + "</span>\n                        </div>\n                    </div>\n";
+    },
+    "8": function(container, depth0, helpers, partials, data) {
+        return "                                <p>" + container.escapeExpression(container.lambda(depth0, depth0)) + "</p><br/>\n";
+    },
+    "10": function(container, depth0, helpers, partials, data) {
+        return " readed ";
+    },
+    "12": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", alias4 = container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '                    <div class="image">\n                        <div class="message__el ">\n                            <img src="' + alias4((helper = (helper = lookupProperty(helpers, "img") || (depth0 != null ? lookupProperty(depth0, "img") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "img",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 22,
+                    "column": 38
+                },
+                "end": {
+                    "line": 22,
+                    "column": 45
+                }
+            }
+        }) : helper)) + '" alt="">\n                            <span class="time ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "own") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(10, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 23,
+                    "column": 46
+                },
+                "end": {
+                    "line": 23,
+                    "column": 72
+                }
+            }
+        })) != null ? stack1 : "") + '">' + alias4((helper = (helper = lookupProperty(helpers, "time") || (depth0 != null ? lookupProperty(depth0, "time") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "time",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 23,
+                    "column": 74
+                },
+                "end": {
+                    "line": 23,
+                    "column": 82
+                }
+            }
+        }) : helper)) + "</span>\n                        </div>\n                    </div>\n";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="scroll-wrap">\n' + ((stack1 = lookupProperty(helpers, "each").call(depth0 != null ? depth0 : container.nullContext || {}, depth0 != null ? lookupProperty(depth0, "messages") : depth0, {
+            "name": "each",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 2,
+                    "column": 4
+                },
+                "end": {
+                    "line": 29,
+                    "column": 13
+                }
+            }
+        })) != null ? stack1 : "") + "</div>\n";
+    },
+    "useData": true
+});
+exports.default = templateFunction;
+
+},{"handlebars/dist/handlebars.runtime":"b7ZpO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3MFSa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ChatFooter", ()=>ChatFooter);
+var _chatFooterHbs = require("./chatFooter.hbs");
+var _chatFooterHbsDefault = parcelHelpers.interopDefault(_chatFooterHbs);
+var _buttonWithIcon = require("../../button/buttonWithIcon");
+var _formBlock = require("../../formBlocks/formBlock");
+var _funcions = require("../../../utils/funcions");
+var _form = require("../../form/form");
+var _webSocketTransport = require("../../../utils/WebSocketTransport");
+var _webSocketTransportDefault = parcelHelpers.interopDefault(_webSocketTransport);
+class ChatFooter extends (0, _form.Form) {
+    init() {
+        super.init();
+        this.element?.classList.add("chat__footer");
+        this.children.input = new (0, _formBlock.FormBlockMsssage)({});
+        this.children.button = new (0, _buttonWithIcon.ButtonWithIcon)({
+            class: "no-style send-message",
+            events: {
+                click: ()=>{
+                    (0, _funcions.validateForm)(this);
+                }
+            },
+            iconClass: "icon-arrow-right",
+            type: "submit"
+        });
+    }
+    render() {
+        return this.compile((0, _chatFooterHbsDefault.default), this.props);
+    }
+    submit() {
+        (0, _webSocketTransportDefault.default).send(this.props.chatID, this.children.input.getValue());
+    }
+}
+
+},{"./chatFooter.hbs":"75UPv","../../button/buttonWithIcon":"dUu7n","../../formBlocks/formBlock":"5zOur","../../../utils/funcions":"2hNw3","../../form/form":"1enI1","../../../utils/WebSocketTransport":"1L7Dx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"75UPv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _handlebarsRuntime = require("handlebars/dist/handlebars.runtime");
+var _handlebarsRuntimeDefault = parcelHelpers.interopDefault(_handlebarsRuntime);
+const templateFunction = (0, _handlebarsRuntimeDefault.default).template({
+    "1": function(container, depth0, helpers, partials, data) {
+        return " show ";
+    },
+    "compiler": [
+        8,
+        ">= 4.3.0"
+    ],
+    "main": function(container, depth0, helpers, partials, data) {
+        var stack1, helper, alias1 = depth0 != null ? depth0 : container.nullContext || {}, alias2 = container.hooks.helperMissing, alias3 = "function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
+            if (Object.prototype.hasOwnProperty.call(parent, propertyName)) return parent[propertyName];
+            return undefined;
+        };
+        return '<div class="chat__attachment menu-wrap ' + ((stack1 = lookupProperty(helpers, "if").call(alias1, depth0 != null ? lookupProperty(depth0, "showMenu") : depth0, {
+            "name": "if",
+            "hash": {},
+            "fn": container.program(1, data, 0),
+            "inverse": container.noop,
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 39
+                },
+                "end": {
+                    "line": 1,
+                    "column": 68
+                }
+            }
+        })) != null ? stack1 : "") + '">\r\n    <span class="icon-clip"></span>\r\n    <div class="menu">\r\n        <button class="no-style js--add-interlocutor">\r\n            <span class="icon-media c-blue"></span>\r\n            <span>Фото или Видео</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-file c-blue "></span>\r\n            <span>Файл</span>\r\n        </button>\r\n        <button class="no-style js--remove-interlocutor">\r\n            <span class="icon-location c-blue "></span>\r\n            <span>Локация</span>\r\n        </button>\r\n    </div>\r\n</div>\r\n\r\n' + ((stack1 = (helper = (helper = lookupProperty(helpers, "input") || (depth0 != null ? lookupProperty(depth0, "input") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "input",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 19,
+                    "column": 0
+                },
+                "end": {
+                    "line": 19,
+                    "column": 11
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n\r\n" + ((stack1 = (helper = (helper = lookupProperty(helpers, "button") || (depth0 != null ? lookupProperty(depth0, "button") : depth0)) != null ? helper : alias2, typeof helper === alias3 ? helper.call(alias1, {
+            "name": "button",
+            "hash": {},
+            "data": data,
+            "loc": {
+                "start": {
+                    "line": 21,
+                    "column": 0
+                },
+                "end": {
+                    "line": 21,
+                    "column": 12
+                }
+            }
+        }) : helper)) != null ? stack1 : "") + "\r\n";
     },
     "useData": true
 });

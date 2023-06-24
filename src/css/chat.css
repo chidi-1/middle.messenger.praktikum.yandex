@@ -1,9 +1,18 @@
 
 .chat {
     padding: 0 20px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
     z-index: 5;
+}
+
+.chat:not(.empty) .empty_text{
+    display: none;
+}
+.chat.empty .chat__header,
+.chat.empty .chat__content,
+.chat.empty .chat__footer {
+    display: none;
 }
 
 .chat .menu-wrap {
@@ -187,7 +196,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 168px);
 
 }
 
@@ -207,7 +216,6 @@
 .message {
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
 }
 
 .message.own {

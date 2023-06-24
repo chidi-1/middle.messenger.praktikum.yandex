@@ -13,9 +13,9 @@ export interface IFormChatProps extends IFormProps{
 }
 
 export class FormChat extends Form<IFormChatProps> {
-    callback: () => void;
+    callback: (data:string) => void;
 
-    constructor(props:IFormChatProps, callback: () => void) {
+    constructor(props:IFormChatProps, callback: (data:string) => void) {
         super(props);
         this.callback = callback;
     }
@@ -38,11 +38,7 @@ export class FormChat extends Form<IFormChatProps> {
     }
 
     submit() {
-        let data:ChatDataCreate = {
-            title: this.children.formBlock.getValue(),
-        }
-
-        ChatController.create(data).then(() => {this.callback()});
+        this.callback(this.children.formBlock.getValue())
     }
 
     protected render(): DocumentFragment {

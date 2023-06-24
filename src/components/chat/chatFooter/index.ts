@@ -3,6 +3,7 @@ import {ButtonWithIcon} from "../../button/buttonWithIcon";
 import {FormBlockMsssage} from "../../formBlocks/formBlock";
 import {validateForm} from "../../../utils/funcions";
 import {Form, IFormProps} from "../../form/form";
+import manager from "../../../utils/WebSocketTransport";
 
 export interface IChatFooterProps extends IFormProps {
     showMenu: boolean;
@@ -21,8 +22,7 @@ export class ChatFooter extends Form<IChatFooterProps> {
             class: "no-style send-message",
             events: {
                 click: () => {
-                    console.log(this.props.chatID)
-                    //validateForm(this);
+                    validateForm(this);
                 }
             },
             iconClass: "icon-arrow-right",
@@ -31,7 +31,11 @@ export class ChatFooter extends Form<IChatFooterProps> {
     }
 
     protected render(): DocumentFragment {
-        return this.compile(template, this.props)
+        return this.compile(template, this.props);
+    }
+
+    submit() {
+        manager.send(this.props.chatID!, this.children.input.getValue())
     }
 }
 

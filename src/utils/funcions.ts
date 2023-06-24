@@ -19,8 +19,8 @@ export function validateForm(form: Form) {
 
 }
 
-export function submitForm(form:Form) {
-    if(form.isValid()){
+export function submitForm(form: Form) {
+    if (form.isValid()) {
         const submitData: Record<string, string> = {};
         for (const children of Object.values(form.children)) {
             const ivalidatble = (children as any as IValidable);
@@ -28,6 +28,5 @@ export function submitForm(form:Form) {
                 submitData[(ivalidatble as FormBlock).getName()] = (ivalidatble as FormBlock).getValue();
             }
         }
-        console.log(submitData)
     }
 }

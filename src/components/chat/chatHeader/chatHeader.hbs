@@ -1,11 +1,10 @@
 <div class="chat__interlocutor">
     <div class="contacts__userpick"></div>
-    <span class="contacts__name fw-600">Вадим</span>
+    <span class="contacts__name fw-600">{{first_name}}</span>
 </div>
 <div class="chat__settings menu-wrap {{#if showMenu}} show {{/if}}">
-    <button class="no-style js--toggle-interlocutor-menu">
-        <span class="icon-ellipsis"></span>
-    </button>
+    {{{buttonAddUser}}}
+    {{{buttonToggleMenu}}}
     <div class="menu">
         <button class="no-style js--add-interlocutor">
             <span class="icon-plus c-blue"></span>
@@ -17,3 +16,5 @@
         </button>
     </div>
 </div>
+
+{{{modalAddUser}}}

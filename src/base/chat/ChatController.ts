@@ -1,4 +1,4 @@
-import {ChatDataCreate, ChatDataGetList} from "./ChatAPI";
+import {AddUsersToChat, ChatDataCreate, ChatDataGetList} from "./ChatAPI";
 import ChatAPI from "./ChatAPI";
 import store from "../../utils/store";
 import manager from "../../utils/WebSocketTransport";
@@ -20,6 +20,16 @@ class ChatController {
 
     async getToken(id: number) {
        return ChatAPI.getToken(id)
+    }
+
+    async updateChatUsers(id: number) {
+       return ChatAPI.getChatUsers(id).then((response) => {
+           store.update('chatUsers', response);
+       });
+    }
+
+    async addUserToChat(data: AddUsersToChat) {
+        return await ChatAPI.addUserToChat(data)
     }
 }
 

@@ -3,13 +3,14 @@
         {{#if separator}}
             <span class="chat__date">{{date}}</span>
         {{/if}}
+
         {{#unless separator}}
             <div class="message {{#if own}} own {{/if}}">
-                {{#if text}}
+                {{#if content}}
                     <div class="text">
                         <div class="message__el">
-                            {{#each text}}
-                                <p>{{this}}</p>
+                            {{#each content}}
+                                <p>{{this}}</p><br/>
                             {{/each}}
                             <span class="time {{#if own}} readed {{/if}}">{{time}}</span>
                         </div>

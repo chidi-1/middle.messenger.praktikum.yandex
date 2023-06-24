@@ -282,7 +282,7 @@ h2 {
 }
 
 .chat {
-  width: calc(100% - 310px);
+  width: calc(100% - 323px);
   height: 100vh;
   display: inline-block;
 }
@@ -324,7 +324,10 @@ h2 {
   z-index: 5;
   padding: 0 20px;
   position: relative;
-  overflow: hidden;
+}
+
+.chat:not(.empty) .empty_text, .chat.empty .chat__header, .chat.empty .chat__content, .chat.empty .chat__footer {
+  display: none;
 }
 
 .chat .menu-wrap {
@@ -500,7 +503,7 @@ h2 {
 }
 
 .chat__content {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 168px);
   flex-direction: column;
   justify-content: flex-end;
   display: flex;
@@ -521,7 +524,6 @@ h2 {
 
 .message {
   flex-direction: column;
-  margin-bottom: 30px;
   display: flex;
 }
 
@@ -979,16 +981,15 @@ h2 {
 }
 
 ul.contacts {
-  max-height: calc(100vh - 105px);
+  max-height: calc(100vh - 160px);
+  margin-top: 4px;
   display: block;
   overflow: auto;
 }
 
 .contacts__el {
   cursor: pointer;
-  margin-top: 3px;
-  margin-bottom: 5px;
-  padding: 10px;
+  padding: 13px 10px 15px;
   display: block;
   position: relative;
 }

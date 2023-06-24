@@ -1,5 +1,5 @@
 export type BaseData = {
-    [key in string]: string | number
+    [key in string]: string | number | any[]
 }
 
 enum METHODS {

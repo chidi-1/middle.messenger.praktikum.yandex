@@ -23,7 +23,8 @@ export abstract class Modal<T extends IFormProps> extends Block<T> {
 export interface IModalMessenger extends IFormProps {
     inputType: typeof FormBlock,
     buttonValue: string,
-    title: string
+    title: string,
+    callback: (data:string) => void;
 }
 
 export interface IChatModalContentProps extends IFormProps {
