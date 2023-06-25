@@ -8,6 +8,13 @@ import {FormBlock, FormBlockCreateChat} from "../../formBlocks/formBlock";
 export abstract class Modal<T extends IFormProps> extends Block<T> {
     constructor(props: T) {
         super('div', props);
+
+        this.props.events = {'click': (event) => {
+            console.log(event.target)
+            if(event.target.classList.contains('js--close-modal')){
+                this.hide();
+            }
+            }}
     }
 
     protected init() {

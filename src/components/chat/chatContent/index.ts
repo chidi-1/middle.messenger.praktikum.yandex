@@ -2,6 +2,7 @@ import Block, {IProperties} from "../../../utils/Block";
 import template from "./chatContent.hbs";
 import store, {StoreEvents} from "../../../utils/store";
 import {ChatMessage, MessageType} from "../../../base/chat/ChatAPI";
+import {convertToChatMessagesTemplateData} from "../../../utils/funcions";
 
 interface MessageProps extends IProperties {
     date: string;
@@ -14,10 +15,10 @@ interface MessageProps extends IProperties {
 
 interface ChatContentProps extends IProperties {
     chatID?: number;
-    messages: ChatMessageUsedFormat[];
+    messages: ChatMessageTemplateData[];
 }
 
-export interface ChatMessageUsedFormat {
+export interface ChatMessageTemplateData {
     separator: boolean;
     own?: boolean;
     readed?: boolean;
@@ -27,46 +28,38 @@ export interface ChatMessageUsedFormat {
     img?: string;
 }
 
+export enum MessageRender {
+    DefaultMessage,
+    DateSeparator,
+    Sticker
+}
+export interface IMessageData{
+
+}
+
+export interface DefaultMessageData extends IMessageData{
+    text: string
+}
+
+export interface DateSeparatorData extends IMessageData{
+    date: Date
+}
+
+export interface Message {
+    type: MessageRender,
+    data: IMessageData
+}
+
 export class ChatContent extends Block<ChatContentProps> {
-    constructor(props:ChatContentProps) {
+    constructor(props: ChatContentProps) {
         super('div', props);
 
         store.on(StoreEvents.Updated, () => {
-            let chatMessages = store.getState()[`${this.props.chatID}messages`];
-            let ChatMessageUsedFormat:ChatMessageUsedFormat[] = [];
-            if(this.props.chatID && chatMessages){
-                let prevDate:Date = new Date(Date.parse(chatMessages[0].time))
-                let messagesPerMinite:string[] = [];
-                ChatMessageUsedFormat.push({separator: true, date:`${prevDate.toLocaleString('ru-Ru', { month: "long" })} ${prevDate.getDate()}`})
+            let chatMessages:ChatMessage[] = (store.getState()[`${this.props.chatID}messages`] as ChatMessage[]);
 
-                for (let message of chatMessages){
-                    let currentDate = new Date(Date.parse(message.time));
-                    if(currentDate.toLocaleString('ru-Ru', { month: "long" }) != prevDate.toLocaleString('ru-Ru', { month: "long" }) && currentDate.getDate() !== prevDate.getDate()){
-                        ChatMessageUsedFormat.push({separator: true, date:`${currentDate.toLocaleString('ru-Ru', { month: "long" })} ${currentDate.getDate()}`})
-                    }
-                    else{
-                        if(prevDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) == currentDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})){
-                            messagesPerMinite.push(message.content);
-                        }
-                        else{
-                            if(!messagesPerMinite.length){
-                                messagesPerMinite.push(message.content);
-                            }
-
-                            ChatMessageUsedFormat.push({
-                                separator: false,
-                                time: currentDate.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
-                                content: messagesPerMinite,
-                            })
-                            messagesPerMinite = [];
-                        }
-                    }
-                    prevDate = currentDate;
-                }
-                console.log(ChatMessageUsedFormat)
-
+            if (this.props.chatID && chatMessages) {
                 this.setProps({
-                    messages: (ChatMessageUsedFormat as ChatMessageUsedFormat[])
+                    messages: convertToChatMessagesTemplateData(chatMessages)
                 })
             }
         })

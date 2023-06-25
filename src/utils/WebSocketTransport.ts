@@ -1,9 +1,9 @@
 import ChatController from "../base/chat/ChatController";
-import ChatAPI, {ChatMessage, Message, MessageType} from "../base/chat/ChatAPI";
-import store, {Indexed} from "./store";
+import {ChatMessage, MessageType} from "../base/chat/ChatAPI";
+import store from "./store";
 import {UserDataResponseInfo} from "../base/user/UserAPI";
 
-class WebSocketTransport {
+class WebSocketController {
     socket?: WebSocket;
     promise?: Promise<void>;
     chatId: number;
@@ -41,19 +41,24 @@ class WebSocketTransport {
         this.socket.addEventListener('message', event => {
             let response: {} | [] = JSON.parse(event.data);
             if (Object.prototype.toString.call(response) === '[object Array]') {
-                let responseArray = response as [];
+                let responseArray = response as ChatMessage[];
                 if (responseArray.length) {
+                    for(let el of responseArray){
+                        el.time = new Date(Date.parse(el.time as unknown as string))
+                    }
+
                     responseArray.reverse();
                     if (responseArray[responseArray.length-1]!['id'] == 1) {
-                        store.setValue(`${this.chatId}messages`, responseArray)
+                        store.setValue<ChatMessage>(`${this.chatId}messages`, responseArray)
                     } else {
-                        store.prependArray(`${this.chatId}messages`, responseArray)
+                        store.prependArray<ChatMessage>(`${this.chatId}messages`, responseArray)
                     }
                     manager.getOld(this.chatId, responseArray[0]!['id']);
                 }
             } else {
                 let responseObject = response as Record<string, any>;
                 if (responseObject.hasOwnProperty('type') && responseObject.type == MessageType.message) {
+                    responseObject.time = new Date(Date.parse(responseObject.time as unknown as string))
                     store.push(`${this.chatId}messages`, response)
                 } else {
                     console.log('что-то другое')
@@ -90,12 +95,12 @@ class WebSocketTransport {
 }
 
 class ChatConnectionManager {
-    chatList: Record<number, WebSocketTransport> = {};
+    chatList: Record<number, WebSocketController> = {};
 
     open(chatId: number) {
         let userId = (store.getState().userInfo as UserDataResponseInfo).id;
         if (!this.chatList[chatId]) {
-            this.chatList[chatId] = new WebSocketTransport(userId, chatId);
+            this.chatList[chatId] = new WebSocketController(userId, chatId);
         }
     }
 

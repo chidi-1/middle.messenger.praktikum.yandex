@@ -57,7 +57,7 @@ class Store extends EventBus {
         return this.state;
     }
 
-    public setValue(key: string, value: []){
+    public setValue<T>(key: string, value: T[]){
         this.state[key] = value;
         this.emit(StoreEvents.Updated)
     }
@@ -84,12 +84,12 @@ class Store extends EventBus {
         this.emit(StoreEvents.Updated)
     }
 
-    public prependArray(key: string, value: []){
+    public prependArray<T>(key: string, value: T[]){
         if(!this.state[key]){
             this.state[key] = []
         }
 
-        (this.state[key] as Indexed[]) = [...value, ...(this.state[key] as Indexed[])]
+        (this.state[key] as T[]) = [...value, ...(this.state[key] as T[])]
         this.emit(StoreEvents.Updated)
     }
 }

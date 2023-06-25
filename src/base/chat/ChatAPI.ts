@@ -56,7 +56,7 @@ export enum MessageType {
 export interface ChatMessage {
     content: string,
     id: number,
-    time: string,
+    time: Date,
     type: MessageType,
     user_id: number
 }
